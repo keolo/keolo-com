@@ -8,11 +8,12 @@
     <language>en-us</language>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Testing</title>
-      <link>http://localhost:1313/posts/test/</link>
+      <title>How to Build an EHR: Series</title>
+      <link>http://localhost:1313/posts/how-to-build-an-ehr-series/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/test/</guid>
-      <description>How to Build an EHR: Series</description>
+      <guid>http://localhost:1313/posts/how-to-build-an-ehr-series/</guid>
+      <description>Electronic Health Records (EHRs) are digital versions of patients&amp;rsquo; paper charts. They contain real-time, patient-centered records that make information available instantly and securely to authorized users. EHRs can contain a patient&amp;rsquo;s medical history, diagnoses, medications, treatment plans, immunization dates, allergies, radiology images, and laboratory test results.
+How to Build an EHR: Series</description>
     </item>
     <item>
       <title>About</title>
