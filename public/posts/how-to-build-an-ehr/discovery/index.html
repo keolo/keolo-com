@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>How to Build an EHR, Part I: Discovery | Keolo</title>
+<meta name="keywords" content="">
+<meta name="description" content="Event Storming is a collaborative workshop technique used to model and explore complex business processes by focusing on events that occur within a system.
+This method encourages participants to visually map out key events, commands, and aggregates on a timeline, creating a shared understanding among stakeholders. It&rsquo;s particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/how-to-build-an-ehr/discovery/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/how-to-build-an-ehr/discovery/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Keolo (Alt + H)">Keolo</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      How to Build an EHR, Part I: Discovery
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><p>Event Storming is a collaborative workshop technique used to model and explore complex business processes by focusing on events that occur within a system.</p>
+<p>This method encourages participants to visually map out key events, commands, and aggregates on a timeline, creating a shared understanding among stakeholders. It&rsquo;s particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.</p>
+<h3 id="1-event-discovery">1. Event Discovery<a hidden class="anchor" aria-hidden="true" href="#1-event-discovery">#</a></h3>
+<ol>
+<li><strong>Registration</strong>
+<ul>
+<li><strong>Actors</strong>: Patient, Practitioner, Administrator</li>
+<li><strong>Event</strong>: Account Created</li>
+<li><strong>Outcome</strong>: New account created in the system</li>
+</ul>
+</li>
+<li><strong>Authentication</strong>
+<ul>
+<li><strong>Actors</strong>: Patient, Practitioner, Administrator</li>
+<li><strong>Event</strong>: Person Authenticated</li>
+<li><strong>Outcome</strong>: Person authenticated, session created</li>
+</ul>
+</li>
+<li><strong>Profile Management</strong>
+<ul>
+<li><strong>Actors</strong>: Patient, Practitioner, Administrator</li>
+<li><strong>Event</strong>: Profile Updated</li>
+<li><strong>Outcome</strong>: Profile information updated in the system</li>
+</ul>
+</li>
+<li><strong>Patient Management</strong>
+<ul>
+<li><strong>Actors</strong>: Practitioner, Administrator</li>
+<li><strong>Event</strong>: Patient Record Created/Updated</li>
+<li><strong>Outcome</strong>: Patient demographic and medical history stored/updated</li>
+</ul>
+</li>
+<li><strong>Appointment Scheduling</strong>
+<ul>
+<li><strong>Actors</strong>: Patient, Practitioner, Administrator</li>
+<li><strong>Event</strong>: Appointment Requested, Scheduled, or Canceled</li>
+<li><strong>Outcome</strong>: Appointment information updated</li>
+</ul>
+</li>
+<li><strong>Medical Records Management</strong>
+<ul>
+<li><strong>Actors</strong>: Practitioner</li>
+<li><strong>Event</strong>: Medical Record Created/Updated</li>
+<li><strong>Outcome</strong>: Patient&rsquo;s medical records stored/updated</li>
+</ul>
+</li>
+<li><strong>Billing and Insurance</strong>
+<ul>
+<li><strong>Actors</strong>: Administrator, Billing Specialist</li>
+<li><strong>Event</strong>: Billing Information Created/Updated, Insurance Claim Processed</li>
+<li><strong>Outcome</strong>: Billing records and insurance claims processed</li>
+</ul>
+</li>
+<li><strong>Notification Service</strong>
+<ul>
+<li><strong>Actors</strong>: System</li>
+<li><strong>Event</strong>: Notification Sent (e.g., appointment reminder, test results)</li>
+<li><strong>Outcome</strong>: Person receives notification</li>
+</ul>
+</li>
+<li><strong>External System Integration</strong>
+<ul>
+<li><strong>Actors</strong>: System, External Systems</li>
+<li><strong>Event</strong>: Data Exchanged (with external systems pharmacy, lab, insurance)</li>
+<li><strong>Outcome</strong>: External data integrated, system data updated</li>
+</ul>
+</li>
+<li><strong>Audit Logging</strong>
+<ul>
+<li><strong>Actors</strong>: System</li>
+<li><strong>Event</strong>: System Access/Change Logged</li>
+<li><strong>Outcome</strong>: Audit log updated</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-event-aggregation">2. Event Aggregation<a hidden class="anchor" aria-hidden="true" href="#2-event-aggregation">#</a></h3>
+<ol>
+<li><strong>Person Registration &amp; Authentication</strong>
+<ul>
+<li>Events: Person creates an account, Person logs in</li>
+<li>Aggregate: Person</li>
+</ul>
+</li>
+<li><strong>Profile and Patient Management</strong>
+<ul>
+<li>Events: Patient updates profile information, Patient record created/updated</li>
+<li>Aggregate: Patient</li>
+</ul>
+</li>
+<li><strong>Appointment Scheduling</strong>
+<ul>
+<li>Events: Appointment requested, scheduled, or canceled</li>
+<li>Aggregate: Appointment</li>
+</ul>
+</li>
+<li><strong>Medical Records Management</strong>
+<ul>
+<li>Events: Medical record created/updated</li>
+<li>Aggregate: MedicalRecord</li>
+</ul>
+</li>
+<li><strong>Billing and Insurance</strong>
+<ul>
+<li>Events: Billing information generated/updated, insurance claim processed</li>
+<li>Aggregate: Billing</li>
+</ul>
+</li>
+<li><strong>Notification Service</strong>
+<ul>
+<li>Events: Notification sent</li>
+<li>Aggregate: Notification</li>
+</ul>
+</li>
+<li><strong>External System Integration</strong>
+<ul>
+<li>Events: Data exchanged with external systems</li>
+<li>Aggregate: Integration</li>
+</ul>
+</li>
+<li><strong>Audit Logging</strong>
+<ul>
+<li>Events: System access/change logged</li>
+<li>Aggregate: AuditLog</li>
+</ul>
+</li>
+<li><strong>Data Security and Privacy Management</strong>
+<ul>
+<li>Events: Data encrypted, access controlled</li>
+<li>Aggregate: Security</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-command-analysis">3. Command Analysis<a hidden class="anchor" aria-hidden="true" href="#3-command-analysis">#</a></h3>
+<ol>
+<li><strong>Person Commands</strong>
+<ul>
+<li>RegisterPerson</li>
+<li>AuthenticatePerson</li>
+<li>UpdateProfile</li>
+<li>ScheduleAppointment</li>
+<li>CancelAppointment</li>
+<li>CreateMedicalRecord</li>
+<li>UpdateMedicalRecord</li>
+<li>GenerateBillingInfo</li>
+<li>ProcessInsuranceClaim</li>
+</ul>
+</li>
+<li><strong>System Commands</strong>
+<ul>
+<li>SendNotification</li>
+<li>LogAuditEvent</li>
+<li>EncryptData</li>
+<li>ManageAccessControl</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-read-model-analysis">4. Read Model Analysis<a hidden class="anchor" aria-hidden="true" href="#4-read-model-analysis">#</a></h3>
+<ol>
+<li><strong>Person Details</strong>
+<ul>
+<li>Data: Person profile, authentication status</li>
+</ul>
+</li>
+<li><strong>Patient Details</strong>
+<ul>
+<li>Data: Patient demographics, medical history</li>
+</ul>
+</li>
+<li><strong>Appointment Details</strong>
+<ul>
+<li>Data: Appointment schedules, notifications</li>
+</ul>
+</li>
+<li><strong>Medical Records</strong>
+<ul>
+<li>Data: Medical history, lab results, imaging</li>
+</ul>
+</li>
+<li><strong>Billing and Insurance</strong>
+<ul>
+<li>Data: Billing records, insurance claims</li>
+</ul>
+</li>
+<li><strong>Notifications</strong>
+<ul>
+<li>Data: Notification history, status</li>
+</ul>
+</li>
+<li><strong>Audit Logs</strong>
+<ul>
+<li>Data: Access and change logs</li>
+</ul>
+</li>
+<li><strong>Security Management</strong>
+<ul>
+<li>Data: Encryption status, access controls</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-process-modeling">5. Process Modeling<a hidden class="anchor" aria-hidden="true" href="#5-process-modeling">#</a></h3>
+<ol>
+<li><strong>Account Registration Process</strong>
+<ul>
+<li>RegisterAccount command triggers Person creates an account event</li>
+</ul>
+</li>
+<li><strong>Authentication Process</strong>
+<ul>
+<li>AuthenticatePerson command triggers Person logs in event</li>
+</ul>
+</li>
+<li><strong>Profile Update Process</strong>
+<ul>
+<li>UpdateProfile command triggers Person updates profile information event</li>
+</ul>
+</li>
+<li><strong>Patient Management Process</strong>
+<ul>
+<li>Create/UpdatePatientRecord commands trigger Patient record created/updated events</li>
+</ul>
+</li>
+<li><strong>Appointment Scheduling Process</strong>
+<ul>
+<li>ScheduleAppointment and CancelAppointment commands trigger Appointment requested, scheduled, or canceled events</li>
+</ul>
+</li>
+<li><strong>Medical Records Management Process</strong>
+<ul>
+<li>Create/UpdateMedicalRecord commands trigger Medical record created/updated events</li>
+</ul>
+</li>
+<li><strong>Billing and Insurance Process</strong>
+<ul>
+<li>GenerateBillingInfo and ProcessInsuranceClaim commands trigger Billing information generated/updated, insurance claim processed events</li>
+</ul>
+</li>
+<li><strong>Notification Process</strong>
+<ul>
+<li>SendNotification command triggers Notification sent event</li>
+</ul>
+</li>
+<li><strong>External Integration Process</strong>
+<ul>
+<li>DataExchange command triggers Data exchanged with external systems event</li>
+</ul>
+</li>
+<li><strong>Audit Logging Process</strong>
+<ul>
+<li>LogAuditEvent command triggers System access/change logged event</li>
+</ul>
+</li>
+<li><strong>Data Security Management Process</strong>
+<ul>
+<li>EncryptData and ManageAccessControl commands trigger Data encrypted, access controlled events</li>
+</ul>
+</li>
+</ol>
+<p>This high-level event storm provides a comprehensive overview of the key events, aggregates, commands, and read models necessary for designing a robust EHR system.</p>
+<h2 id="appendix">Appendix<a hidden class="anchor" aria-hidden="true" href="#appendix">#</a></h2>
+<ul>
+<li>[[EHR Domain Objects]]</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Keolo</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
