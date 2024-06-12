@@ -54,7 +54,7 @@ params:
   showtoc: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
-  cover:
-    linkFullImages: true
-    responsiveImages: true
-    hidden: false
+  # cover:
+  #   linkFullImages: true
+  #   responsiveImages: true
+  #   hidden: false
