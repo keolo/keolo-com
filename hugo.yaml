@@ -2,6 +2,13 @@ baseURL: 'https://example.org/'
 languageCode: 'en-us'
 title: 'Keolo'
 
+# Code highlighting
+markup:
+  highlight:
+    lineNos: true
+    noClasses: false
+    style: 'monokailight'
+
 # PaperMod theme configuration
 theme: 'PaperMod'
 menu:
@@ -19,6 +26,7 @@ menu:
       url: /about/
       weight: 30
 params: 
+  ShowCodeCopyButtons: true
   disableThemeToggle: true
   defaultTheme: "light"
   assets:
@@ -46,3 +54,12 @@ params:
       url: "https://github.com/keolo"
     - name: "youtube"
       url: "https://www.youtube.com/ke0l0"
+  showtoc: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  cover:
+    linkFullImages: true
+    responsiveImages: true
+    hidden: false
+
+# https://photoswipe.com/getting-started/

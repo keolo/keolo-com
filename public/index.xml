@@ -50,7 +50,8 @@ This method encourages participants to visually map out key events, commands, an
       <link>http://localhost:1313/posts/how-to-build-an-ehr/backend-implementation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/how-to-build-an-ehr/backend-implementation/</guid>
-      <description>Backend Implementation </description>
+      <description>Backend Implementation In this article, we&amp;rsquo;ll dive into the backend implementation of an Electronic Health Record (EHR) system. The backend is responsible for handling data storage, retrieval, and processing, as well as managing the business logic of the application.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 from flask import Flask, request, jsonify # Binary search tree implementation class Node: def __init__(self, key): self.</description>
     </item>
     <item>
       <title>How to Build an EHR, Part V: Frontend Implementation</title>

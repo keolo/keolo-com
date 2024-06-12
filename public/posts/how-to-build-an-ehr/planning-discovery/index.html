@@ -63,7 +63,7 @@ This method encourages participants to visually map out key events, commands, an
 
 <article class="post-single">
   <header class="post-header">
-    
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       How to Build an EHR, Part I: Planning &amp; Discovery
       <span class="entry-hint" title="Draft">
@@ -76,7 +76,32 @@ This method encourages participants to visually map out key events, commands, an
     <div class="post-meta">
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul><ul>
+                <li>
+                    <a href="#1-event-discovery" aria-label="1. Event Discovery">1. Event Discovery</a></li>
+                <li>
+                    <a href="#2-event-aggregation" aria-label="2. Event Aggregation">2. Event Aggregation</a></li>
+                <li>
+                    <a href="#3-command-analysis" aria-label="3. Command Analysis">3. Command Analysis</a></li>
+                <li>
+                    <a href="#4-read-model-analysis" aria-label="4. Read Model Analysis">4. Read Model Analysis</a></li>
+                <li>
+                    <a href="#5-process-modeling" aria-label="5. Process Modeling">5. Process Modeling</a></li></ul>
+                    
+                <li>
+                    <a href="#appendix" aria-label="Appendix">Appendix</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><p>Event Storming is a collaborative workshop technique used to model and explore complex business processes by focusing on events that occur within a system.</p>
 <p>This method encourages participants to visually map out key events, commands, and aggregates on a timeline, creating a shared understanding among stakeholders. It&rsquo;s particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.</p>
 <h3 id="1-event-discovery">1. Event Discovery<a hidden class="anchor" aria-hidden="true" href="#1-event-discovery">#</a></h3>
@@ -346,6 +371,19 @@ This method encourages participants to visually map out key events, commands, an
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/how-to-build-an-ehr-series/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>How to Build an EHR (7 Part Series)</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/how-to-build-an-ehr/system-design/">
+    <span class="title">Next »</span>
+    <br>
+    <span>How to Build an EHR, Part II: System Design</span>
+  </a>
+</nav>
+
 
 <ul class="share-buttons">
     <li>
@@ -426,6 +464,53 @@ This method encourages participants to visually map out key events, commands, an
         }
     };
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 
