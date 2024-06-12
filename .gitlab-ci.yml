@@ -38,9 +38,6 @@ test:
   script:
     # Build the website
     - hugo --minify
-    # Compress the website files
-    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec gzip -f -k {} \;
-    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec brotli -f -k {} \;
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
 
@@ -48,6 +45,9 @@ test:
 pages:
   script:
     - hugo --minify
+    # Compress the website files
+    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec gzip -f -k {} \;
+    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec brotli -f -k {} \;
   artifacts:
     paths:
       - public
