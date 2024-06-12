@@ -3,6 +3,7 @@ languageCode: 'en-us'
 title: 'Keolo'
 
 # Code highlighting
+# https://swapoff.org/chroma/playground/
 markup:
   highlight:
     lineNos: true
@@ -17,14 +18,10 @@ menu:
       name: Home
       url: /
       weight: 10
-    - identifier: blog
-      name: Blog
-      url: /posts/
-      weight: 20
     - identifier: about
       name: About
       url: /about/
-      weight: 30
+      weight: 20
 params: 
   ShowCodeCopyButtons: true
   disableThemeToggle: true
@@ -61,5 +58,3 @@ params:
     linkFullImages: true
     responsiveImages: true
     hidden: false
-
-# https://photoswipe.com/getting-started/
