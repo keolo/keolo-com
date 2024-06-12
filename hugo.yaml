@@ -1,10 +1,48 @@
 baseURL: 'https://example.org/'
 languageCode: 'en-us'
 title: 'Keolo'
+
+# PaperMod theme configuration
 theme: 'PaperMod'
 menu:
   main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: blog
+      name: Blog
+      url: /posts/
+      weight: 20
     - identifier: about
       name: About
       url: /about/
-      weight: 10
+      weight: 30
+params: 
+  disableThemeToggle: true
+  defaultTheme: "light"
+  assets:
+    disableScrollBarStyle: true
+    # https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918
+    favicon: 'favicon.ico'
+    favicon16x16: /assets/favicon-16x16.png
+    favicon32x32: /assets/favicon-32x32.png
+    apple_touch_icon: /assets/apple-touch-icon.png
+  ShowShareButtons: true
+  ShareButtons: ["linkedin", "x"]
+  homeInfoParams:
+    title: "Hi there \U0001F44B"
+    content: >-
+      I’m Keolo, a Startup Engineering Leader with 20+ years in tech. I share 
+      insights on startups, programming, management, and personal growth, fueled 
+      by my journey of leading teams, driving innovation, and scaling operations. 
+      Whether you're a budding entrepreneur, a seasoned developer, or an 
+      aspiring leader, you'll find valuable perspectives to fuel your own growth 
+      and success. Join the journey and let's innovate together!
+  socialIcons:
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/keolo"
+    - name: "github"
+      url: "https://github.com/keolo"
+    - name: "youtube"
+      url: "https://www.youtube.com/ke0l0"

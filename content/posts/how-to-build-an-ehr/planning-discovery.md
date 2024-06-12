@@ -1,5 +1,5 @@
 ---
-title: 'How to Build an EHR, Part I: Discovery'
+title: 'How to Build an EHR, Part I: Planning & Discovery'
 draft: true
 ---
 
