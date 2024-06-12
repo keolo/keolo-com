@@ -14,11 +14,12 @@ image: registry.gitlab.com/pages/hugo/hugo_extended:latest
 
 variables:
   HUGO_ENV: production
-  THEME_URL: "github.com/adityatelange/hugo-PaperMod"
+  # THEME_URL: "github.com/adityatelange/hugo-PaperMod"
 
 default:
   before_script:
-    - hugo mod get -u $THEME_URL
+    # - hugo mod get -u $THEME_URL
+    - git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
     - apk add --no-cache go curl bash npm
     # To use PostCSS, we must install the following modules. See:
     # - https://gohugo.io/hugo-pipes/postcss/
