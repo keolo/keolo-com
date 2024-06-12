@@ -1,4 +1,3 @@
-#
 # Before using this .gitlab-ci.yml:
 #
 # - This example uses the latest Docker image, but you might want to use the
@@ -9,6 +8,8 @@
 #   If you don't know what to use, better use the extended version.
 # - To change the theme, see
 #   https://gitlab.com/pages/hugo/-/blob/main/README.md#use-a-custom-theme.
+#
+# - Also, see the Hugo docs: https://gohugo.io/hosting-and-deployment/hosting-on-gitlab/
 #
 image: registry.gitlab.com/pages/hugo/hugo_extended:latest
 
@@ -29,11 +30,17 @@ default:
     # - https://gohugo.io/hugo-pipes/postcss/
     # - https://github.com/google/docsy/tree/main#prerequisites
     - npm install postcss postcss-cli autoprefixer
+    # Install Brotli compression tool
+    - apk add --no-cache brotli
 
 # Use everywhere except on the default branch
 test:
   script:
+    # Build the website
     - hugo --minify
+    # Compress the website files
+    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec gzip -f -k {} \;
+    - find public -type f -regex '.*\.\(css\|html\|js\|txt\|xml\)$' -exec brotli -f -k {} \;
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
 
