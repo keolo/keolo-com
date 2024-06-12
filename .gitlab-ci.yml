@@ -14,12 +14,12 @@ image: registry.gitlab.com/pages/hugo/hugo_extended:latest
 
 variables:
   HUGO_ENV: production
-  # THEME_URL: "github.com/theNewDynamic/gohugo-theme-ananke"
+  THEME_URL: "github.com/adityatelange/hugo-PaperMod"
 
 default:
   before_script:
+    - hugo mod get -u $THEME_URL
     - apk add --no-cache go curl bash npm
-    # - hugo mod get -u $THEME_URL
     # To use PostCSS, we must install the following modules. See:
     # - https://gohugo.io/hugo-pipes/postcss/
     # - https://github.com/google/docsy/tree/main#prerequisites

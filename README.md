@@ -18,3 +18,4 @@
 - [Hide a Page in Hugo](https://makewithhugo.com/hide-a-page/)
 - [Photo Swipe](https://photoswipe.com/getting-started/)
 - [Code Highlighting](https://swapoff.org/chroma/playground/)
+- [Favicons](https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918)
