@@ -15,6 +15,10 @@ image: registry.gitlab.com/pages/hugo/hugo_extended:latest
 variables:
   HUGO_ENV: production
   # THEME_URL: "github.com/adityatelange/hugo-PaperMod"
+  GIT_DEPTH: 0
+  GIT_STRATEGY: clone
+  GIT_SUBMODULE_STRATEGY: recursive
+  TZ: America/Los_Angeles
 
 default:
   before_script:
