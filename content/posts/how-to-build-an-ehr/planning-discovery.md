@@ -1,6 +1,6 @@
 ---
 title: 'How to Build an EHR, Part I: Planning & Discovery'
-draft: true
+draft: false
 ---
 
 Event Storming is a collaborative workshop technique used to model and explore complex business processes by focusing on events that occur within a system.

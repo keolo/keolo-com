@@ -1,6 +1,6 @@
 ---
 title: 'How to Build an EHR (7 Part Series)'
-draft: false
+draft: true
 weight: 1
 tags: ["healthcare", "system-design"]
 ---
