@@ -6,7 +6,7 @@
 2. Create a new post: `hugo new posts/<post-name>.md`
 3. Preview site: http://localhost:1313/
 4. Approve post: `draft: false`
-5. Deploy site: `git commit -am "message" && git push origin master`
+5. Deploy site: `git commit -am "message" && git push`
 
 ## Usage
 

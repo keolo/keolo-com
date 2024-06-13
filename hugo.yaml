@@ -37,13 +37,18 @@ params:
   ShareButtons: ["linkedin", "x"]
   homeInfoParams:
     title: "Hi there \U0001F44B"
-    content: >-
-      I’m Keolo, a Startup Engineering Leader with 20+ years in tech. I share 
-      insights on startups, programming, management, and personal growth, fueled 
-      by my journey of leading teams, driving innovation, and scaling operations. 
-      Whether you're a budding entrepreneur, a seasoned developer, or an 
-      aspiring leader, you'll find valuable perspectives to fuel your own growth 
-      and success. Join the journey and let's innovate together!
+    content: |
+      I'm Keolo, a Startup Engineering Leader. I offer insights on growing 
+      startups, software engineering, and management from my experience leading 
+      teams and driving innovation. Whether you're a founder, developer, or 
+      leader, you'll find valuable tips to fuel your growth and success. Let's 
+      go!
+
+      +
+      - • 🚀 15+ startups, 5 exits/contributions as an IC
+      - • 🦾 20+ years of startup, mid-market, and enterprise experience
+      - • 🙌 3.6M+ downloads of open source library
+      - • 👨‍🚀 Founder, Fractional CTO, Head of Engineering, Engineering Manager, Founding Engineer
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/keolo"
