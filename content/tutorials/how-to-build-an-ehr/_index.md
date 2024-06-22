@@ -1,5 +1,5 @@
 ---
-title: 'How to Build an Ehr'
+title: 'How to Build an EHR'
 draft: true
 tags: ["healthcare", "system-design"]
 ---
