@@ -38,12 +38,18 @@
 </div>
 {{- end }}
 
+<!-- Get regular pages and section pages -->
 {{- $pages := union .RegularPages .Sections }}
 
 {{- if .IsHome }}
-<!-- Filter out pages that should be hidden from the homepage -->
-{{- $pages = where site.Pages "Type" "in" site.Params.mainSections }}
-{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+  <!-- Get pages from main sections -->
+  {{- $pages = where site.Pages "Type" "in" site.Params.mainSections }}
+  
+  <!-- Exclude pages with hiddenInHomeList parameter set to true -->
+  {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+  
+  <!-- Exclude the /tutorials section page -->
+  {{- $pages = where $pages ".RelPermalink" "!=" "/tutorials/" }}
 {{- end }}
 
 {{- $paginator := .Paginate $pages }}
