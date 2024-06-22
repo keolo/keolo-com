@@ -1,0 +1,3 @@
+---
+hiddenInHomeList: true
+---

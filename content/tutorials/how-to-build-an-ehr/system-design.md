@@ -1,6 +1,7 @@
 ---
 title: 'How to Build an EHR, Part II: System Design'
 draft: false
+hiddenInHomeList: true
 ---
 
 Designing a system for an Electronic Health Record (EHR) involves several key components to ensure it meets the needs of healthcare providers, complies with regulatory requirements, and maintains the privacy and security of patient data. Here’s a high-level system design for an EHR:

@@ -18,11 +18,16 @@ menu:
       name: Home
       url: /
       weight: 10
+    - identifier: tutorials
+      name: Tutorials
+      url: /tutorials/
+      weight: 20
     - identifier: about
       name: About
       url: /about/
-      weight: 20
+      weight: 30
 params: 
+  mainSections: ["posts", "tutorials"]
   ShowCodeCopyButtons: true
   disableThemeToggle: true
   defaultTheme: "light"
@@ -48,7 +53,7 @@ params:
       - • 🚀 15+ startups, 5 exits/contributions as an IC
       - • 🦾 20+ years of startup, mid-market, and enterprise experience
       - • 🙌 3.6M+ downloads of open source library
-      - • 👨‍🚀 Founder, Fractional CTO, Head of Engineering, Engineering Manager, Founding Engineer
+      - • 👨‍🚀 Founder, Fractional CTO, Head of Engineering, Engineering Manager, Lead Engineer
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/keolo"
@@ -57,6 +62,7 @@ params:
     - name: "youtube"
       url: "https://www.youtube.com/ke0l0"
   showtoc: true
+  tocopen: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   # cover:
