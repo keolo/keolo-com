@@ -20,7 +20,11 @@ The EHR system will be a cloud-based application that provides healthcare provid
 - **Mobile Application**: For tablets and smartphones, using frameworks like Flutter.
 - **Responsive Design**: Ensures usability across different devices and screen sizes.
 
+![Context Diagram](../context-diagram.png)
+
 ### Backend Services
+
+![Platform Diagram](../platform-diagram.png)
 
 - **API Gateway**: Manages all incoming API requests, ensuring security and proper routing.
 - **Microservices Architecture**: Each core functionality (e.g., patient management, appointment scheduling, billing) is a separate microservice.
@@ -42,6 +46,8 @@ The EHR system will be a cloud-based application that provides healthcare provid
 - **Encryption**: Data encryption both at rest and in transit.
 - **Access Control**: Role-based access control (RBAC) to ensure users have the minimum necessary access.
 - **Audit Logs**: Detailed logging of all system access and changes to patient records.
+
+![Component Diagram](../component-diagram.png)
 
 ### Integration
 
