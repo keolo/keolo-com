@@ -9,13 +9,7 @@ Event Storming is a collaborative workshop technique used to model and explore c
 This method encourages participants to visually map out key events, commands, and aggregates on a timeline, creating a shared understanding among stakeholders. It's particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.
 
 <!-- 
-
-ffmpeg -i big-picture-event-storm.mov -vf "fps=10,scale=720:-1:flags=lanczos" -loop 0 big-picture-event-storm.webp
-
-ffmpeg -i big-picture-event-storm.mov -vf "scale=720:-1" -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 big-picture-event-storm.webp
-
 ffmpeg -i big-picture-event-storm.mov -vf "fps=10,scale=720:-1:flags=lanczos" -loop 0 -an -vsync 0 big-picture-event-storm.webp
-
  -->
 ![Big Picture Event Storm](../big-picture-event-storm.webp)
 
