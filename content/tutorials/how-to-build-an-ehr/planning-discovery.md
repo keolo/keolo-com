@@ -71,7 +71,7 @@ The following is an example of a [User Story](#user-story), [Example Mapping](#e
 
 ### User Story
 
-> **As a** patient, **I want to** request an appointment, **so that** I can receive medical care from my practitioner.
+> **As a** patient, **I want to** schedule an appointment, **so that** I can receive medical care from my practitioner.
 
 The above User Story starts at the `Request Availability` system command and ends at the `Appointment Scheduled` system event. It involves multiple steps and interactions between the patient, practitioner, and the system. Next, let's map out the various examples and scenarios for this User Story.
 

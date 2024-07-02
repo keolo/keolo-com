@@ -6,12 +6,16 @@ weight: 5
 ---
 Welcome to this comprehensive 7-part series on How to Build an Electronic Health Record (EHR) system. This series is designed to guide you through the entire process of developing a robust, scalable, and secure EHR system, leveraging modern methodologies and best practices.
 
+The main audience for this series includes product managers, software engineers, UI/UX designers, QA engineers, DevOps engineers, and anyone else who is interested in a modern approach to building complex software systems.
+
+> Whether you are a seasoned professional or a newcomer to the field, this series will provide you with valuable insights and practical knowledge to help you succeed in complex domains.
+
 ## Key Concepts
 
 In this series, we will explore essential concepts that are crucial for building a successful EHR system:
 
 - **Electronic Health Records (EHR)**: Understanding the fundamentals and importance of EHR systems in healthcare.
-- Agile Methodologies: Applying agile practices to ensure iterative development and continuous improvement.
+- **Agile Methodologies**: Applying agile practices to ensure iterative development and continuous improvement.
 - **Event Storming**: Utilizing collaborative workshops to visualize and streamline complex business processes.
 - **Example Mapping**: Breaking down user stories into concrete examples for clarity and completeness.
 - **Domain-Driven Design (DDD)**: Focusing on the core business domain to drive the architecture and design.
@@ -34,7 +38,7 @@ Building a high-performing team is as crucial as the technical aspects. We will 
 
 We will introduce various tools that facilitate the development process:
 
-- **Work Management**: Tools like ClickUp, Jira, and Linear for tracking progress and managing tasks.
+- **Work Management**: Tools like ClickUp, Jira, or Linear for tracking progress and managing tasks.
 - **Version Control**: Using GitLab for source code management and CI/CD pipelines.
 - **Local Development**: Gitpod for consistent and collaborative development environments.
 - **Quality Assurance**: Implementing Cucumber for behavior-driven development and automated testing.
@@ -44,9 +48,9 @@ We will introduce various tools that facilitate the development process:
 This series is designed with a realistic scope in mind, considering:
 
 - **Stage**: Series A and beyond.
-- **Timeline**: A development timeframe of 6-12 months.
+- **Timeline**: A development timeframe of 4-12 months.
 - **Team Composition**:
-  - 1 Product/Engineering Manager
+  - 1 Product/Project/Engineering Manager
   - 5-7 Engineers (Frontend, Backend, ML)
   - 1 UI/UX Designer
   - 1 QA Engineer

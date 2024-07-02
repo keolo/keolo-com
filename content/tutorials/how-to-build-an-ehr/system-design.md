@@ -29,22 +29,6 @@ Additionally, the **Appointment System** interacts with the Billing System for f
 
 Finally, it also connects with the Medical Records System to ensure that appointments are aligned with the patient's medical history and ongoing treatment plans.
 
-### Actors
-
-- **Practitioners**: Healthcare professionals who access patient records, prescribe medications, and schedule appointments.
-  - **Doctors**: Healthcare professionals who access patient records, prescribe medications, and schedule appointments.
-  - **Nurses**: Assist doctors in patient care, record vital signs, and update patient information.
-- **Patients**: Access their own health records, schedule appointments, and communicate with healthcare providers.
-- **Administrators**: Manage user accounts, system settings, and generate reports.
-
-### Systems
-
-- **Appointment System**: Manages patient appointments, availability of practitioners, and scheduling.
-- **Notification System**: Sends reminders for appointments, test results, and other important information.
-- **Calendar System**: Integrates with the appointment system to manage practitioner schedules.
-- **Billing System**: Manages patient billing, insurance claims, and payment processing.
-- **External Systems**: Pharmacy systems, lab systems, insurance providers, and other healthcare systems that the EHR integrates with.
-
 ## Appointment Scheduling: Platform Diagram
 
 > One level lower, the Platform Diagram outlines the interactions and data flows between the **Appointment Platform** and various user interfaces, as well as supporting systems for availability/scheduling and notifications.
@@ -61,7 +45,7 @@ If we take a closer look into the **Appointment Platform**, we can see the vario
 
 ## Appointment Scheduling: Component Diagram
 
-> The Component Diagram illustrates the pieces in the **Appointment Platform**, highlighting the interactions between various platforms, services, and data repositories.
+> The Component Diagram highlights the pieces in the **Appointment Platform**, surfacing the interactions between various platforms, services, and data repositories.
 
 The system's frontend is composed of Desktop, Web, iOS, and Android platforms, all built using Dart and Flutter, which interface with the backend via an API Gateway.
 
