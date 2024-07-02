@@ -71,9 +71,21 @@ The following is an example of a [User Story](#user-story), [Example Mapping](#e
 
 ### User Story
 
+#### Appointment Scheduling User Story
+
 > **As a** patient, **I want to** schedule an appointment, **so that** I can receive medical care from my practitioner.
 
-The above User Story starts at the `Request Availability` system command and ends at the `Appointment Scheduled` system event. It involves multiple steps and interactions between the patient, practitioner, and the system. Next, let's map out the various examples and scenarios for this User Story.
+The above User Story starts at the `Request Availability` Command and ends at the `Appointment Scheduled` Event. It involves multiple steps and interactions between the patient, practitioner, and the system.
+
+#### Other Example Stories
+
+> - "As a doctor, I want to set my availability so that patients can only book appointments during my working hours."
+> - "As a patient, I want to receive a notification when my appointment is confirmed so that I can plan my day accordingly."
+> - "As an admin, I want to view all scheduled appointments so that I can manage the clinic's daily schedule."
+
+#### Breaking Down the User Story
+
+Next, let’s map out the various examples and scenarios for the above [Appointment Scheduling User Story](#appointment-scheduling-user-story).
 
 ### Example Mapping
 
@@ -208,7 +220,7 @@ After mapping out the examples and writing the scenarios, we can now proceed to 
 
 ### Event Storming Legend
 
-![Event Storming Legend](../legend.png)
+![Event Storming Legend](../event-storming-legend.png)
 
 - **View Model**: The view model represents how the system presents information back to the users or actors. It's the result of processing events and applying policies, shaping the data into a form that's useful for the user or the next action.
 - **Actor**: An actor is an entity (person, system, or external trigger) that interacts with the system. Understanding who or what initiates actions is crucial for mapping out the subsequent steps.
