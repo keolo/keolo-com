@@ -1,6 +1,6 @@
 ---
 title: 'How to Build an EHR: Introduction'
-draft: true
+draft: false
 hiddenInHomeList: true
 weight: 5
 ---
