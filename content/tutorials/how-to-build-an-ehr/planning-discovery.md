@@ -202,7 +202,7 @@ After mapping out the examples and writing the scenarios, we can now proceed to 
 
 ## EHR: Project Plan
 
-- Uno
+- 🚧 Coming soon...
 
 ## Appendix
 

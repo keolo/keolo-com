@@ -3,7 +3,7 @@
 ## Workflow
 
 1. Build site and run development server: `hugo server -D`
-2. Create a new post: `hugo new posts/<post-name>.md`
+2. Create a new post: `hugo new tutorials/<tutorial-name>.md`
 3. Preview site: http://localhost:1313/
 4. Approve post: `draft: false`
 5. Deploy site: `git commit -am "message" && git push`

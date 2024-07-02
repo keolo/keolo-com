@@ -1,6 +1,6 @@
 ---
 title: 'How to Build an EHR, Part III: Infrastructure'
-draft: true
+draft: false
 hiddenInHomeList: true
 ---
 
@@ -14,3 +14,7 @@ Infrastructure is the backbone of any software system, and an Electronic Health 
 1. Google Cloud SDK: Install the Google Cloud SDK on your local machine.
 1. Terraform: [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli)
 1. Service Account: Create a GCP service account with the necessary permissions.
+
+## 🚧 Draft / Work in Progress
+
+- This page is currently a draft and a work in progress. Please check back soon for updates (or reach out to me on LinkedIn)!
