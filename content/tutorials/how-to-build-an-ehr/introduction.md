@@ -6,7 +6,7 @@ weight: 5
 ---
 Welcome to this comprehensive 7-part series on How to Build an Electronic Health Record (EHR) system. This series is designed to guide you through the entire process of developing a robust, scalable, and secure EHR system, leveraging modern methodologies and best practices.
 
-The main audience for this series includes product managers, software engineers, UI/UX designers, QA engineers, DevOps engineers, and anyone else who is interested in a modern approach to building complex software systems.
+The main audience for this series includes engineering/product managers, software engineers, UI/UX designers, QA engineers, DevOps engineers, and anyone else who is interested in a modern approach to building complex software systems.
 
 > Whether you are a seasoned professional or a newcomer to the field, this series will provide you with valuable insights and practical knowledge to help you succeed in complex domains.
 

@@ -47,7 +47,7 @@ Once we feel good about the **Big Picture Event Storm** we can proceed to the ne
 
 ## Appointment Scheduling: Domain Model
 
-> The **Appointment Scheduling: Domain Model** is the process-level event storm for scheduling appointments. It's a detailed view of the Appointment Scheduling flow from the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm).
+> The **Appointment Scheduling: Domain Model** is the process-level event storm for scheduling appointments. It's a detailed view of the Appointment Scheduling flow derived from the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm).
 
 The system involves managing patient appointments and schedules by coordinating between patients, practitioners, and admins, viewing/reserving available time slots, handling appointment requests/notifications, and managing appointment statuses from scheduling to completion/cancellation.
 
@@ -75,7 +75,7 @@ The following is an example of a [User Story](#user-story), [Example Mapping](#e
 
 > **As a** patient, **I want to** schedule an appointment, **so that** I can receive medical care from my practitioner.
 
-The above User Story starts at the `Request Availability` Command and ends at the `Appointment Scheduled` Event. It involves multiple steps and interactions between the patient, practitioner, and the system.
+The above User Story starts at the `Request Availability` Command and ends at the `Appointment Scheduled` Event (in the Appointment Scheduling: Domain Model). It involves multiple steps and interactions between the patient, practitioner, and the system.
 
 #### Other Example Stories
 
