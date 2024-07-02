@@ -1,5 +1,5 @@
 ---
-title: 'How to Build an EHR, Part III: Infrastructure'
+title: 'How to Build an EHR, Part III: DevSecOps'
 draft: false
 hiddenInHomeList: true
 ---
@@ -17,4 +17,4 @@ Infrastructure is the backbone of any software system, and an Electronic Health 
 
 ## 🚧 Draft / Work in Progress
 
-- This page is currently a draft and a work in progress. Please check back soon for updates (or reach out to me on LinkedIn)!
+- This page is currently a draft and a work in progress. Please check back soon for updates (or connect with me on LinkedIn)!

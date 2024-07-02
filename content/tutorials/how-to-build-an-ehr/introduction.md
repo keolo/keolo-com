@@ -10,7 +10,9 @@ The main audience for this series includes engineering/product managers, softwar
 
 > Whether you are a seasoned professional or a newcomer to the field, this series will provide you with valuable insights and practical knowledge to help you succeed in complex domains.
 
-## Key Concepts
+## Appendix
+
+### Key Concepts
 
 In this series, we will explore essential concepts that are crucial for building a successful EHR system:
 
@@ -22,7 +24,7 @@ In this series, we will explore essential concepts that are crucial for building
 - **Clean Architecture**: Ensuring a separation of concerns to make the system maintainable and scalable.
 - **DevSecOps**: Integrating security practices into the DevOps pipeline to ensure robust and secure deployments.
 
-## Team Concepts & Culture
+### Team Concepts & Culture
 
 Building a high-performing team is as crucial as the technical aspects. We will delve into:
 
@@ -34,7 +36,7 @@ Building a high-performing team is as crucial as the technical aspects. We will 
 - **RACI Matrix**: Defining roles and responsibilities clearly.
 - **Communication Strategies**: Ensuring effective and efficient communication within the team and with stakeholders.
 
-## Tools
+### Tools
 
 We will introduce various tools that facilitate the development process:
 
@@ -43,7 +45,7 @@ We will introduce various tools that facilitate the development process:
 - **Local Development**: Gitpod for consistent and collaborative development environments.
 - **Quality Assurance**: Implementing Cucumber for behavior-driven development and automated testing.
 
-## Resources
+### Resources
 
 This series is designed with a realistic scope in mind, considering:
 

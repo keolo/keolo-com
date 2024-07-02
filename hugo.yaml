@@ -22,10 +22,10 @@ menu:
       name: Tutorials
       url: /tutorials/
       weight: 20
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 30
+    # - identifier: about
+    #   name: About
+    #   url: /about/
+    #   weight: 30
 params: 
   mainSections: ["posts", "tutorials"]
   ShowCodeCopyButtons: true
