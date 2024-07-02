@@ -15,6 +15,7 @@
 
 ## Appendix
 
+- [Using Hugo's Syntax Highlighter Chroma](https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#using-hugos-syntax-highlighter-chroma)
 - [Hide a Page in Hugo](https://makewithhugo.com/hide-a-page/)
 - [Photo Swipe](https://photoswipe.com/getting-started/)
 - [Code Highlighting](https://swapoff.org/chroma/playground/)
