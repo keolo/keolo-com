@@ -1,7 +1,8 @@
 ---
-title: 'How to build an EHR, Part V: Frontend Implementation'
+title: 'Frontend Implementation'
 draft: true
 hiddenInHomeList: true
+weight: 60
 ---
 
 ## Frontend Implementation

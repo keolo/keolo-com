@@ -1,7 +1,8 @@
 ---
-title: 'How to Build an EHR, Part I: Planning & Discovery'
+title: 'Planning & Discovery'
 draft: false
 hiddenInHomeList: true
+weight: 20
 ---
 The first step towards delivering a successful project is **Planning & Discovery**. This phase involves understanding the business domain, defining the scope, and identifying the key events, interactions, and workflows that need to be implemented.
 
@@ -9,7 +10,7 @@ The first step towards delivering a successful project is **Planning & Discovery
 
 **Event Storming** encourages participants to visually map out key events, commands, and view models on a timeline, creating a shared understanding among stakeholders. It's particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.
 
-> **Objective**: Perform Planning & Discovery for **Appointment Scheduling** by producing the following artifacts:
+> **Objective**: Perform Planning & Discovery for the **Appointment Scheduling** flow by producing the following artifacts:
 >
 > 1. [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm)
 > 2. [Appointment Scheduling: Domain Model](#appointment-scheduling-domain-model)

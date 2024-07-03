@@ -1,8 +1,6 @@
 ---
-title: 'Launch'
+title: 'UI/UX Design'
 draft: true
 hiddenInHomeList: true
-weight: 80
+weight: 30
 ---
-
-## Launch

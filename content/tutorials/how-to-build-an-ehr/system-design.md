@@ -1,11 +1,12 @@
 ---
-title: 'How to Build an EHR, Part II: System Design'
+title: 'System Design'
 draft: false
 hiddenInHomeList: true
+weight: 40
 ---
 Designing a system for an Electronic Health Record (EHR) involves several key components to ensure it meets the needs of healthcare providers, complies with regulatory requirements, and maintains the privacy and security of patient data. **For this tutorial, we'll focus on the Appointment Scheduling feature within the EHR application**.
 
-> **Objective**: Design the system architecture for Appointment Scheduling by producing the following artifacts:
+> **Objective**: Design the system architecture for **Appointment Scheduling** by producing the following artifacts:
 >
 > 1. [Appointment Scheduling: Context Diagram](#appointment-scheduling-context-diagram)
 > 1. [Appointment Scheduling: Platform Diagram](#appointment-scheduling-platform-diagram)
