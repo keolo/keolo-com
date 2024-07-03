@@ -46,7 +46,7 @@ If we take a closer look into the **Appointment Platform**, we can see the vario
 
 ## Appointment Scheduling: Component Diagram
 
-> The Component Diagram highlights the pieces in the **Appointment Platform**, surfacing the interactions between various platforms, services, and data repositories.
+> The Component Diagram highlights the various components in the **Appointment Platform**. It illustrates the interactions between various platforms, services, and data repositories.
 
 The system's frontend is composed of Desktop, Web, iOS, and Android platforms, all built using Dart and Flutter, which interface with the backend via an API Gateway.
 

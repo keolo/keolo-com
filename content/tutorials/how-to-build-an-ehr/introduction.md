@@ -6,26 +6,9 @@ weight: 10
 ---
 Welcome to this comprehensive series on How to Build an Electronic Health Record (EHR) system. This series is designed to guide you through the entire process of developing a robust, scalable, and secure EHR system, leveraging modern methodologies and best practices.
 
-> **Objective**: Gain an understanding of how this tutorial is organized and what you can expect to learn from each part.
+> **Objective**: Gain an understanding of the key concepts and assumptions in this tutorial.
 
-## Audience
-
-The main audience for this series includes Engineering/Product Managers, Software Engineers, UI/UX Designers, QA Engineers, DevOps Engineers, and anyone else who is interested in a modern approach to building complex software systems.
-
-## Tutorial Organization
-
-This series is divided into the following parts:
-
-1. **Introduction**: Overview of the series and key concepts.
-1. **Planning & Discovery**: Event Storming, Example Mapping, and Domain-Driven Design.
-1. **UI/UX Design**: Wireframing, Prototyping, and User Testing.
-1. **System Design**: Architecture, Database, Security, and Integration.
-1. **DevSecOps**: Infrastructure, CI/CD, Observability, and Security.
-1. **Frontend Implementation**: Component Design, State Management, and User Interaction.
-1. **Backend Implementation**: Data Modeling, API Design, and Clean Architecture.
-1. **Launch**: Launch plan, retrospective, and next steps.
-
-> **Note**: Each part builds upon the previous one, providing a holistic view of the EHR system development process. Feel free to jump to the part that interests you the most or follow the series sequentially for a complete understanding.
+Familiarize yourself with the items in the **Appendix** and when you're ready, proceed to kickoff the project in the next part: [Planning & Discovery](/tutorials/how-to-build-an-ehr/planning-discovery).
 
 ## Appendix
 
@@ -62,12 +45,13 @@ We will introduce various tools that facilitate the development process:
 - **Local Development**: Gitpod for consistent and collaborative development environments.
 - **Quality Assurance**: Implementing Cucumber for behavior-driven development and automated testing.
 
-### Resources
+### Assumptions
 
 This series is designed with a realistic scope in mind, considering:
 
+- **Audience**: Intermediate to advanced Software/DevOps/QA Engineers, UI/UX Designers, leaders, and anyone else who is interested in a modern approach to building complex software systems.
 - **Stage**: Series A and beyond.
-- **Timeline**: A development timeframe of 4-9 months.
+- **Timeline**: 4-9 months.
 - **Team Composition**:
   - 1 Product/Project/Engineering Manager
   - 5-7 Engineers (Frontend, Backend, ML)

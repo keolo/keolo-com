@@ -1,8 +1,9 @@
 ---
-title: 'Launch'
-draft: true
+title: '🚧 Launch'
+draft: false
 hiddenInHomeList: true
 weight: 80
 ---
+## 🚧 Draft / Work in Progress
 
-## Launch
+- This page is currently a draft and a work in progress. Please check back soon for updates (and/or connect with me on [LinkedIn](https://www.linkedin.com/in/keolo/))!

@@ -1,10 +1,9 @@
 ---
-title: 'DevSecOps'
+title: '🚧 DevSecOps'
 draft: false
 hiddenInHomeList: true
 weight: 50
 ---
-
 Infrastructure is the backbone of any software system, and an Electronic Health Record (EHR) is no exception. In this article, we'll explore the key components of an EHR infrastructure, including servers, databases, and networking, and discuss best practices for designing and implementing a scalable, secure, and reliable system.
 
 ## Prerequisites
@@ -18,4 +17,4 @@ Infrastructure is the backbone of any software system, and an Electronic Health 
 
 ## 🚧 Draft / Work in Progress
 
-- This page is currently a draft and a work in progress. Please check back soon for updates (or connect with me on LinkedIn)!
+- This page is currently a draft and a work in progress. Please check back soon for updates (and/or connect with me on [LinkedIn](https://www.linkedin.com/in/keolo/))!

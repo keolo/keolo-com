@@ -63,13 +63,13 @@ Although Event Storming is used for both flows, the **Appointment Scheduling: Do
 
 ![Appointment Scheduling Flow](../appointment-scheduling-flow.png)
 
-Next, we'll use this flow to simulate/write test scenarios via [Example Mapping](#example-mapping).
+The Domain Model will now make it easy to simulate and write test scenarios via [Example Mapping](#example-mapping).
 
-> It will also serve as a communication tool when architecting the [System Design]({{< ref "system-design" >}}) as well as future architecture discussions and feature enhancements. This is the model for the business/value workflows and the system itself (Domain Driven Design).
+> **The Domain Model** will also serve as a communication tool when designing the UX and architecting the [System Design]({{< ref "system-design" >}}) as well as future architecture discussions and enhancements. This is a business processes and system model combined.
 
 ## Appointment Scheduling: Feature Requirements
 
-> We can capture a feature's requirements (e.g. appointment scheduling) by defining **User Stories**, **Example Mappings**, and executable **Gherkin Scenarios** (Acceptance Criteria). This involves breaking down user stories into concrete examples and writing scenarios to ensure clarity and completeness.
+> We can capture a feature's (e.g. appointment scheduling) requirements by defining **User Stories**, **Example Mappings**, and executable **Gherkin Scenarios** (Acceptance Criteria). This involves breaking down user stories into concrete examples and writing scenarios to ensure clarity and completeness.
 
 The following is an example of a [User Story](#user-story), [Example Mapping](#example-mapping), and corresponding [Gherkin Scenarios](#gherkin-scenarios) for the [Appointment Scheduling Flow](#appointment-scheduling-flow).
 

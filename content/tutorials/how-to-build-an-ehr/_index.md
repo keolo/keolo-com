@@ -4,8 +4,21 @@ draft: false
 tags: ["healthcare", "system-design"]
 ---
 
-This is a 7 part series on how to build an Electronic Health Records (EHR) System.
+This is a series on how to build an Electronic Health Records (EHR) System.
 
-EHRs are digital versions of patients’ paper charts. They contain real-time, patient-centered records that make information available instantly and securely to authorized users.
+In this tutorial we'll design and implement a vertical slice of an EHR system from scratch (with enough context to understand how the pieces fit together), specifically the Appointment Scheduling feature between Patients and Practitioners.
 
-EHRs can contain a patient’s medical history, diagnoses, medications, treatment plans, immunization dates, allergies, radiology images, appointments, laboratory test results, and manage appointments to facilitate care.
+## Tutorial Organization
+
+This series is divided into the following parts:
+
+1. **Introduction**: Overview of the series and key concepts.
+1. **Planning & Discovery**: Event Storming, Example Mapping, and Domain-Driven Design.
+1. **UI/UX Design**: Wireframing, Prototyping, and User Testing.
+1. **System Design**: Architecture, Database, Security, and Integration.
+1. **DevSecOps**: Infrastructure, CI/CD, Observability, and Security.
+1. **Frontend Implementation**: Component Design, State Management, and User Interaction.
+1. **Backend Implementation**: Data Modeling, API Design, and Clean Architecture.
+1. **Launch**: Launch plan, retrospective, and next steps.
+
+> **Note**: Each part builds upon the previous one, providing a holistic view of the EHR system development process. Feel free to jump to the part that interests you the most or follow the series sequentially for a complete understanding.
