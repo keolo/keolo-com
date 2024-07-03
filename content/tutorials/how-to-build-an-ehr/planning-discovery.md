@@ -6,10 +6,6 @@ weight: 20
 ---
 The first step towards delivering a successful project is **Planning & Discovery**. This phase involves understanding the business domain, defining the scope, and identifying the key events, interactions, and workflows that need to be implemented.
 
-> We'll employ Event Storming as the main collaborative technique for Planning & Discovery, to model and explore the complex business processes, by focusing on events that occur within the system.
-
-**Event Storming** encourages participants to visually map out key events, commands, and view models on a timeline, creating a shared understanding among stakeholders. It's particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.
-
 > **Objective**: Perform Planning & Discovery for the **Appointment Scheduling** flow by producing the following artifacts:
 >
 > 1. [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm)
@@ -17,9 +13,14 @@ The first step towards delivering a successful project is **Planning & Discovery
 > 3. [Appointment Scheduling: Feature Requirements](#appointment-scheduling-feature-requirements)
 > 4. [EHR: Project Plan](#ehr-project-plan)
 
-Let's start with creating the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) before creating the process-level [Appointment Scheduling: Domain Model](#appointment-scheduling-domain-model). This will help us identify and understand all high-level events, interactions, and workflows, ensuring the main value streams and business processes are captured.
+Let's start with creating the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) before creating the domain model and feature requirements. This will help us identify and understand all high-level events, interactions, and workflows, ensuring the main value streams and business processes are captured.
 
 ## EHR: Big Picture Event Storm
+
+> We'll employ Event Storming as the main collaborative technique for Planning & Discovery, to model and explore the complex business processes, by focusing on events that occur within the system.
+
+**Event Storming** encourages participants to visually map out key events, commands, and view models on a timeline, creating a shared understanding among stakeholders. It's particularly useful because it breaks down silos, facilitates clear communication, and highlights bottlenecks or inefficiencies, ultimately leading to more effective and aligned solutions in software development and process improvement.
+
 <!-- 
 ffmpeg -i big-picture-event-storm.mov -vf "fps=10,scale=720:-1:flags=lanczos" -loop 0 -an -vsync 0 big-picture-event-storm.webp
  -->
@@ -44,7 +45,9 @@ The Event Storming process involves the following steps:
 
 ![Big Picture Event Storm](../big-picture-event-storm.png)
 
-Once we feel good about the **Big Picture Event Storm** we can proceed to the next step of creating a process-level event storm - the [Appointment Scheduling: Domain Model](#appointment-scheduling-domain-model).
+> Each swim lane in the **Big Picture Event Storm** represents a different business process or business domain within the EHR system.
+
+Once we've captured the high-level events and interactions, we can proceed to create a more detailed event storm for the Appointment Scheduling process, aka [Appointment Scheduling: Domain Model](#appointment-scheduling-domain-model).
 
 ## Appointment Scheduling: Domain Model
 
@@ -56,7 +59,7 @@ Key policies ensure availability and scheduling are streamlined and effectively 
 
 ![Appointment Scheduling Flow](../appointment-scheduling-flow.webp)
 
-The **Appointment Scheduling: Domain Model** contains more detail than the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) to help us visualize the interactions, data flows, and policies of the Appointment Scheduling process.
+Although Event Storming is used for both flows, the **Appointment Scheduling: Domain Model** contains more detail than the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) to help us visualize the interactions, data flows, and policies of the Appointment Scheduling process.
 
 ![Appointment Scheduling Flow](../appointment-scheduling-flow.png)
 
