@@ -43,10 +43,10 @@ params:
   homeInfoParams:
     title: "Hi there \U0001F44B"
     content: |
-      I'm Keolo, I offer insights on growing 
+      I'm Keolo, I offer insights into 
       startups, software engineering, and management from my experience leading 
       teams and driving innovation. Whether you're a founder, developer, or 
-      leader, you'll find valuable knowledge to fuel your growth and success. Let's 
+      leader, you'll find actionable knowledge to fuel your growth and success. Let's 
       go!
 
       +
@@ -54,6 +54,7 @@ params:
       - • 🦾 20+ years of startup, mid-market, and enterprise experience
       - • 🙌 3.6M+ downloads of open source library
       - • 👨‍🚀 Founder, Fractional CTO, Head of Engineering, Engineering Manager, Founding/Lead Engineer
+      - • 🖲️ Python, Go, Flutter, Google Cloud Platform
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/keolo"

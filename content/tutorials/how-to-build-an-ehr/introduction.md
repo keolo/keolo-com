@@ -41,8 +41,8 @@ Building a high-performing team is as crucial as the technical aspects. We will 
 We will introduce various tools that facilitate the development process:
 
 - **Work Management**: Tools like ClickUp, Jira, or Linear for tracking progress and managing tasks.
-- **Version Control**: Using GitLab for source code management and CI/CD pipelines.
-- **Local Development**: Gitpod for consistent and collaborative development environments.
+- **Version Control**: Using GitLab for source code management and DevSecOps.
+- **Local Development**: Gitpod for consistent, collaborative, and secure development environments.
 - **Quality Assurance**: Implementing Cucumber for behavior-driven development and automated testing.
 
 ### Assumptions

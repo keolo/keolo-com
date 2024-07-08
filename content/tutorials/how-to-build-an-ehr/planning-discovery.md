@@ -30,7 +30,7 @@ ffmpeg -i big-picture-event-storm.mov -vf "fps=10,scale=720:-1:flags=lanczos" -l
 
 The Event Storming process involves the following steps:
 
-1. **Prepare Materials**: Prepare virtual collaboration tool, and invite key stakeholders.
+1. **Prepare**: Prepare virtual collaboration tool, and invite key stakeholders.
 1. **Define Scope**: Clarify the boundaries of the EHR system and the main goals of the Event Storming session.
 1. **Categorize Objects**: Use different colors to categorize objects by type ([Event Storming Legend](#event-storming-legend)).
 1. **Identify Events**: Write down all significant business events related to the EHR and place them on the timeline in order.
