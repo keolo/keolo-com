@@ -218,7 +218,11 @@ After mapping out the examples and writing the scenarios, we can now proceed to 
 
 ## EHR: Project Plan
 
-- 🚧 Coming soon...
+> The [EHR: Project Plan](https://doc.clickup.com/14291635/d/h/dm4nk-8291/0d62fbf515d5d25/dm4nk-18711) is a detailed plan that breaks down the project into requirements, responsibilities, risks, budget, communications, and quality, and breaks down work for each phase of the development process.
+
+![Roadmap](../roadmap.png)
+
+The [Project Roadmap](https://sharing.clickup.com/14291635/g/h/dm4nk-8271/cbb78cd84cfc488) is a high-level view that outlines the key milestones, deliverables, and timelines for the EHR system development. It provides a high-level view of the project plan and helps in tracking progress and aligning stakeholders.
 
 ## Appendix
 
