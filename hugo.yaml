@@ -60,8 +60,8 @@ params:
       url: "https://www.linkedin.com/in/keolo"
     - name: "github"
       url: "https://github.com/keolo"
-    - name: "youtube"
-      url: "https://www.youtube.com/ke0l0"
+    # - name: "youtube"
+    #   url: "https://www.youtube.com/ke0l0"
   showtoc: true
   tocopen: true
   ShowPostNavLinks: true
