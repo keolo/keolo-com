@@ -87,7 +87,7 @@ Additionally, the system integrates with external services for authentication (S
 ### Tech Stack
 
 - **Flutter**: Frontend developed using Dart with Flutter.
-- **Python**: Backend built using Python.
+- **Python**: Backend, Data, and Infrastructure built using Python.
 - **Pulumi**: Manages cloud resources with infrastructure as code.
 - **Cloud Build**: Automates CI/CD pipelines.
 - **API Gateway**: Routes requests to backend services.
