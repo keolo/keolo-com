@@ -1,6 +1,6 @@
 ---
 title: '🚧 UI/UX Design'
-draft: false
+draft: true
 hiddenInHomeList: true
 weight: 30
 ---
