@@ -8,45 +8,45 @@ Designing a system for an Electronic Health Record (EHR) involves several key co
 
 > **Objective**: Design the system architecture for **Appointment Scheduling** by producing the following artifacts:
 >
-> 1. [Appointment Scheduling: Context Diagram](#appointment-scheduling-context-diagram)
-> 1. [Appointment Scheduling: Platform Diagram](#appointment-scheduling-platform-diagram)
-> 1. [Appointment Scheduling: Component Diagram](#appointment-scheduling-component-diagram)
+> 1. [System Context Diagram](#system-context-diagram)
+> 1. [Platform Diagram](#platform-diagram)
+> 1. [Component Diagram](#component-diagram)
 
-Let's start with designing the [Appointment Scheduling: Context Diagram](#appointment-scheduling-context-diagram) before creating the [Appointment Scheduling: Context Diagram](#appointment-scheduling-context-diagram). This will help us identify and understand all key events, interactions, policies, and workflows, ensuring the system design accurately represents the requirements and relationships.
+Let's start with designing the [System Context Diagram](#system-context-diagram) before creating the [Platform Diagram](#platform-diagram). This will help us identify and understand all key events, interactions, policies, and workflows, ensuring the system design accurately represents the requirements and relationships.
 
-## Appointment Scheduling: Context Diagram
+## System Context Diagram
 
-> The Appointment System Context Diagram illustrates the interactions and data flows between the **Appointment System** and various other systems and users.
+> The EHR System Context Diagram illustrates the interactions and data flows between the **EHR System** and various other systems and users.
 
-The **Appointment System** is central to managing appointments between providers and patients, and it syncs with calendars to ensure availability and scheduling accuracy.
+The **EHR System** is central to managing appointments between providers and patients, and it syncs with calendars to ensure availability and scheduling accuracy.
 
 Practitioners and Patients authenticate through the Authentication System, which grants them access to the underlying systems.
 
-![Context Diagram](../context-diagram.png)
+![System Context Diagram](../system-context-diagram.png)
 
-The **Appointment System** integrates with the Calendar System (such as Google or Apple Calendar) to sync appointments and availability, ensuring that all schedules are up-to-date. Notifications about appointments are sent to users through the Notification System via email, SMS, or push notifications.
+The **EHR System** integrates with the Calendar System (such as Google or Apple Calendar) to sync appointments and availability, ensuring that all schedules are up-to-date. Notifications about appointments are sent to users through the Notification System via email, SMS, or push notifications.
 
-Additionally, the **Appointment System** interacts with the Billing System for financial transactions, the Registration System for new user sign-ups, and both the Practitioner Management System and Patient Management System for maintaining comprehensive profiles.
+Additionally, the **EHR System** interacts with the Billing System for financial transactions, the Registration System for new user sign-ups, and both the Practitioner Management System and Patient Management System for maintaining comprehensive profiles.
 
 Finally, it also connects with the Medical Records System to ensure that appointments are aligned with the patient's medical history and ongoing treatment plans.
 
-## Appointment Scheduling: Platform Diagram
+## Platform Diagram
 
-> One level lower, the Platform Diagram outlines the interactions and data flows between the **Appointment Platform** and various user interfaces, as well as supporting systems for availability/scheduling and notifications.
+> One level lower, the Platform Diagram outlines the interactions and data flows between the **EHR Platform** and various user interfaces, as well as supporting systems for availability/scheduling and notifications.
 
-Practitioners and patients access the **Appointment Platform** through multiple interfaces tailored to their devices: Desktop, Web, and Mobile. Each of these interfaces is built using Dart and Flutter, ensuring consistent functionality across all devices.
+Practitioners and patients access the **EHR Platform** through multiple interfaces tailored to their devices: Desktop, Web, and Mobile. Each of these interfaces is built using Dart and Flutter, ensuring consistent functionality across all devices.
 
 ![Platform Diagram](../platform-diagram.png)
 
-The core **Appointment Platform**, developed with Python, handles the core functionality for requesting, scheduling, and canceling appointments. It interfaces with the **Calendar System** (such as Google or Apple Calendar) to sync appointments and availability, ensuring that users' schedules are always up-to-date.
+The core **EHR Platform**, developed with Python, handles the core functionality for requesting, scheduling, and canceling appointments. It interfaces with the **Calendar System** (such as Google or Apple Calendar) to sync appointments and availability, ensuring that users' schedules are always up-to-date.
 
 Additionally, it connects with the Notification Platform to send out appointment-related notifications via email, SMS, or push notifications, keeping users informed about their appointments. This setup ensures a seamless and integrated experience across different devices and platforms for both practitioners and patients.
 
-If we take a closer look into the **Appointment Platform**, we can see the various components and services that the platform is comprised of, in the form of a [Appointment Scheduling: Component Diagram](#appointment-scheduling-component-diagram).
+If we take a closer look into the **EHR Platform**, we can see the various components and services that the platform is comprised of, in the form of a [Component Diagram](#component-diagram).
 
-## Appointment Scheduling: Component Diagram
+## Component Diagram
 
-> The Component Diagram highlights the various components in the **Appointment Platform**. It illustrates the interactions between various platforms, services, and data repositories.
+> The Component Diagram highlights the various components in the **EHR Platform**. It illustrates the interactions between various platforms, services, and data repositories.
 
 The system's frontend is composed of Desktop, Web, iOS, and Android platforms, all built using Dart and Flutter, which interface with the backend via an API Gateway.
 
