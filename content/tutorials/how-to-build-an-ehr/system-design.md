@@ -96,7 +96,7 @@ Additionally, the system integrates with external services for authentication (S
 - **Secret Manager**: Manages sensitive configuration data securely.
 - **Supabase**, **Cloud Storage**, **BigQuery**: Used for data storage and analytics.
 - **Looker Studio**: Creates interactive dashboards.
-- **Stytch**: Manages authentication and user management.
+- **Supabase Auth**: Manages authentication and user management.
 - **Cloud Scheduler**: Schedules jobs and tasks.
 - **GitHub**, **Project IDX**, **ClickUp**, **Figma**: Supports development and collaboration.
 
