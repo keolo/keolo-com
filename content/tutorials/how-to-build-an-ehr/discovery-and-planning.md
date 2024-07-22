@@ -93,9 +93,9 @@ Next, let’s map out the various examples and scenarios for the above [Appointm
 
 ### Example Mapping
 
-| **Rule**             | **Example**                           | **Scenario**                                             |
+| **Policy**             | **Example**                           | **Scenario**                                             |
 |----------------------|---------------------------------------|----------------------------------------------------------|
-| Request Appointment  | Patient requests an appointment       | 1. Request appointment when slots are available          |
+| Appointment Requsted | Patient requests an appointment       | 1. Request appointment when slots are available          |
 |                      |                                       | 2. Request appointment when no slots are available       |
 | Reserve Appointment  | System reserves an appointment slot | 3. Successfully reserve an appointment slot               |
 |                      |                                       | 4. Attempt to reserve an already reserved slot           |
