@@ -95,14 +95,14 @@ Next, let’s map out the various examples and scenarios for the above [Appointm
 
 | **Policy**             | **Example**                           | **Scenario**                                             |
 |----------------------|---------------------------------------|----------------------------------------------------------|
-| Appointment Requsted | Patient requests an appointment       | 1. Request appointment when slots are available          |
+| Appointment Requested| Patient requests an appointment       | 1. Request appointment when slots are available          |
 |                      |                                       | 2. Request appointment when no slots are available       |
-| Reserve Appointment  | System reserves an appointment slot | 3. Successfully reserve an appointment slot               |
+| Appointment Reserved | System reserves an appointment slot | 3. Successfully reserve an appointment slot               |
 |                      |                                       | 4. Attempt to reserve an already reserved slot           |
-| Send Notification    | Notification is sent upon reservation | 5. Notification sent to patient and practitioner         |
-| Schedule Appointment | Practitioner confirms and schedules the appointment | 6. Schedule appointment after reservation                |
+| Notification Sent    | Notification is sent upon reservation | 5. Notification sent to patient and practitioner         |
+| Appointment Scheduled| Practitioner confirms and schedules the appointment | 6. Schedule appointment after reservation                |
 |                      |                                       | 7. Attempt to schedule appointment without reservation   |
-| Cancel Appointment   | Person cancels an appointment        | 8. Cancel appointment successfully                       |
+| Appointment Canceled | Person cancels an appointment        | 8. Cancel appointment successfully                       |
 |                      |                                       | 9. Attempt to cancel an already cancelled appointment    |
 
 ### Gherkin Scenarios
@@ -218,7 +218,7 @@ After mapping out the examples and writing the scenarios, we can now proceed to 
 
 ## EHR: Project Plan
 
-> The [EHR: Project Plan](https://doc.clickup.com/14291635/d/h/dm4nk-8291/0d62fbf515d5d25/dm4nk-18711) is a detailed plan that breaks down the project into requirements, responsibilities, risks, budget, communications, and quality, and breaks down work for each phase of the development process.
+> The [EHR: Project Plan](https://doc.clickup.com/14291635/d/h/dm4nk-8291/0d62fbf515d5d25/dm4nk-18711) is a detailed plan that breaks down the project into requirements, responsibilities, risks, budget, communications, and quality, then decomposes work for each phase of the development process.
 
 ![Roadmap](../roadmap.png)
 
