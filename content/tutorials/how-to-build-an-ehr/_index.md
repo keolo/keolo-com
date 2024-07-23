@@ -4,7 +4,7 @@ draft: false
 tags: ["healthcare", "system-design"]
 ---
 
-This is a series on how to build an Electronic Health Records (EHR) System.
+This is an in-depth series on how to build an Electronic Health Records (EHR) System MVP.
 
 > In this tutorial we'll design and implement a vertical slice (frontend, backend, infra) of an EHR system from scratch (with enough context to understand how the pieces fit together), specifically the **Appointment Scheduling feature between Patients and Practitioners**.
 

@@ -56,6 +56,7 @@ These services communicate asynchronously through a Message Queue using Pub/Sub.
 
 Additionally, the system integrates with external services for authentication (Stytch or Firebase Auth), **calendar synchronization** (Google/Apple Calendar), and notifications (Email, SMS, Push). This setup ensures secure, scalable, and efficient handling of appointment scheduling and management tasks.
 
+<!--
 ## Appendix
 
 ### Integration
@@ -110,3 +111,4 @@ Additionally, the system integrates with external services for authentication (S
 
 - [Apple Health Integration](https://support.apple.com/guide/healthregister/technical-requirements-specifications-health-apd12d144779/web)
   - [Prerequisites](https://support.apple.com/en-kg/guide/healthregister/apd380e106a1/web)
+-->

@@ -11,6 +11,7 @@ In this article, we'll explore the key components of an EHR infrastructure, incl
 > This page is currently a draft and a work in progress. Please check back soon for updates (and/or connect with me on [LinkedIn](https://www.linkedin.com/in/keolo/))!
 Infrastructure is the backbone of any software system, and an Electronic Health Record (EHR) is no exception. 
 
+<!--
 ## Prerequisites
 
 1. Google Cloud Platform (GCP) Account: Ensure you have a GCP project set up.
@@ -47,6 +48,7 @@ provider "google" {
   region      = var.gcp_region
 }
 ```
+-->
 
 ## GitHub Integration
 
