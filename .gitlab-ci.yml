@@ -11,7 +11,7 @@
 #
 # - Also, see the Hugo docs: https://gohugo.io/hosting-and-deployment/hosting-on-gitlab/
 #
-image: registry.gitlab.com/pages/hugo/hugo_extended:latest
+image: registry.gitlab.com/pages/hugo/hugo_extended:0.140.2
 
 variables:
   HUGO_ENV: production

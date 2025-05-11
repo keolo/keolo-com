@@ -9,6 +9,17 @@ markup:
     lineNos: true
     noClasses: false
     style: 'monokailight'
+  goldmark:
+    renderer:
+      unsafe: true # Allow raw HTML in markdown files
+
+# Suppress specific warnings
+ignoreErrors:
+  - error-deprecated-socials
+
+# Suppress warnings about raw HTML
+ignoreLogs:
+  - 'warning-goldmark-raw-html'
 
 # PaperMod theme configuration
 theme: 'PaperMod'
@@ -70,3 +81,7 @@ params:
   #   linkFullImages: true
   #   responsiveImages: true
   #   hidden: false
+
+# Define social as a taxonomy to replace deprecated .Site.Social
+taxonomies:
+  social: "socials"
