@@ -7,6 +7,7 @@
 3. Preview site: http://localhost:1313/
 4. Approve post: `draft: false`
 5. Deploy site: `git commit -am "message" && git push`
+6. Site is automatically built and deployed to [GitLab Pages](https://gitlab.com/keolo-personal/keolo.gitlab.io/-/pipelines)
 
 ## Usage
 
