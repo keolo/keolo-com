@@ -186,7 +186,7 @@ function showSlide(n) {
 |                                      | **Result** |
 |--------------------------------------|--------|
 | **Time-to-MVP**                       | 6 months (idea to MVP validation) |
-| **Runway saved vs hiring full-time CTO + team** | ~$450k |
+| **Runway saved vs hiring full-time CTO + team** | ~$250,000 |
 | **Team**    | Engineering & Product Leadership, UX/UI Design, DevOps, Engineering, AI |
 | **Compliance**                        | SOC 2 controls implemented from day 1 |
 | **AI features**                       | AI powered micro-coaching, sentiment analysis, personalized nudges |
