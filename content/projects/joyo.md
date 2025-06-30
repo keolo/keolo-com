@@ -320,7 +320,7 @@ timeline
 
 ### Team & Process
 - Recruited and led distributed team of senior engineers
-- Implemented lightweight Agile for rapid iteration
+- Implemented lightweight Agile process for rapid iteration
 - Created culture of psychological safety and continuous improvement
 
 ## The Outcome
@@ -331,7 +331,7 @@ timeline
 - ✅ **6 months** from concept to market-ready MVP
 - ✅ **$250,000** saved vs. full-time CTO + team
 - ✅ **SOC 2 ready** from day one
-- ✅ **Enterprise pilots** in discussion
+- ✅ **Enterprise pilots** secured
 - ✅ **Positive user feedback** from beta testing
 
 ## Why This Matters for Your Startup
