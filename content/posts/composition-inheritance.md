@@ -1,8 +1,7 @@
 ---
 title: 'Composition over Inheritance in Go: Building Clear & Flexible Code'
 draft: false
-hiddenInHomeList: false 
-weight: 10
+weight: 20
 ---
 ## Composition over Inheritance in Go: Building Clear & Flexible Code
 

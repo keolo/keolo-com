@@ -2,6 +2,7 @@
 title: 'How to Build an EHR'
 draft: false
 tags: ["healthcare", "system-design"]
+weight: 30
 ---
 
 This is an in-depth series on how to build an Electronic Health Records (EHR) System MVP.

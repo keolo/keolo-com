@@ -2,7 +2,7 @@
 title: 'Introduction'
 draft: false
 hiddenInHomeList: true
-weight: 10
+weight: 31
 ---
 Welcome to this series on How to Build an Electronic Health Record (EHR) system. This tutorial is designed to guide you through the entire process of developing a robust, scalable, and secure EHR system, leveraging modern methodologies and best practices.
 

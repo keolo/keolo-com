@@ -2,7 +2,7 @@
 title: '🚧 DevSecOps Implementation'
 draft: false
 hiddenInHomeList: true
-weight: 50
+weight: 37
 ---
 In this article, we'll explore the key components of an EHR infrastructure, including servers, databases, and networking, and discuss best practices for designing and implementing a scalable, secure, and reliable system.
 

@@ -2,7 +2,7 @@
 title: '🚧 Launch & Support'
 draft: false
 hiddenInHomeList: true
-weight: 80
+weight: 38
 ---
 ## 🚧 Draft / Work in Progress
 

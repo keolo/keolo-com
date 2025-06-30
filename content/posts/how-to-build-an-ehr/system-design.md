@@ -2,7 +2,7 @@
 title: 'System Design'
 draft: false
 hiddenInHomeList: true
-weight: 40
+weight: 33 
 ---
 Designing a system for an Electronic Health Record (EHR) involves several key components to ensure it meets the needs of healthcare providers, complies with regulatory requirements, and maintains the privacy and security of patient data. **For this tutorial, we'll focus on the Appointment Scheduling feature within the EHR application**.
 

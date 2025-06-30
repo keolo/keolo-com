@@ -1,8 +1,8 @@
 ---
-title: '🚧 UI/UX Design'
-draft: true
+title: '🚧 Backend Implementation'
+draft: false
 hiddenInHomeList: true
-weight: 30
+weight: 36
 ---
 ## 🚧 Draft / Work in Progress
 

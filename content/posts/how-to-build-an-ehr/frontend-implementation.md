@@ -2,7 +2,7 @@
 title: '🚧 Frontend Implementation'
 draft: false
 hiddenInHomeList: true
-weight: 60
+weight: 35
 ---
 ## 🚧 Draft / Work in Progress
 

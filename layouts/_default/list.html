@@ -48,8 +48,11 @@
   <!-- Exclude pages with hiddenInHomeList parameter set to true -->
   {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
   
-  <!-- Exclude the /tutorials section page -->
-  {{- $pages = where $pages ".RelPermalink" "!=" "/tutorials/" }}
+  <!-- Exclude the /projects section page -->
+  {{- $pages = where $pages ".RelPermalink" "!=" "/projects/" }}
+  
+  <!-- Exclude the /posts section page -->
+  {{- $pages = where $pages ".RelPermalink" "!=" "/posts/" }}
 {{- end }}
 
 {{- $paginator := .Paginate $pages }}

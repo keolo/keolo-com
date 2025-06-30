@@ -29,20 +29,20 @@ menu:
       name: Home
       url: /
       weight: 10
-    - identifier: tutorials
-      name: Tutorials
-      url: /tutorials/
-      weight: 20
     - identifier: projects
       name: Projects
       url: /projects/
-      weight: 30
+      weight: 20
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 25
     # - identifier: about
     #   name: About
     #   url: /about/
     #   weight: 30
 params: 
-  mainSections: ["posts", "tutorials"]
+  mainSections: ["projects", "posts"]
   ShowCodeCopyButtons: true
   disableThemeToggle: true
   defaultTheme: "light"
@@ -66,7 +66,7 @@ params:
 
       +
       - • 🚀 15+ startups, 5 exits — as engineer, manager, and Fractional CTO
-      - • 🧠 Built voice+AI products before it was cool (pre-ChatGPT hype)
+      - • 🤖 Built voice+AI products before it was cool (pre-ChatGPT hype)
       - • 📈 Scaled teams and tech through multiple funding rounds
       - • 📦 Open source author with 4M+ downloads
       - • 👨‍💻 Go, Python, Flutter, GCP — battle-tested in startup, mid-market, and enterprise environments

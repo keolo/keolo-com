@@ -2,7 +2,7 @@
 title: 'Discovery & Planning'
 draft: false
 hiddenInHomeList: true
-weight: 20
+weight: 32
 ---
 The first step towards delivering a successful project is **Discovery & Planning**. This phase involves understanding the business domain, defining the scope, and identifying the key events, interactions, and workflows that need to be implemented.
 

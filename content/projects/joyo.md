@@ -4,7 +4,6 @@ description: "How we built and launched JOYO from scratch in 6 months as the fir
 draft: false
 weight: 10
 ---
-
 ## AI-Powered Leadership Coaching Platform
 
 **JOYO** delivers personalized leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I transformed a vision into a market-ready product in just 6 months.
