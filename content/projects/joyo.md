@@ -6,7 +6,7 @@ weight: 10
 ---
 ## AI-Powered Leadership Coaching Platform
 
-**JOYO** delivers personalized leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I transformed a vision into a market-ready product in just 6 months.
+**<a href="https://joyo.chat" target="_blank" rel="noopener noreferrer">JOYO</a>** delivers personalized leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I transformed a vision into a market-ready product in just 6 months.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">
