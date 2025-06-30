@@ -9,7 +9,7 @@ weight: 10
 
 **JOYO** is an AI-powered leadership platform that delivers personalized coaching through curated programs and daily practices. Built in partnership with executive coaches and trusted by institutions like **MIT**, it empowers social self-discovery with measurable outcomes.
 
-As **Fractional CTO** for this **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>** studio launch, I designed and helped build the entire technology platform from zero to market-ready MVP in 6 months; delivering enterprise-grade architecture while keeping costs lean and speed high.
+As **Fractional CTO** for this **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>** studio launch, I designed and helped build the entire technology platform from zero to market-ready MVP in 6 months; delivering enterprise-grade architecture while keeping costs lean and execution speed high.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">
@@ -254,4 +254,4 @@ A great Fractional CTO combines **strategic insight, hands-on delivery, and team
 
 let's talk. I treat every engagement like my own startup: lean, data-driven, and laser-focused on product-market-fit.  
 
-➡️ **<a href="https://calendar.app.google/rVk4MYXfZTu6VHdP9" target="_blank" rel="noopener noreferrer">Book a 30-minute call</a>** to explore whether Fractional CTO support is the growth lever your startup needs.
+➡️ **<a href="https://calendar.app.google/rVk4MYXfZTu6VHdP9" target="_blank" rel="noopener noreferrer">Book a complementary 30-minute call</a>** to explore whether Fractional CTO support is the growth lever your startup needs.
