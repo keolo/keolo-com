@@ -52,23 +52,57 @@
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
     // Initialize mermaid with a specific theme
-    mermaid.initialize({ 
+    // Color Theme: https://www.color-hex.com/color-palette/2922
+    mermaid.initialize({
         startOnLoad: true,
-        theme: 'default',
+        theme: 'base',               // ‘base’ honors custom vars best
         themeVariables: {
-            primaryColor: '#f5f5f5',
-            primaryTextColor: '#333',
-            primaryBorderColor: '#ccc',
-            lineColor: '#333',
-            secondaryColor: '#e1f5fe',
-            tertiaryColor: '#fff9c4',
-            background: '#fff',
-            mainBkg: '#f5f5f5',
-            secondBkg: '#e1f5fe',
-            tertiaryBkg: '#fff9c4'
+            /* canvas */
+            background: '#ffffff',
+
+            /* default node surface */
+            mainBkg: '#ffffff',
+            textColor: '#212121',    // 12.6:1 against white
+
+            /* primary grouping – pastel green */
+            primaryColor: '#dcedc1',  // 220-237-193
+            primaryBorderColor: '#8bc34a',  // 600-level green for definition
+            primaryTextColor: '#212121',  // 13.0:1 contrast
+
+            /* secondary grouping – peach */
+            secondaryColor: '#ffd3b6',
+            secondaryBorderColor: '#fb8c00',
+            secondaryTextColor: '#212121',  // 11.7:1
+
+            /* tertiary grouping – salmon */
+            tertiaryColor: '#ffaaa5',
+            tertiaryBorderColor: '#e53935',
+            tertiaryTextColor: '#212121',  // 8.9:1
+
+            /* accent / highlight – pink */
+            highlightColor: '#ff8b94',
+            highlightBorderColor: '#c2185b',
+            highlightTextColor: '#212121',  // 7.2:1
+
+            /* sub-graph background – mint */
+            clusterBkg: '#a8e6cf',
+            clusterBorder: '#009688',
+
+            /* Timeline color scale — first 6 slots cover M1-M6 */
+            cScale0: '#dcedc1', cScaleLabel0: '#212121',   // M1  – pastel green
+            cScale1: '#ffe0b2', cScaleLabel1: '#212121',   // M2  – pastel peach
+            cScale2: '#ffcdd2', cScaleLabel2: '#212121',   // M3  – pastel coral
+            cScale3: '#d1c4e9', cScaleLabel3: '#212121',   // M4  – pastel lavender  ← NEW
+            cScale4: '#b2ebf2', cScaleLabel4: '#212121',   // M5  – pastel teal
+            cScale5: '#fff9c4', cScaleLabel5: '#212121',   // M6  – pastel yellow
+
+            /* Shared stroke / text */
+            lineColor: '#455a64',       // axis & connector lines
+            textColor: '#212121',       // default text (WCAG-AA safe)
+            fontFamily: 'Funnel Sans, Inter, Roboto, "Helvetica Neue", Arial, sans-serif'
         }
     });
-    
+
     // Handle dynamic content and re-render mermaid diagrams
     document.addEventListener('DOMContentLoaded', function() {
         // Find all code blocks with language-mermaid class
