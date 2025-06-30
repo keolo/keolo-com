@@ -109,17 +109,17 @@
         document.querySelectorAll('pre code.language-mermaid').forEach(function(element) {
             // Get the mermaid code
             const mermaidCode = element.textContent;
-            
+
             // Create a new div for the diagram
             const mermaidDiv = document.createElement('div');
             mermaidDiv.className = 'mermaid';
             mermaidDiv.textContent = mermaidCode;
-            
+
             // Replace the pre element with the mermaid div
             const preElement = element.parentElement;
             preElement.parentElement.replaceChild(mermaidDiv, preElement);
         });
-        
+
         // Re-initialize mermaid to render the new divs
         mermaid.init();
     });
@@ -136,13 +136,13 @@
         border-radius: 8px;
         overflow-x: auto;
     }
-    
+
     /* Ensure diagrams are responsive */
     .mermaid svg {
         max-width: 100%;
         height: auto;
     }
-    
+
     /* Style for diagram containers */
     .mermaid-container {
         margin: 2rem 0;

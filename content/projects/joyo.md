@@ -48,7 +48,7 @@ weight: 10
 
 .carousel-wrapper {
   position: relative;
-  height: 500px;
+  height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
