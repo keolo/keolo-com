@@ -60,16 +60,16 @@ params:
     content: |
       I'm Keolo, I offer insights into 
       startups, software engineering, and management from my experience leading 
-      teams and driving innovation. Whether you're a founder, developer, or 
+      teams and driving innovation. Whether you're a founder, engineer, or 
       leader, you'll find actionable knowledge to fuel your growth and success. Let's 
       go!
 
       +
-      - • 🚀 15+ startups, 5 exits (and counting) as an IC/Manager
-      - • 🦾 20+ years of startup, mid-market, and enterprise experience
-      - • 🙌 4M+ downloads of open source library
-      - • 👨‍🚀 Founder, Fractional CTO, Head of Engineering, Engineering Manager, Founding/Lead Engineer
-      - • 🖲️ Go, Flutter, Python, Google Cloud Platform
+      - • 🚀 15+ startups, 5 exits — as engineer, manager, and Fractional CTO
+      - • 🧠 Built voice+AI products before it was cool (pre-ChatGPT hype)
+      - • 📈 Scaled teams and tech through multiple funding rounds
+      - • 📦 Open source author with 4M+ downloads
+      - • 👨‍💻 Go, Python, Flutter, GCP — battle-tested in startup, mid-market, and enterprise environments
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/keolo"

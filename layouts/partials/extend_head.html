@@ -1,0 +1,49 @@
+{{- /* Custom CSS for heading fonts */ -}}
+<style>
+    /* Customize heading fonts */
+    h1, h2, h3, h4, h5, h6 {
+        /* Change the font family for all headings */
+        /* font-family: 'Georgia', 'Times New Roman', serif; */
+
+        /* Or use a system font stack */
+        /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+
+        /* Or use a Google Font (add the link tag below) */
+        font-family: "Funnel Display", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    /* Individual heading customization */
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 650;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 450;
+        line-height: 1.3;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 450;
+        line-height: 1.4;
+    }
+    
+    /* Customize paragraph fonts */
+    p, body, li, td, th {
+        font-family: "Funnel Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 350;
+        font-style: normal;
+    }
+</style>
+
+{{- /* Example: To use Google Fonts, uncomment and modify the following */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
