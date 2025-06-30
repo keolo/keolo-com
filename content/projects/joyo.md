@@ -22,6 +22,12 @@ weight: 10
     <div class="carousel-slide">
       <img src="../reflection.png" alt="Reflection">
     </div>
+    <div class="carousel-slide">
+      <img src="../conversations.png" alt="Conversations">
+    </div>
+    <div class="carousel-slide">
+      <img src="../convos.png" alt="Convos">
+    </div>
   </div>
   
   <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">&#10094;</button>
@@ -32,6 +38,8 @@ weight: 10
     <span class="dot" onclick="currentSlide(2)"></span>
     <span class="dot" onclick="currentSlide(3)"></span>
     <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+    <span class="dot" onclick="currentSlide(6)"></span>
   </div>
 </div>
 
