@@ -7,9 +7,9 @@ weight: 10
 
 ## Case Study
 
-**JOYO** is an AI-powered leadership platform that delivers personalized coaching through curated programs and daily practices. Built in partnership with executive coaches and institutions like **MIT** and **INSEAD**, it empowers social self-discovery with measurable outcomes.
+**JOYO** is an AI-powered leadership platform that delivers personalized coaching through curated programs and daily practices. Built in partnership with executive coaches and institutions like **MIT**, it empowers social self-discovery with measurable outcomes.
 
-As **Fractional CTO** for this **Aliveness Ventures** studio launch, I designed and helped build the entire technology platform from zero to market-ready MVP in 6 months; delivering enterprise-grade architecture while keeping costs lean and speed high.
+As **Fractional CTO** for this **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>** studio launch, I designed and helped build the entire technology platform from zero to market-ready MVP in 6 months; delivering enterprise-grade architecture while keeping costs lean and speed high.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">
@@ -208,7 +208,7 @@ function showSlide(n) {
 ### Architecture & Tech Stack
 
 - Chose **Flutter** for cross-platform mobile development, reducing development costs significantly.
-- Deployed a **gRPC** API built with **Go** on **Google Cloud Platform**, enabling automatic scaling.
+- Built with **Go** on **Google Cloud Platform**, enabling cost savings and automatic scaling.
 - Implemented serverless event-driven architecture for AI inference workloads, minimizing operational costs.
 - Adopted **PostgreSQL** with automated backups and high availability configurations.
 
@@ -227,7 +227,7 @@ function showSlide(n) {
 ### Team Building & Leadership
 
 - Recruited and managed a distributed team of senior engineers across frontend, backend, DevOps, and AI specializations.
-- Established lightweight Agile rituals optimized for distributed team collaboration.
+- Established lightweight Agile process optimized for distributed team collaboration.
 - Instituted practices for psychological safety and continuous improvement within the team environment.
 
 ### Stakeholder Support
@@ -245,7 +245,7 @@ function showSlide(n) {
 
 ## Why This Matters To You as a Founder
 
-A great Fractional CTO combines **strategic insight, hands-on delivery, and team orchestration** without the full-time price tag or long-term overhead. If you need to:
+A great Fractional CTO combines **strategic insight, hands-on delivery, and team orchestration** without the full-time price tag or equity dilution. If you need to:
 
 1. Ship a market-ready MVP **fast**,
 2. De-risk your tech choices while keeping future optionality,
