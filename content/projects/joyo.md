@@ -7,7 +7,7 @@ weight: 10
 
 ## Case Study
 
-**JOYO** is an AI-powered leadership platform that delivers personalized coaching through curated programs and daily practices. Built in partnership with executive coaches and institutions like **MIT**, it empowers social self-discovery with measurable outcomes.
+**JOYO** is an AI-powered leadership platform that delivers personalized coaching through curated programs and daily practices. Built in partnership with executive coaches and trusted by institutions like **MIT**, it empowers social self-discovery with measurable outcomes.
 
 As **Fractional CTO** for this **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>** studio launch, I designed and helped build the entire technology platform from zero to market-ready MVP in 6 months; delivering enterprise-grade architecture while keeping costs lean and speed high.
 
@@ -183,7 +183,7 @@ function showSlide(n) {
 
 ## At-a-Glance
 
-|                                      | Result |
+|                                      | **Result** |
 |--------------------------------------|--------|
 | **Time-to-MVP**                       | 6 months (idea to MVP validation) |
 | **Runway saved vs hiring full-time CTO + team** | ~$450k |
