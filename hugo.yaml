@@ -33,6 +33,10 @@ menu:
       name: Tutorials
       url: /tutorials/
       weight: 20
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 30
     # - identifier: about
     #   name: About
     #   url: /about/

@@ -1,5 +1,9 @@
 # Keolo.com
 
+## Setup
+
+- Install Hugo: `brew install hugo`
+
 ## Workflow
 
 1. Build site and run development server: `hugo server -D`
