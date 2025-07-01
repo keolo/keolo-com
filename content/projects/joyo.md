@@ -9,7 +9,7 @@ cover:
 ---
 ## AI-Powered Leadership Coaching Platform
 
-**<a href="https://joyo.chat" target="_blank" rel="noopener noreferrer">JOYO</a>** delivers personalized leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I transformed a vision into a market-ready product in just 6 months.
+**<a href="https://joyo.chat" target="_blank" rel="noopener noreferrer">JOYO</a>** delivers personalized leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I helped transform a vision into a market-ready product in just 6 months.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">
@@ -244,7 +244,7 @@ graph LR
         G[Vertex AI] --> H[Smart Coaching]
     end
 
-    subgraph "DevOps Excellence"
+    subgraph "DevSecOps Excellence"
         I[CI/CD] --> J[Automated Deployments]
         K[Infrastructure as Code] --> L[Consistent Environments]
         M[SOC 2 Controls] --> N[Enterprise Ready]
@@ -335,7 +335,7 @@ timeline
 ### Team & Process
 - Recruited and led distributed team of senior engineers
 - Implemented lightweight Agile process for rapid iteration
-- Created culture of psychological safety and continuous improvement
+- Nurtured culture of psychological safety and continuous improvement
 
 ## The Outcome
 
