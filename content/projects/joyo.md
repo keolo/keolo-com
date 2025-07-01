@@ -3,6 +3,7 @@ title: "JOYO"
 description: "How we built and launched JOYO from scratch in 6 months as the first studio-launched product at Aliveness Ventures."
 draft: false
 weight: 10
+showtoc: false
 ---
 ## AI-Powered Leadership Coaching Platform
 
