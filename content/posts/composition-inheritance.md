@@ -13,7 +13,7 @@ Let me show you why this matters for your codebase.
 
 The Go team didn't just forget to add inheritance, they actively rejected it. Here's why that decision makes sense:
 
-| Inheritance Pain | Go's Answer |
+| **Inheritance Pain** | **Go's Answer** |
 |------------------|-------------|
 | Deep type hierarchies become brittle and hard to refactor. Ever tried changing a base class only to break a dozen subclasses? | Flat, composable pieces you can mix and match without cascading changes. |
 | Child types depend on parent internals, creating tight coupling. | Embed only what you need; keep each piece focused on its responsibility. |
@@ -21,7 +21,7 @@ The Go team didn't just forget to add inheritance, they actively rejected it. He
 
 I've seen codebases where a simple `Animal → Mammal → Dog → GermanShepherd` hierarchy seemed reasonable at first, but became a nightmare when we needed to add behaviors that cut across the hierarchy. Go sidesteps this problem entirely.
 
-## Struct Embedding: Reuse Without the Chains
+## Struct Embedding: Reuse Without Constraints
 
 Here's a simple example of composition in action with animal types:
 

@@ -236,13 +236,13 @@ graph LR
         E[PostgreSQL] --> F[Reliable Data Layer]
         G[Vertex AI] --> H[Smart Coaching]
     end
-    
+
     subgraph "DevOps Excellence"
-        I[GitLab CI/CD] --> J[Automated Deployments]
+        I[CI/CD] --> J[Automated Deployments]
         K[Infrastructure as Code] --> L[Consistent Environments]
         M[SOC 2 Controls] --> N[Enterprise Ready]
     end
-    
+
     style A fill:#bbdefb
     style C fill:#fff9c4
     style E fill:#d7ccc8
