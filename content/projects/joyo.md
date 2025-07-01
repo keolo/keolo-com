@@ -359,4 +359,4 @@ A Fractional CTO brings enterprise-level expertise without the full-time cost. I
 
 Let's explore how I can accelerate your growth.
 
-➡️ **<a href="https://calendar.app.google/rVk4MYXfZTu6VHdP9" target="_blank" rel="noopener noreferrer">Book a complementary 30-minute call</a>** to explore whether Fractional CTO support is the growth lever your startup needs.
+🧩 **<a href="https://calendar.app.google/rVk4MYXfZTu6VHdP9" target="_blank" rel="noopener noreferrer">Book a complementary 30-minute call</a>** to explore whether Fractional CTO support is the missing piece your startup needs.
