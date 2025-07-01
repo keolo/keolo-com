@@ -14,6 +14,9 @@ cover:
 <div class="carousel-container">
   <div class="carousel-wrapper">
     <div class="carousel-slide active">
+      <img src="../sign-in.png" alt="Sign In">
+    </div>
+    <div class="carousel-slide">
       <img src="../roadmap.png" alt="Roadmap">
     </div>
     <div class="carousel-slide">
@@ -43,6 +46,7 @@ cover:
     <span class="dot" onclick="currentSlide(4)"></span>
     <span class="dot" onclick="currentSlide(5)"></span>
     <span class="dot" onclick="currentSlide(6)"></span>
+    <span class="dot" onclick="currentSlide(7)"></span>
   </div>
 </div>
 
