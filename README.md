@@ -2,16 +2,25 @@
 
 ## Setup
 
-- Install Hugo: `brew install hugo`
+- Install Docker: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- Hugo is run via Docker (version 0.140.2) - no local installation needed
 
 ## Workflow
 
-1. Build site and run development server: `hugo server -D`
-2. Create a new post: `hugo new tutorials/<tutorial-name>.md`
+1. Build site and run development server: `make serve`
+2. Create a new post: `make new-post NAME=my-post-name`
 3. Preview site: http://localhost:1313/
 4. Approve post: `draft: false`
-5. Deploy site: `git commit -am "message" && git push`
-6. Site is automatically built and deployed to [GitLab Pages](https://gitlab.com/keolo-personal/keolo.gitlab.io/-/pipelines)
+5. Build static site: `make build`
+6. Deploy site: `git commit -am "message" && git push`
+7. Site is automatically built and deployed to [GitLab Pages](https://gitlab.com/keolo-personal/keolo.gitlab.io/-/pipelines)
+
+## Available Commands
+
+- `make serve` - Run Hugo development server (includes draft posts)
+- `make build` - Build the static site to `public/` directory
+- `make clean` - Remove generated files
+- `make new-post NAME=<name>` - Create a new post with the given name
 
 ## Usage
 
