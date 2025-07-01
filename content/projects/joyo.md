@@ -4,6 +4,8 @@ description: "How we built and launched JOYO from scratch in 6 months as the fir
 draft: false
 weight: 10
 showtoc: false
+cover:
+  image: "images/covers/joyo.png"
 ---
 ## AI-Powered Leadership Coaching Platform
 
