@@ -157,4 +157,136 @@
     .mermaid-container {
         margin: 2rem 0;
     }
+
+    /* 
+        Start Code Block Styling 
+    */
+
+    /* Light color scheme for code blocks */
+    code {
+        background-color: #f6f8fa !important;
+        color: #24292e !important;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    pre code {
+        background-color: transparent !important;
+        padding: 0 !important;
+    }
+
+    .highlight,
+    pre {
+        background-color: #f6f8fa !important;
+        /* border: 1px solid #e1e4e8 !important; */
+    }
+
+    /* Override dark theme colors for syntax highlighting */
+    .chroma {
+        color: #24292e !important;
+        background-color: #f6f8fa !important;
+    }
+
+    /* Light theme syntax highlighting colors */
+    .chroma .err { color: #cb2431 !important; }
+    .chroma .k { color: #d73a49 !important; }
+    .chroma .kc { color: #005cc5 !important; }
+    .chroma .kd { color: #d73a49 !important; }
+    .chroma .kn { color: #d73a49 !important; }
+    .chroma .kp { color: #d73a49 !important; }
+    .chroma .kr { color: #d73a49 !important; }
+    .chroma .kt { color: #d73a49 !important; }
+    .chroma .na { color: #005cc5 !important; }
+    .chroma .nb { color: #005cc5 !important; }
+    .chroma .nc { color: #6f42c1 !important; }
+    .chroma .no { color: #005cc5 !important; }
+    .chroma .nd { color: #6f42c1 !important; }
+    .chroma .ne { color: #005cc5 !important; }
+    .chroma .nf { color: #6f42c1 !important; }
+    .chroma .nl { color: #005cc5 !important; }
+    .chroma .nn { color: #6f42c1 !important; }
+    .chroma .nt { color: #22863a !important; }
+    .chroma .nv { color: #e36209 !important; }
+    .chroma .s { color: #032f62 !important; }
+    .chroma .sa { color: #032f62 !important; }
+    .chroma .sb { color: #032f62 !important; }
+    .chroma .sc { color: #032f62 !important; }
+    .chroma .dl { color: #032f62 !important; }
+    .chroma .sd { color: #6a737d !important; }
+    .chroma .s2 { color: #032f62 !important; }
+    .chroma .se { color: #032f62 !important; }
+    .chroma .sh { color: #032f62 !important; }
+    .chroma .si { color: #005cc5 !important; }
+    .chroma .sx { color: #032f62 !important; }
+    .chroma .sr { color: #032f62 !important; }
+    .chroma .s1 { color: #032f62 !important; }
+    .chroma .ss { color: #005cc5 !important; }
+    .chroma .m { color: #005cc5 !important; }
+    .chroma .mb { color: #005cc5 !important; }
+    .chroma .mf { color: #005cc5 !important; }
+    .chroma .mh { color: #005cc5 !important; }
+    .chroma .mi { color: #005cc5 !important; }
+    .chroma .il { color: #005cc5 !important; }
+    .chroma .mo { color: #005cc5 !important; }
+    .chroma .o { color: #d73a49 !important; }
+    .chroma .ow { color: #d73a49 !important; }
+    .chroma .c { color: #6a737d !important; font-style: italic !important; }
+    .chroma .ch { color: #6a737d !important; font-style: italic !important; }
+    .chroma .cm { color: #6a737d !important; font-style: italic !important; }
+    .chroma .c1 { color: #6a737d !important; font-style: italic !important; }
+    .chroma .cs { color: #6a737d !important; font-style: italic !important; }
+    .chroma .cp { color: #6a737d !important; font-style: italic !important; }
+    .chroma .cpf { color: #6a737d !important; font-style: italic !important; }
+    .chroma .gd { color: #cb2431 !important; background-color: #ffeef0 !important; }
+    .chroma .ge { font-style: italic !important; }
+    .chroma .gr { color: #cb2431 !important; }
+    .chroma .gh { color: #005cc5 !important; font-weight: bold !important; }
+    .chroma .gi { color: #22863a !important; background-color: #f0fff4 !important; }
+    .chroma .gs { font-weight: bold !important; }
+    .chroma .gu { color: #6f42c1 !important; font-weight: bold !important; }
+    .chroma .gt { color: #cb2431 !important; }
+    .chroma .gl { text-decoration: underline !important; }
+    .chroma .lnt { color: #586069 !important; }
+    .chroma .ln { color: #586069 !important; }
+    .chroma .hl { background-color: #fffbdd !important; }
+
+    /* Override theme variables for code blocks */
+    :root {
+        --code-block-bg: #f6f8fa !important;
+        --code-bg: #f6f8fa !important;
+    }
+
+    .dark {
+        --code-block-bg: #f6f8fa !important;
+        --code-bg: #f6f8fa !important;
+    }
+
+    /* Ensure proper contrast for inline code */
+    .post-content code {
+        background-color: #f3f4f6 !important;
+        color: #1f2937 !important;
+        border: 1px solid #e5e7eb !important;
+    }
+
+    /* Code block styling */
+    .post-content pre {
+        background-color: #f6f8fa !important;
+        /* border: 1px solid #e1e4e8 !important; */
+        color: #24292e !important;
+    }
+
+    /* Line numbers styling */
+    .post-content .chroma .lntable {
+        background-color: #f6f8fa !important;
+    }
+
+    .post-content .chroma .lntd:first-child {
+        background-color: #f0f3f6 !important;
+        /* border-right: 1px solid #e1e4e8 !important; */
+    }
+
+    /* 
+        End Code Block Styling 
+    */
 </style>
