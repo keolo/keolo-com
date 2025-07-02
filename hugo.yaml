@@ -63,18 +63,14 @@ params:
   homeInfoParams:
     title: "Hi there \U0001F44B"
     content: |
-      I'm Keolo, I offer insights into 
-      startups, software engineering, and management from my experience leading 
-      teams and driving innovation. Whether you're a founder, engineer, or 
-      leader, you'll find actionable knowledge to fuel your growth and success. Let's 
-      go!
+      I'm Keolo, a hands-on **technology leader** who turns white-board ideas into compliant, 
+      revenue-producing products. **20+ yrs** across HealthTech, FinTech, AI/ML, Consumer SaaS; 
+      repeatedly scaled **15+ startups**; contributed as IC/Manager in **5 exits**.
 
       +
-      - • 🚀 15+ startups, 5 exits — as engineer, manager, and Fractional CTO
-      - • 🤖 Built voice+AI products before it was trendy (pre-ChatGPT hype)
-      - • 📈 Scaled teams and tech through multiple funding rounds
-      - • 📦 Open source author with 4M+ downloads
-      - • 👨‍💻 Go, Python, Flutter, GCP — battle-tested in startup, mid-market, and enterprise environments
+      - • 🚀 **0→1 Delivery** — **35 MVPs** (3 < 90 days), Voice & AI/ML; OSS libs **4M+ installs**
+      - • 🌍 **Remote Scaling** — Teams **0→60**, attrition < 5%; 15+ startups Pre-seed→Series C
+      - • 🛡️ **Compliance-First** — **SOC 2, HIPAA, HITRUST passed 1st audit;** Go/Python/GCP
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/keolo"
