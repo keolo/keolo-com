@@ -63,13 +63,16 @@ params:
   homeInfoParams:
     title: "Hi there \U0001F44B"
     content: |
-      I'm Keolo, a hands-on **technology leader** who turns whiteboard ideas into compliant, 
-      revenue-producing products. **20+ yrs** across HealthTech, FinTech, AI/ML, Consumer SaaS; 
-      repeatedly scaled **15+ startups**; contributed as IC/Manager in **5 exits**.
+      I'm Keolo, a hands-on **Fractional CTO** who turns whiteboard ideas into **compliant, revenue-generating products**. 
+      
+      +
+      **20 yrs | 25 MVPs | 5 exits** across HealthTech, FinTech, AI/ML, and Consumer SaaS. **Scaled remote teams 0→30**, 
+      increased release velocity 3x, **SOC 2/HITRUST/HIPAA passed on first audit**.
 
       +
-      - • 🚀 **0→1 Delivery** — **35 MVPs** (3 < 90 days), Voice & AI/ML; OSS libs **4M+ installs**
-      - • 🌍 **Remote Scaling** — Teams **0→30**, attrition < 5%; 15+ startups Pre-seed→Series C
+      Superpowers:
+      - • 🚀 **0→1 Delivery** — **25 MVPs** (3 < 90 days), Voice & AI/ML; OSS libs **4M+ downloads**
+      - • 🌍 **Remote Scaling** — **0→30** team growth, attrition < 5%; 15+ startups Pre-seed→Series C
       - • 🛡️ **Compliance-First** — **SOC 2, HIPAA, HITRUST passed 1st audit;** Go/Python/GCP/Flutter
   socialIcons:
     - name: "linkedin"
