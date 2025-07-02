@@ -38,10 +38,10 @@ menu:
       name: Posts
       url: /posts/
       weight: 25
-    # - identifier: about
-    #   name: About
-    #   url: /about/
-    #   weight: 30
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
     - identifier: book-call
       name: Book a Call
       url: "#"
