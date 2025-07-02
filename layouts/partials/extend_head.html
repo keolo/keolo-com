@@ -51,6 +51,29 @@
     .post-content li {
         margin-top: initial;
     }
+
+    /* Custom styling for Google Calendar booking button */
+    .google-calendar-appointment-scheduling-button {
+        font-family: "Funnel Sans", sans-serif !important;
+        font-optical-sizing: auto !important;
+        font-weight: 350 !important;
+        font-style: normal !important;
+    }
+
+    /* Additional styling to ensure the button text inherits the font */
+    .google-calendar-appointment-scheduling-button span,
+    .google-calendar-appointment-scheduling-button div {
+        font-family: "Funnel Sans", sans-serif !important;
+        font-optical-sizing: auto !important;
+        font-weight: 350 !important;
+        font-style: normal !important;
+    }
+
+    /* Style the button container in the navigation menu */
+    #menu li .google-calendar-appointment-scheduling-button {
+        margin: 0;
+        vertical-align: middle;
+    }
 </style>
 
 {{- /* Example: To use Google Fonts, uncomment and modify the following */ -}}
