@@ -88,22 +88,49 @@ Build your dream team with proven talent. Leverage my network to find engineers 
 
 ## Key Capabilities
 
-### Technical Excellence
-
-**Go • Python • AI/ML • GCP • Flutter • HIPAA • SOC 2**
-
-Built and scaled compliant systems in highly regulated industries. Deep expertise in cloud architecture, security frameworks, and modern development practices.
-
-### Market Intelligence
-
-Proven track record across HealthTech, FinTech, EdTech, and Enterprise/Consumer SaaS. I understand your market dynamics, compliance requirements, and what it takes to win.
-
-### Results That Matter
-
-- **0 → 1 MVPs:** Dozens launched, generating revenue within months
-- **Team Scaling:** Built and led remote teams from 0 → 30 engineers
-- **Compliance:** HIPAA, SOC 2, and enterprise security implementations
-- **Exit Success:** Multiple successful acquisitions and funding rounds
+```mermaid
+graph TD
+    KC[Key Capabilities]
+    
+    KC --> TE[Technical Excellence]
+    
+    TE --> TE1[Go • Python • Flutter]
+    TE1 --> TE2[GCP • VertexAI]
+    TE2 --> TE3[DevSecOps]
+    TE3 --> TE4[Cloud Architecture<br/>Security Frameworks<br/>Modern Dev Practices]
+    
+    KC --> MI[Market Intelligence]
+    
+    MI --> MI1[HealthTech, FinTech, EdTech]
+    MI1 --> MI2[Enterprise/Consumer SaaS]
+    MI2 --> MI3[Compliance Requirements<br/>Market Dynamics]
+    
+    KC --> RM[Results That Matter]
+    
+    RM --> RM1[Dozens of MVPs Launched]
+    RM1 --> RM2[Team Scaling<br/>0 → 30 Engineers]
+    RM2 --> RM3[Compliance<br/>HIPAA, SOC 2, GDPR]
+    RM3 --> RM4[Exit Success<br/>Acquisitions & Funding]
+    
+    style KC fill:#2196f3,stroke:#1976d2,stroke-width:3px,color:#fff
+    style TE fill:#4caf50,stroke:#388e3c,stroke-width:2px,color:#fff
+    style MI fill:#ff9800,stroke:#f57c00,stroke-width:2px,color:#fff
+    style RM fill:#9c27b0,stroke:#7b1fa2,stroke-width:2px,color:#fff
+    
+    style TE1 fill:#e8f5e9,stroke:#4caf50
+    style TE2 fill:#e8f5e9,stroke:#4caf50
+    style TE3 fill:#e8f5e9,stroke:#4caf50
+    style TE4 fill:#e8f5e9,stroke:#4caf50
+    
+    style MI1 fill:#fff3e0,stroke:#ff9800
+    style MI2 fill:#fff3e0,stroke:#ff9800
+    style MI3 fill:#fff3e0,stroke:#ff9800
+    
+    style RM1 fill:#f3e5f5,stroke:#9c27b0
+    style RM2 fill:#f3e5f5,stroke:#9c27b0
+    style RM3 fill:#f3e5f5,stroke:#9c27b0
+    style RM4 fill:#f3e5f5,stroke:#9c27b0
+```
 
 ## Let's Build Something Great
 
