@@ -3,6 +3,8 @@ title: 'About'
 draft: false
 showtoc: false
 ShowBreadCrumbs: false
+cover:
+  image: "images/covers/profile.png"
 ---
 
 ## Leadership Style
@@ -42,22 +44,6 @@ graph TD
     style E1 fill:#fbe9e7,stroke:#ff5722,stroke-width:1px
 ```
 
-### Fractional CTO
-
-Strategic technology leadership on your schedule. Perfect for startups needing senior technical guidance without full-time overhead.
-
-### Interim CTO
-
-Bridge critical transitions with experienced leadership. Ideal during fundraising, scaling, or while searching for permanent technical leadership.
-
-### Technical Advisor
-
-Expert guidance for key decisions and strategic planning. Best for teams with strong execution but needing periodic senior input.
-
-### Tech Team Sourcing
-
-Build your dream team with proven talent. Leverage my network to find engineers who deliver and fit your culture.
-
 ## What Leaders Say
 
 <div class="testimonial-carousel-container">
@@ -65,7 +51,7 @@ Build your dream team with proven talent. Leverage my network to find engineers 
     <div class="testimonial-slide active">
       <blockquote>
         <p>"Keolo really grasps the big picture with his high business acumen. He's also an excellent manager of people and continually puts the needs of his team first. He's an extremely thoughtful leader who is approachable, always seeking feedback, and super easy to work with. Keolo brings a calm presence and a positive outlook to his work even in hectic situations. His contributions tend to uplift those around him and have been instrumental in maturing the company through a time of rapid growth."</p>
-        <p><strong>— Engineering Director; Stephanie K, HealthTech, Series B</strong></p>
+        <p><strong>— Engineering Director; Stephanie K., HealthTech, Series B</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
@@ -74,25 +60,25 @@ Build your dream team with proven talent. Leverage my network to find engineers 
         <p>Keolo is an outstanding problem solver, and he has a keen eye for detail that helped him quickly identify and resolve technical challenges. He communicated technical concepts clearly, making it easy for the team to understand.</p>
         <p>Keolo was also crucial in managing our diverse team of engineers, fostering a culture of collaboration, and ensuring everyone worked together towards the same goal. He was always professional, dedicated to his work, and willing to go the extra mile to deliver results.</p>
         <p>I highly recommend Keolo for any technical engineering role. He is a talented and passionate engineer who can make a valuable contribution to any organization."</p>
-        <p><strong>— CTO; Bhavish B, FinTech, Series A</strong></p>
+        <p><strong>— CTO; Bhavish B., FinTech, Series A</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
       <blockquote>
         <p>"I collaborated with Keolo for a year at a FinTech startup; he led the Tech team and I led Product. We met every day. Keolo applies a fresh, can-do approach to every potential project. He leads his team in a way that gives each person room to grow and contribute their best to a project. Together, we built a repeatable delivery model based on weekly releases that was very successful. Keolo will be a great fit to lead a Technology team and increase your speed of delivery!"</p>
-        <p><strong>— Head of Product; Jeff E, FinTech, Series A</strong></p>
+        <p><strong>— Head of Product; Jeff E., FinTech, Series A</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
       <blockquote>
         <p>"We have worked with Keolo for a long time. You can depend on the quality work that he does. When you work with Keolo, you are also getting the benefit of a developer with an eye for design. We enjoy working with him and will continue to do so. He is reliable and trustworthy."</p>
-        <p><strong>— VP, Board of Directors; Holly H, Charter School</strong></p>
+        <p><strong>— VP, Board of Directors; Holly H., Charter School</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
       <blockquote>
         <p>"Keolo surpassed my expectations. I interviewed four web development firms, and am very glad I chose to go with him. Keolo's product was creative, has great functionality, and looks amazing. He understood our needs and our vision, and was very good about staying on-budget and on-time. I will definitely use him and his team for my future development needs, and would recommend Keolo to anyone."</p>
-        <p><strong>— Partner; Gary M, Premier Business Law Firm</strong></p>
+        <p><strong>— Partner; Gary M., Premier Business Law Firm</strong></p>
       </blockquote>
     </div>
   </div>
