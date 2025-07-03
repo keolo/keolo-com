@@ -15,6 +15,33 @@ Drawing on two decades of experience delivering dozens of MVPs and scaling fully
 
 ## Engagement Models
 
+```mermaid
+graph TD
+    A[Engagement Models]
+
+    A --> B[Fractional CTO]
+    A --> C[Interim CTO]
+
+    B --> B1[Strategic Leadership<br/>Part-time Schedule<br/>Cost-effective]
+    C --> C1[Bridge Transitions<br/>Full-time Commitment<br/>Temporary Role]
+
+    A --> D[Technical Advisor]
+    A --> E[Tech Team Sourcing]
+
+    D --> D1[Expert Guidance<br/>Periodic Input<br/>Strategic Planning]
+    E --> E1[Build Dream Team<br/>Leverage Network<br/>Culture Fit]
+
+    style A fill:#b3e5fc,stroke:#03a9f4,stroke-width:3px
+    style B fill:#c5e1a5,stroke:#4caf50,stroke-width:2px
+    style C fill:#fff9c4,stroke:#ff9800,stroke-width:2px
+    style D fill:#d1c4e9,stroke:#673ab7,stroke-width:2px
+    style E fill:#ffccbc,stroke:#ff5722,stroke-width:2px
+    style B1 fill:#e8f5e9,stroke:#4caf50,stroke-width:1px
+    style C1 fill:#fffde7,stroke:#ff9800,stroke-width:1px
+    style D1 fill:#ede7f6,stroke:#673ab7,stroke-width:1px
+    style E1 fill:#fbe9e7,stroke:#ff5722,stroke-width:1px
+```
+
 ### Fractional CTO
 
 Strategic technology leadership on your schedule. Perfect for startups needing senior technical guidance without full-time overhead.
