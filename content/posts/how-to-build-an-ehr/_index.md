@@ -3,6 +3,7 @@ title: 'How to Build an EHR'
 draft: false
 tags: ["healthcare", "system-design"]
 weight: 30
+hiddenInHomeList: true
 cover:
   image: "images/covers/ehr.png"
 ---

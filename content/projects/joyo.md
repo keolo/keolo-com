@@ -341,7 +341,8 @@ timeline
 
 > "In just half a year, we went from a slide-deck to a validated MVP with engaged users. Having a Fractional CTO who could both lead strategic thinking and technical execution was a game-changer."
 
-### By the Numbers:
+### By the Numbers
+
 - ✅ **6 months** from concept to market-ready MVP
 - ✅ **$250,000** saved vs. full-time CTO + team
 - ✅ **SOC 2 ready** from day one

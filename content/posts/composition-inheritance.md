@@ -2,6 +2,7 @@
 title: 'Composition over Inheritance in Go: Building Clear & Flexible Code'
 draft: false
 weight: 40
+hiddenInHomeList: true
 cover:
   image: "images/covers/composition.png"
 ---
