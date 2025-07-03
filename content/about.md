@@ -9,7 +9,7 @@ cover:
 
 ## Leadership Style
 
-As a Fractional CTO, I partner with founders and CEOs to turn vision into compliant, revenue-ready product quickly. My style blends psychological safety with radical candor: the team feels safe to question and experiment, yet we challenge assumptions early so we can iterate fast.
+As a Partner & Fractional CTO at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>, I collaborate with founders and CEOs to turn vision into compliant, revenue-ready product quickly. My style blends psychological safety with radical candor: the team feels safe to question and experiment, yet we challenge assumptions early so we can iterate fast.
 
 Every decision starts with the user and hard data, favoring simple, well-documented architectures that scale gracefully and remain easy to maintain while meeting the highest security and privacy bars. I automate the rote, instrument quality, and run transparent, continuous release cadences that keep momentum high and surprises low.
 
@@ -50,7 +50,8 @@ graph TD
   <div class="testimonial-carousel-wrapper">
     <div class="testimonial-slide active">
       <blockquote>
-        <p>"Keolo really grasps the big picture with his high business acumen. He's also an excellent manager of people and continually puts the needs of his team first. He's an extremely thoughtful leader who is approachable, always seeking feedback, and super easy to work with. Keolo brings a calm presence and a positive outlook to his work even in hectic situations. His contributions tend to uplift those around him and have been instrumental in maturing the company through a time of rapid growth."</p>
+        <p>"Keolo really grasps the big picture with his high business acumen. He's also an excellent manager of people and continually puts the needs of his team first. He's an extremely thoughtful leader who is approachable, always seeking feedback, and super easy to work with.</p>
+	<p>Keolo brings a calm presence and a positive outlook to his work even in hectic situations. His contributions tend to uplift those around him and have been instrumental in maturing the company through a time of rapid growth."</p>
         <p><strong>— Engineering Director; Stephanie K., HealthTech, Series B</strong></p>
       </blockquote>
     </div>
@@ -65,19 +66,22 @@ graph TD
     </div>
     <div class="testimonial-slide">
       <blockquote>
-        <p>"I collaborated with Keolo for a year at a FinTech startup; he led the Tech team and I led Product. We met every day. Keolo applies a fresh, can-do approach to every potential project. He leads his team in a way that gives each person room to grow and contribute their best to a project. Together, we built a repeatable delivery model based on weekly releases that was very successful. Keolo will be a great fit to lead a Technology team and increase your speed of delivery!"</p>
+        <p>"I collaborated with Keolo for a year at a FinTech startup; he led the Tech team and I led Product. We met every day. Keolo applies a fresh, can-do approach to every potential project. He leads his team in a way that gives each person room to grow and contribute their best to a project.</p>
+	<p>Together, we built a repeatable delivery model based on weekly releases that was very successful. Keolo will be a great fit to lead a Technology team and increase your speed of delivery!"</p>
         <p><strong>— Head of Product; Jeff E., FinTech, Series A</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
       <blockquote>
-        <p>"We have worked with Keolo for a long time. You can depend on the quality work that he does. When you work with Keolo, you are also getting the benefit of a developer with an eye for design. We enjoy working with him and will continue to do so. He is reliable and trustworthy."</p>
+        <p>"We have worked with Keolo for a long time. You can depend on the quality work that he does. When you work with Keolo, you are also getting the benefit of a developer with an eye for design.</p>
+	<p>We enjoy working with him and will continue to do so. He is reliable and trustworthy."</p>
         <p><strong>— VP, Board of Directors; Holly H., Charter School</strong></p>
       </blockquote>
     </div>
     <div class="testimonial-slide">
       <blockquote>
-        <p>"Keolo surpassed my expectations. I interviewed four web development firms, and am very glad I chose to go with him. Keolo's product was creative, has great functionality, and looks amazing. He understood our needs and our vision, and was very good about staying on-budget and on-time. I will definitely use him and his team for my future development needs, and would recommend Keolo to anyone."</p>
+        <p>"Keolo surpassed my expectations. I interviewed four web development firms, and am very glad I chose to go with him. Keolo's product was creative, has great functionality, and looks amazing. He understood our needs and our vision, and was very good about staying on-budget and on-time.</p>
+	<p>I will definitely use him and his team for my future development needs, and would recommend Keolo to anyone."</p>
         <p><strong>— Partner; Gary M., Premier Business Law Firm</strong></p>
       </blockquote>
     </div>
