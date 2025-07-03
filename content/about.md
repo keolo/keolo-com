@@ -69,7 +69,7 @@ Built and scaled compliant systems in highly regulated industries. Deep expertis
 
 ### Market Intelligence
 
-Proven track record across HealthTech, FinTech, EdTech, and Enterprise SaaS. I understand your market dynamics, compliance requirements, and what it takes to win.
+Proven track record across HealthTech, FinTech, EdTech, and Enterprise/Consumer SaaS. I understand your market dynamics, compliance requirements, and what it takes to win.
 
 ### Results That Matter
 
