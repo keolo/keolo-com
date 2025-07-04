@@ -1,5 +1,5 @@
 ---
-title: 'Composition over Inheritance in Go: Building Clear & Flexible Code'
+title: 'Composition over inheritance in Go: building clear & flexible code'
 draft: false
 description: "Audience: Technical"
 weight: 40
@@ -7,13 +7,13 @@ hiddenInHomeList: true
 cover:
   image: "images/covers/composition.png"
 ---
-## Composition over Inheritance in Go: Building Clear & Flexible Code
+## Composition over inheritance in Go: building clear & flexible code
 
 Coming from object-oriented languages, Go's absence of inheritance can feel like a limitation. Where were my class hierarchies? How would I model "is-a" relationships? But after time of building production Go systems, I've come to appreciate the clarity that comes from Go's deliberate design choice: **ditching class-based inheritance** entirely in favor of composition through struct embedding and interfaces.
 
 Let me show you why this matters for your codebase.
 
-## Why Go Deliberately Avoids Classic Inheritance
+## Why Go deliberately avoids classic inheritance
 
 The Go team didn't just forget to add inheritance, they actively rejected it. Here's why that decision makes sense:
 
@@ -25,7 +25,7 @@ The Go team didn't just forget to add inheritance, they actively rejected it. He
 
 I've seen codebases where a simple `Animal → Mammal → Dog → GermanShepherd` hierarchy seemed reasonable at first, but became a nightmare when we needed to add behaviors that cut across the hierarchy. Go sidesteps this problem entirely.
 
-## Struct Embedding: Reuse Without Constraints
+## Struct embedding: reuse without constraints
 
 Here's a simple example of composition in action with animal types:
 
@@ -97,7 +97,7 @@ Dog and Cat don't "inherit" from Sounder; they *contain* a Sounder as an anonymo
 
 The key difference from inheritance: if you need to change how sound-making works, you can swap out the embedded Sounder for something else without breaking your type relationships. Each animal type can also configure its embedded Sounder differently.
 
-## Interfaces: Compose Capabilities, Not Types
+## Interfaces: compose capabilities, not types
 
 Go's interfaces are another powerful tool for composition. Unlike Java or C# interfaces that require explicit declarations, Go interfaces are satisfied implicitly:
 
@@ -148,7 +148,7 @@ func PutPetToBed(p Pet) {
 
 Your types don't need to know about the interfaces they satisfy. This means you can define new abstractions without modifying existing code. Any type that implements the required methods automatically satisfies the interface, allowing for flexible design.
 
-## Real-World Benefits
+## Real-world benefits
 
 - **Refactoring becomes less scary**: You can swap embedded structs or change interface implementations with minimal ripple effects.
 - **Testing gets easier**: Instead of mocking complex class hierarchies, you can build simple mocks for focused interfaces.
@@ -211,7 +211,7 @@ func (h HealthMonitorWrapper) FindAnimal(id string) (*Animal, error) {
 
 With composition, we added health monitoring without modifying the original repository code at all. No inheritance required. This pattern allows us to layer on additional functionality like logging, caching, or validation without changing the core implementation.
 
-## Key Takeaways
+## Key takeaways
 
 1. **Prefer composition over inheritance**. In Go, it's not just a design pattern, it's baked into the language itself.
 2. **Use struct embedding for straightforward reuse**. You get method promotion without the baggage of type hierarchies.

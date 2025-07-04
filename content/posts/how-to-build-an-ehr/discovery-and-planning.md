@@ -1,5 +1,5 @@
 ---
-title: 'Discovery & Planning'
+title: 'Discovery & planning'
 draft: false
 hiddenInHomeList: true
 weight: 32
@@ -15,7 +15,7 @@ The first step towards delivering a successful project is **Discovery & Planning
 
 Let's start with creating the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) before creating the domain model and feature requirements. This will help us identify and understand all high-level events, interactions, and workflows, ensuring the main value streams and business processes are captured.
 
-## EHR: Big Picture Event Storm
+## EHR: big picture event storm
 
 > We'll employ Event Storming as the main collaborative technique for Planning & Discovery, to model and explore the complex business processes, by focusing on events that occur within the system.
 
@@ -49,9 +49,9 @@ The Event Storming process involves the following steps:
 
 Once we've captured the high-level events and interactions, we can proceed to create a more detailed event storm for the Appointment Scheduling process, aka [Appointment Scheduling: Domain Model](#appointment-scheduling-domain-model).
 
-## Appointment Scheduling: Domain Model
+## Appointment scheduling: domain model
 
-> The **Appointment Scheduling: Domain Model** is the process-level event storm for scheduling appointments. It's a detailed view of the Appointment Scheduling flow derived from the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm).
+> The **Appointment scheduling: domain model** is the process-level event storm for scheduling appointments. It's a detailed view of the Appointment Scheduling flow derived from the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm).
 
 The system involves managing patient appointments and schedules by coordinating between patients, practitioners, and admins, viewing/reserving available time slots, handling appointment requests/notifications, and managing appointment statuses from scheduling to completion/cancellation.
 
@@ -59,7 +59,7 @@ Key policies ensure availability and scheduling are streamlined and effectively 
 
 ![Appointment Scheduling Flow](../appointment-scheduling-flow.webp)
 
-Although Event Storming is used for both flows, the **Appointment Scheduling: Domain Model** contains more detail than the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) to help us visualize the interactions, data flows, and policies of the Appointment Scheduling process.
+Although Event Storming is used for both flows, the **Appointment scheduling: domain model** contains more detail than the [EHR: Big Picture Event Storm](#ehr-big-picture-event-storm) to help us visualize the interactions, data flows, and policies of the Appointment Scheduling process.
 
 ![Appointment Scheduling Flow](../appointment-scheduling-flow.png)
 
@@ -67,27 +67,27 @@ The Domain Model will now make it easy to simulate and write test scenarios via 
 
 > **The Domain Model** will also serve as a communication tool when designing the UX and architecting the [System Design]({{< ref "system-design" >}}) as well as future architecture discussions and enhancements. This is a business processes and system model combined.
 
-## Appointment Scheduling: Feature Requirements
+## Appointment scheduling: feature requirements
 
 > We can capture a feature's (e.g. appointment scheduling) requirements by defining **User Stories**, **Example Mappings**, and executable **Gherkin Scenarios** (Acceptance Criteria). This involves breaking down user stories into concrete examples and writing scenarios to ensure clarity and completeness.
 
 The following is an example of a [User Story](#user-story), [Example Mapping](#example-mapping), and corresponding [Gherkin Scenarios](#gherkin-scenarios) for the [Appointment Scheduling Flow](#appointment-scheduling-flow).
 
-### User Story
+### User story
 
-#### Appointment Scheduling User Story
+#### Appointment scheduling User Story
 
 > **As a** patient, **I want to** schedule an appointment, **so that** I can receive medical care from my practitioner.
 
 The above User Story starts at the `Request Availability` Command and ends at the `Appointment Scheduled` Event (in the Appointment Scheduling: Domain Model). It involves multiple steps and interactions between the patient, practitioner, and the system.
 
-#### Other Example Stories
+#### Other example stories
 
 > - "As a doctor, I want to set my availability so that patients can only book appointments during my working hours."
 > - "As a patient, I want to receive a notification when my appointment is confirmed so that I can plan my day accordingly."
 > - "As an admin, I want to view all scheduled appointments so that I can manage the clinic's daily schedule."
 
-#### Breaking Down the User Story
+#### Breaking down the User Story
 
 Next, let’s map out the various examples and scenarios for the above [Appointment Scheduling User Story](#appointment-scheduling-user-story).
 
@@ -105,7 +105,7 @@ Next, let’s map out the various examples and scenarios for the above [Appointm
 | Appointment Canceled | Person cancels an appointment        | 8. Cancel appointment successfully                       |
 |                      |                                       | 9. Attempt to cancel an already cancelled appointment    |
 
-### Gherkin Scenarios
+### Gherkin scenarios
 
 > Gherkin scenarios are written in a structured format that is easy to understand and can be used for manual testing, automated testing, and acceptance testing.
 
@@ -216,7 +216,7 @@ These scenarios cover various aspects of the appointment scheduling process, ens
 
 After mapping out the examples and writing the scenarios, we can now proceed to Architect the [System Design]({{< ref "system-design" >}}).
 
-## EHR: Project Plan
+## EHR: project plan
 
 > The [EHR: Project Plan](https://doc.clickup.com/14291635/d/h/dm4nk-8291/0d62fbf515d5d25/dm4nk-18711) is a detailed plan that breaks down the project into requirements, responsibilities, risks, budget, communications, and quality, then decomposes work for each phase of the development process.
 
@@ -226,9 +226,9 @@ The [Project Roadmap](https://sharing.clickup.com/14291635/g/h/dm4nk-8271/cbb78c
 
 ## Appendix
 
-### Event Storming Legend
+### Event storming legend
 
-![Event Storming Legend](../event-storming-legend.png)
+![Event storming legend](../event-storming-legend.png)
 
 - **View Model**: The view model represents how the system presents information back to the users or actors. It's the result of processing events and applying policies, shaping the data into a form that's useful for the user or the next action.
 - **Actor**: An actor is an entity (person, system, or external trigger) that interacts with the system. Understanding who or what initiates actions is crucial for mapping out the subsequent steps.

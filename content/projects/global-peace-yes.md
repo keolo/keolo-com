@@ -7,7 +7,7 @@ showtoc: false
 cover:
   image: "images/covers/global-peace-yes.png"
 ---
-## Digital Platform for a Planetary Peace Movement
+## Digital platform for a planetary peace movement
 
 <a href="https://globalpeaceyes.org" target="_blank" rel="noopener noreferrer">Global Peace Yes</a> is a U.S-based NGO (Special Consultative Status at the U.N.) rallying one billion voices to "live with love over fear." As **Fractional CTO** I turned a bold vision into an operational, fraud-resistant voting platform.
 
@@ -145,7 +145,7 @@ I contributed as Fractional CTO:
 graph LR
   A[Flutter] --> B[Cross-Platform App]
   C[Go] --> D[High-Perf APIs]
-  E[Firebase Auth/Firestore] --> F[Verification & Persistence]
+  E[Firebase Auth & Firestore] --> F[Verification & Persistence]
   G[GCP Cloud Run] --> H[Flexible Backend]
   I[PostHog] --> J[Product Analytics]
   K[OpenTofu] --> L[IaC]

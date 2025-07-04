@@ -14,7 +14,7 @@ Familiarize yourself with the items in the **Appendix** and when you're ready, p
 
 ## Appendix
 
-### Key Concepts
+### Key concepts
 
 In this series, we will explore key concepts for building a scalable and extendable EHR system:
 
@@ -26,7 +26,7 @@ In this series, we will explore key concepts for building a scalable and extenda
 - **Clean Architecture**: Ensuring a separation of concerns to make the system maintainable and scalable.
 - **DevSecOps**: Integrating security practices into the DevOps pipeline to ensure robust and secure deployments.
 
-### Team Concepts & Culture
+### Team concepts & culture
 
 Building a high-performing team is as crucial as the technical aspects. We will delve into:
 

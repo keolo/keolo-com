@@ -7,7 +7,7 @@ cover:
   image: "images/covers/profile.png"
 ---
 
-## Leadership Style
+## Leadership style
 
 As a Partner & Fractional CTO at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>, I collaborate with founders and CEOs to turn vision into compliant, revenue-ready product quickly. My style blends psychological safety with radical candor: the team feels safe to question and experiment, yet we challenge assumptions early so we can iterate fast.
 
@@ -15,7 +15,7 @@ Every decision starts with the user and hard data, favoring simple, well-documen
 
 Drawing on two decades of experience delivering dozens of MVPs and scaling fully remote teams from 0 → 30, I bring calm, business-savvy guidance that aligns technology roadmaps with growth goals, uplifts morale, and frees founders to focus on customers and capital rather than firefighting.
 
-## Engagement Models
+## Engagement models
 
 ```mermaid
 graph TD
@@ -44,7 +44,7 @@ graph TD
     style E1 fill:#fbe9e7,stroke:#ff5722,stroke-width:1px
 ```
 
-## What Leaders Say
+## What leaders say
 
 <div class="testimonial-carousel-container">
   <div class="testimonial-carousel-wrapper">
@@ -281,7 +281,7 @@ function showTestimonialSlide(n) {
 }
 </script>
 
-## Key Capabilities
+## Key capabilities
 
 ```mermaid
 graph TD
@@ -296,7 +296,7 @@ graph TD
     
     KC --> MI[Market Intelligence]
     
-    MI --> MI1[HealthTech, FinTech, EdTech]
+    MI --> MI1[HealthTech • FinTech • EdTech]
     MI1 --> MI2[Enterprise/Consumer SaaS]
     MI2 --> MI3[Compliance Requirements<br/>Market Dynamics]
     
@@ -327,7 +327,7 @@ graph TD
     style RM4 fill:#f3e5f5,stroke:#9c27b0
 ```
 
-## Let's Build Something Great
+## Let's build something great
 
 Ready to transform your technical vision into market reality? I help founders navigate the complex journey from idea to scale with battle-tested strategies and hands-on leadership.
 

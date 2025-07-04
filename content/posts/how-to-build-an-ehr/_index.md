@@ -1,5 +1,5 @@
 ---
-title: 'How to Build an EHR'
+title: 'How to build an EHR'
 draft: false
 tags: ["healthcare", "system-design"]
 weight: 30
@@ -12,7 +12,7 @@ This is an in-depth series on how to build an Electronic Health Records (EHR) Sy
 
 > In this tutorial we'll design and implement a vertical slice (frontend, backend, infra) of an EHR system from scratch (with enough context to understand how the pieces fit together), specifically the **Appointment Scheduling feature between Patients and Practitioners**.
 
-## Tutorial Organization
+## Tutorial organization
 
 This series is divided into the following parts:
 

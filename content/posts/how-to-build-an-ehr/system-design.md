@@ -1,5 +1,5 @@
 ---
-title: 'System Design'
+title: 'System design'
 draft: false
 hiddenInHomeList: true
 weight: 33 
@@ -24,11 +24,11 @@ Practitioners and Patients authenticate through the Authentication System, which
 
 ![System Context Diagram](../system-context-diagram.png)
 
-The **EHR System** integrates with the Calendar System (such as Google or Apple Calendar) to sync appointments and availability, ensuring that all schedules are up-to-date. Notifications about appointments are sent to users through the Notification System via email, SMS, or push notifications.
+The **EHR system** integrates with the Calendar System (such as Google or Apple Calendar) to sync appointments and availability, ensuring that all schedules are up-to-date. Notifications about appointments are sent to users through the Notification System via email, SMS, or push notifications.
 
 Additionally, the **EHR System** interacts with the Billing System for financial transactions, the Registration System for new user sign-ups, and both the Practitioner Management System and Patient Management System for maintaining comprehensive profiles.
 
-## Platform Diagram
+## Platform diagram
 
 > One level lower, the Platform Diagram outlines the interactions and data flows between the **EHR Platform** and various user interfaces, as well as supporting systems for availability/scheduling and notifications.
 
@@ -42,7 +42,7 @@ Additionally, it connects with the Notification Platform to send out appointment
 
 If we take a closer look into the **EHR Platform**, we can see the various components and services that the platform is comprised of, in the form of a [Component Diagram](#component-diagram).
 
-## Component Diagram
+## Component diagram
 
 > The Component Diagram highlights the various components in the **EHR Platform**. It illustrates the interactions between various platforms, services, and data repositories.
 
@@ -65,7 +65,7 @@ Additionally, the system integrates with external services for authentication (S
 - **Payment Gateway Integration**: Manages billing and payments.
 - **Third-Party Services**: Integrates with pharmacy systems, lab systems, and insurance providers.
 
-### Security Considerations
+### Security considerations
 
 - **HIPAA Compliance**: Ensures compliance through risk assessments, safeguards, and staff training.
 - **Data Encryption**: Encrypts data at rest and in transit using AES and SSL/TLS.
