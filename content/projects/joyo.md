@@ -183,8 +183,8 @@ timeline
 ```mermaid
 graph LR
   A[Flutter] --> B[iOS & Android]
-  C[Go/Python + GCP] --> D[Flexible Infrastructure]
-  E[PostgreSQL/Firestore] --> F[Persistent Data]
+  C[Go • Python • GCP] --> D[Flexible Infrastructure]
+  E[PostgreSQL • Firestore] --> F[Persistent Data]
   G[Vertex AI] --> H[Personalised Coaching]
   I[OpenTofu] --> J[Infrastructure as Code]
   K[CI/CD] --> L[Automated Deploys]
@@ -199,6 +199,6 @@ graph LR
 
 ## Ready to accelerate?
 
-A Fractional CTO gives you enterprise-level execution without the overhead. Ship faster, build responsibly, and engage your customers.
+A Fractional CTO gives you enterprise-level strategy and execution without the overhead. Ship faster, build responsibly, and engage your customers.
 
 🗺️ **<a href="https://calendar.app.google/rVk4MYXfZTu6VHdP9" target="_blank" rel="noopener noreferrer">Book a complementary 30-min call</a>** to discuss your roadmap.
