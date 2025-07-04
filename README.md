@@ -27,6 +27,10 @@
 - Edit configuration: `hugo.yaml`
 - Edit theme: `cp themes/PaperMod/layouts/partials/header.html layouts/partials/header.html`
 
+## Project Pages
+
+Project pages are standardized under the following structure: Challenge → Approach → Outcomes → Stack → CTA; keep under 350 words (excluding carousel and diagrams).
+
 ## Appendix
 
 - [Using Hugo's Syntax Highlighter Chroma](https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#using-hugos-syntax-highlighter-chroma)

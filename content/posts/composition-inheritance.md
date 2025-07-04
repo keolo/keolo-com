@@ -1,6 +1,7 @@
 ---
 title: 'Composition over Inheritance in Go: Building Clear & Flexible Code'
 draft: false
+description: "Audience: Technical"
 weight: 40
 hiddenInHomeList: true
 cover:
