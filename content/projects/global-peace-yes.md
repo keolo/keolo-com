@@ -9,7 +9,7 @@ cover:
 ---
 ## Digital Platform for a Planetary Peace Movement
 
-<a href="https://globalpeaceyes.org" target="_blank" rel="noopener noreferrer">Global Peace Yes</a>, is a US-based NGO with Special Consultative Status at the United Nations, launched as a modern peace movement dedicated to helping humanity "live with love over fear.
+<a href="https://globalpeaceyes.org" target="_blank" rel="noopener noreferrer">Global Peace Yes</a>, is a US-based NGO with Special Consultative Status at the United Nations, launched as a modern peace movement dedicated to helping humanity "live with love over fear".
 
 **The Challenge:** Transform an ambitious vision of mobilizing one billion voices for peace into a scalable, secure digital platform—without the budget for a full-time CTO or large tech team.
 
