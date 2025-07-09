@@ -30,22 +30,22 @@ menu:
       name: Home
       url: /
       weight: 10
-    - identifier: projects
-      name: Projects
-      url: /projects/
-      weight: 20
-    - identifier: posts
-      name: Posts
-      url: /posts/
-      weight: 25
     - identifier: about
       name: About
       url: /about/
-      weight: 30
+      weight: 20
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 40
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 50
     - identifier: book-call
       name: Book a Call
       url: "#"
-      weight: 40
+      weight: 60
 params: 
   mainSections: ["projects", "posts"]
   ShowCodeCopyButtons: true
