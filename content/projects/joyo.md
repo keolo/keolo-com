@@ -9,7 +9,7 @@ cover:
 ---
 ## AI-powered leadership coaching platform
 
-**<a href="https://joyo.chat" target="_blank" rel="noopener noreferrer">JOYO</a>** delivers personalised leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I turned a slide-deck vision into a market-ready product in six months.
+**<a href="https://joyo.chat" target="_blank" rel="noopener noreferrer">JOYO</a>** delivers personalised leadership development through AI-powered coaching, trusted by institutions like **MIT**. As **Fractional CTO** for **<a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>**, I helped turn a slide-deck vision into a market-ready product in six months.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">

@@ -9,7 +9,7 @@ cover:
 ---
 ## Digital platform for a planetary peace movement
 
-<a href="https://globalpeaceyes.org" target="_blank" rel="noopener noreferrer">Global Peace Yes</a> is a U.S-based NGO (Special Consultative Status at the U.N.) rallying one billion voices to "live with love over fear." As **Fractional CTO** I turned a bold vision into an operational, fraud-resistant voting platform.
+<a href="https://globalpeaceyes.org" target="_blank" rel="noopener noreferrer">Global Peace Yes</a> is a U.S-based NGO (Special Consultative Status at the U.N.) rallying one billion voices to "live with love over fear." As **Fractional CTO** I helped turn a bold vision into an operational, fraud-resistant voting platform.
 
 <div class="carousel-container">
   <div class="carousel-wrapper">
