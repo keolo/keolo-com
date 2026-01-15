@@ -1,6 +1,6 @@
-baseURL: 'https://keolo.com'
-languageCode: 'en-us'
-title: 'Keolo'
+baseURL: "https://keolo.com"
+languageCode: "en-us"
+title: "Keolo"
 
 # Code highlighting
 # https://swapoff.org/chroma/playground/
@@ -8,7 +8,7 @@ markup:
   highlight:
     lineNos: true
     noClasses: false
-    style: 'monokailight'
+    style: "monokailight"
   goldmark:
     renderer:
       unsafe: true # Allow raw HTML in markdown files
@@ -19,11 +19,11 @@ ignoreErrors:
 
 # Suppress warnings about raw HTML
 ignoreLogs:
-  - 'warning-goldmark-raw-html'
-  - 'warning-partial-superfluous-prefix'
+  - "warning-goldmark-raw-html"
+  - "warning-partial-superfluous-prefix"
 
 # PaperMod theme configuration
-theme: 'PaperMod'
+theme: "PaperMod"
 menu:
   main:
     - identifier: home
@@ -46,7 +46,7 @@ menu:
       name: Book a Call
       url: "#"
       weight: 60
-params: 
+params:
   mainSections: ["projects", "posts"]
   ShowCodeCopyButtons: true
   disableThemeToggle: true
@@ -56,7 +56,7 @@ params:
   assets:
     disableScrollBarStyle: true
     # https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918
-    favicon: 'favicon.ico'
+    favicon: "favicon.ico"
     favicon16x16: /assets/favicon-16x16.png
     favicon32x32: /assets/favicon-32x32.png
     apple_touch_icon: /assets/apple-touch-icon.png
@@ -65,10 +65,11 @@ params:
   homeInfoParams:
     title: "Need fractional tech leadership?  Let’s talk."
     content: |
-      I'm Keolo, **Partner & CTO** at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a> who turns ideas into **revenue-generating products**.
+      I'm Keolo, **Partner & CTO** at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a> turning ideas into **revenue-generating products**.
 
       +
-      **20 yrs | 25 MVPs | 5 exited** across HealthTech, FinTech, AI/ML, and Enterprise/Consumer SaaS.
+      **Fractional CTO | Dozens of startups | AI · HealthTech · FinTech · Enterprise/Consumer SaaS**.
+
       **Scaled remote teams 0→30**, increased release velocity 4x, **SOC 2/HITRUST/HIPAA experienced**.
 
       +
