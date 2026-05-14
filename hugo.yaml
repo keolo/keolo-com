@@ -96,3 +96,9 @@ params:
 # Define social as a taxonomy to replace deprecated .Site.Social
 taxonomies:
   social: "socials"
+
+# Sitemap configuration for better SEO
+sitemap:
+  changefreq: "weekly"
+  priority: 0.5
+  filename: "sitemap.xml"

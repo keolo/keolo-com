@@ -1,0 +1,53 @@
+# ==============================================================================
+# robots.txt for keolo.com
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Default Access
+# Allow major search engines to index the content
+# ------------------------------------------------------------------------------
+User-agent: *
+Allow: /
+
+# Prevent indexing of internal structural paths if any exist (example paths)
+Disallow: /cgi-bin/
+Disallow: /admin/
+Disallow: /*?* # Block indexing of URLs with query parameters to avoid duplicate content
+
+# ------------------------------------------------------------------------------
+# Block Problematic & Aggressive Crawlers/Scrapers
+# ------------------------------------------------------------------------------
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Rogerbot
+Disallow: /
+
+User-agent: MegaIndex.ru
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# ------------------------------------------------------------------------------
+# LLM and AI Crawlers
+# Allowed by default via User-agent: * to ensure the blog is citeable by AI 
+# search engines and chat assistants (e.g., ChatGPT, Claude, Perplexity, Gemini).
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# Sitemap Location
+# ------------------------------------------------------------------------------
+Sitemap: https://keolo.com/sitemap.xml
