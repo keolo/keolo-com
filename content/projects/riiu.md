@@ -5,7 +5,7 @@ draft: false
 weight: 30
 showtoc: false
 cover:
-  image: "images/covers/riiu.png"
+  image: "images/covers/riiu.jpg"
 ---
 ## Livestream commerce, same-day delivery
 

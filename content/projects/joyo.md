@@ -5,7 +5,7 @@ draft: false
 weight: 10
 showtoc: false
 cover:
-  image: "images/covers/joyo.png"
+  image: "images/covers/joyo.jpg"
 ---
 ## AI-powered leadership coaching platform
 

@@ -5,7 +5,7 @@ draft: false
 weight: 20
 showtoc: false
 cover:
-  image: "images/covers/global-peace-yes.png"
+  image: "images/covers/global-peace-yes.jpg"
 ---
 ## Digital platform for a planetary peace movement
 
