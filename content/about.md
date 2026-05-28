@@ -9,11 +9,11 @@ cover:
 
 ## Leadership style
 
-As a Partner & Fractional CTO at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>, I collaborate with founders and CEOs to turn vision into compliant, revenue-ready product quickly. My style blends psychological safety with radical candor: the team feels safe to question and experiment, yet we challenge assumptions early so we can iterate fast.
+As a Managing Partner & Fractional CTO at <a href="https://aliveness.ventures" target="_blank" rel="noopener noreferrer">Aliveness Ventures</a>, I collaborate with founders and CEOs to turn vision into compliant, revenue-ready product quickly. My style blends psychological safety with radical candor: the team feels safe to question and experiment, yet we challenge assumptions early so we can iterate fast.
 
 Every decision starts with the user and hard data, favoring simple, well-documented architectures that scale gracefully and remain easy to maintain while meeting the highest security and privacy bars. I automate the rote, instrument quality, and run transparent, continuous release cadences that keep momentum high and surprises low.
 
-Drawing on two decades of experience delivering dozens of MVPs and scaling fully remote teams from 0 → 30, I bring calm, business-savvy guidance that aligns technology roadmaps with growth goals, uplifts morale, and frees founders to focus on customers and capital rather than firefighting.
+Drawing on two decades of experience building tech behind successful exits, delivering dozens of MVPs, and scaling fully remote teams from 0 → 30, I bring calm, business-savvy guidance that aligns technology roadmaps with growth goals, uplifts morale, and frees founders to focus on customers and capital rather than firefighting.
 
 ## Engagement models
 
