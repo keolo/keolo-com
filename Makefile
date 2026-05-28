@@ -1,8 +1,7 @@
 # Hugo Docker development Makefile
 
 # Variables
-DOCKER_IMAGE := registry.gitlab.com/pages/hugo/hugo_extended:0.140.2
-DOCKER_PLATFORM := linux/amd64
+DOCKER_IMAGE := hugomods/hugo:exts
 HUGO_PORT := 1313
 
 # Set default goal
@@ -21,7 +20,6 @@ help:
 .PHONY: serve
 serve:
 	docker run --rm \
-		--platform $(DOCKER_PLATFORM) \
 		-v $(PWD):/src \
 		-p $(HUGO_PORT):$(HUGO_PORT) \
 		$(DOCKER_IMAGE) \
@@ -31,7 +29,6 @@ serve:
 .PHONY: build
 build:
 	docker run --rm \
-		--platform $(DOCKER_PLATFORM) \
 		-v $(PWD):/src \
 		$(DOCKER_IMAGE) \
 		hugo
@@ -50,7 +47,6 @@ new-post:
 		exit 1; \
 	fi
 	docker run --rm \
-		--platform $(DOCKER_PLATFORM) \
 		-v $(PWD):/src \
 		$(DOCKER_IMAGE) \
 		hugo new posts/$(NAME).md
