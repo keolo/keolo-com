@@ -1,12 +1,11 @@
 ---
 title: 'Vector Math Cant Practice Medicine'
-date: 2026-05-28T15:01:02Z
 draft: false
 weight: 10
 ---
 ## Why 90% of clinical AI startups are regulatory timebombs; and the architecture you actually have to build.
 
-Every week, another seed-stage healthtech founder pitches an "AI copilot for clinicians." They show a slick demo where a doctor asks the AI a complex patient question, and the app spews out a perfectly formatted, confident answer. 
+Every week, another seed-stage healthtech founder pitches an "AI copilot for clinicians." They show a slick demo where a doctor asks the AI a complex patient question, and the app pops out a perfectly formatted, confident answer.
 
 When I look under the hood to see how they built it, 90% of them are using standard RAG (Retrieval-Augmented Generation) wrapped around an OpenAI or Anthropic API. 
 
