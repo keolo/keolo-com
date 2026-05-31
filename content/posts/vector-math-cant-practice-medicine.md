@@ -1,7 +1,7 @@
 ---
-title: 'Vector Math Cant Practice Medicine'
+title: "Vector Math Can't Practice Medicine"
 draft: false
-weight: 10
+weight: 5
 ---
 ## Why 90% of clinical AI startups are regulatory timebombs; and the architecture you actually have to build.
 
