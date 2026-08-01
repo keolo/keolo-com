@@ -114,7 +114,7 @@ Measuring features shipped without tracking their business return creates a fals
 ---
 
 ## The Founder’s Dashboard
-If I were setting up an engineering dashboard for a Series A startup tomorrow, it would look exactly like this:
+If I were setting up an engineering dashboard for a Series A startup tomorrow, it would look something like this:
 
 | **Area** | **Metric** |
 | :--- | :--- |
