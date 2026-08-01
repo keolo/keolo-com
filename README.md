@@ -7,7 +7,7 @@
 
 ## Workflow
 
-1. Build site and run development server: `make serve`
+1. Build site and run development server: `make run`
 2. Create a new post: `make new-post NAME=my-post-name`
 3. Preview site: http://localhost:1313/
 4. Approve post: `draft: false`
@@ -17,7 +17,7 @@
 
 ## Available Commands
 
-- `make serve` - Run Hugo development server (includes draft posts)
+- `make run` - Run Hugo development server (includes draft posts)
 - `make build` - Build the static site to `public/` directory
 - `make clean` - Remove generated files
 - `make new-post NAME=<name>` - Create a new post with the given name

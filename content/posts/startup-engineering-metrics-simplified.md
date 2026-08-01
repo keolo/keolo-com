@@ -90,7 +90,7 @@ Engineering investments typically drive business impact across key operational c
 | **Category** | **Business Impact** | **Engineering Examples** |
 | :--- | :--- | :--- |
 | **Revenue generation** | Directly increases sales | E-commerce, pricing optimization, recommendation engines, lead generation |
-| **Workflow automation** | Reduces labor costs | Invoice processing, document automation, RPA, AI agents |
+| **Workflow automation** | Increases productivity | Invoice processing, document automation, RPA, AI agents |
 | **Decision intelligence** | Improves business decisions | Dashboards, forecasting, BI, executive reporting |
 | **Customer experience** | Improves retention and satisfaction | Customer portals, chatbots, self-service, onboarding |
 | **Sales enablement** | Helps sales close deals | CRM enhancements, proposal automation, CPQ |

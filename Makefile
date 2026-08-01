@@ -11,14 +11,14 @@ HUGO_PORT := 1313
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  serve      - Run Hugo server locally with Docker (with draft posts)"
+	@echo "  run        - Run Hugo server locally with Docker (with draft posts)"
 	@echo "  build      - Build the static site using Docker"
 	@echo "  clean      - Remove the generated site"
 	@echo "  new-post   - Create a new post (usage: make new-post NAME=my-post-name)"
 
 # Run Hugo server locally with Docker (with draft content)
-.PHONY: serve
-serve:
+.PHONY: run
+run:
 	docker run --rm \
 		-v $(PWD):/src \
 		-p $(HUGO_PORT):$(HUGO_PORT) \
