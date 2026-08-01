@@ -82,24 +82,39 @@ Without this layer, it is dangerously easy for an engineering team to celebrate 
 
 ---
 
-## 5. AI Effectiveness
-If your team is using tools like Antigravity or Claude Code, you need to keep measurement lightweight. 
+## 5. Business Impact
+Connecting engineering effort directly to business outcomes is where engineering leaders transition from managing a cost center to driving strategic value. You must be able to answer: *Is our engineering effort actually moving top-line revenue, reducing operational expenses, or multiplying organizational efficiency?*
+
+Engineering investments typically drive business impact across key operational categories:
+
+| **Category** | **Business Impact** | **Engineering Examples** |
+| :--- | :--- | :--- |
+| **Revenue generation** | Directly increases sales | E-commerce, pricing optimization, recommendation engines, lead generation |
+| **Workflow automation** | Increases productivity | Invoice processing, document automation, RPA, AI agents |
+| **Decision intelligence** | Improves business decisions | Dashboards, forecasting, BI, executive reporting |
+| **Customer experience** | Improves retention and satisfaction | Customer portals, chatbots, self-service, onboarding |
+| **Sales enablement** | Helps sales close deals | CRM enhancements, proposal automation, CPQ |
+| **Marketing technology** | Acquires customers efficiently | Attribution, campaign optimization, personalization |
+| **Financial operations** | Saves money and reduces errors | Accounting automation, expense management, budgeting |
+| **Risk & compliance** | Avoids fines and operational risk | Audit trails, security monitoring, compliance reporting |
+| **Supply chain & logistics** | Optimizes operations | Inventory management, route optimization, demand planning |
+| **Developer productivity** | Multiplies engineering output | CI/CD, internal platforms, AI coding assistants |
 
 **Do measure:**
-* % of engineers using AI weekly
-* Self-reported time saved
-* Confidence in AI-generated code
+* **Capacity Allocation vs. Strategic Priorities**: Track the percentage of engineering capacity spent on revenue generation vs. cost reduction vs. platform/tech debt.
+* **Outcome Impact per Initiative**: Connect major engineering bets directly to business metrics (e.g., ARR expansion, churn reduction, document automation).
+* **Time-to-Value for Strategic Bets**: Measure how quickly an engineering investment moves from resource allocation to measurable business return.
 
 **Do NOT measure:**
-* "Lines of AI-generated code" 
-* "AI acceptance rate" 
+* "Story points or feature count as business value"
+* Estimated ROI in isolation without cross-functional input from Product, Sales, or Finance
 
-Tracking how many lines an AI wrote is the fastest way to incentivize a bloated, unmaintainable codebase. Early on, these metrics are easily misinterpreted by leadership. 
+Measuring features shipped without tracking their business return creates a false sense of productivity. Engineering effort is a finite financial investment—make sure it’s driving measurable business outcomes.
 
 ---
 
 ## The Founder’s Dashboard
-If I were setting up an engineering dashboard for a Series A startup tomorrow, it would look exactly like this:
+If I were setting up an engineering dashboard for a Series A startup tomorrow, it would look something like this:
 
 | **Area** | **Metric** |
 | :--- | :--- |
@@ -110,7 +125,7 @@ If I were setting up an engineering dashboard for a Series A startup tomorrow, i
 | **Customer** | Feature adoption |
 | **Customer** | Active users or retention |
 | **Team** | Monthly developer experience score (1-5) |
-| **AI** | Weekly AI usage (if applicable) |
+| **Business Impact** | Effort allocation & strategic outcome impact |
 
 That’s it. It’s enough to spot trends, celebrate wins, and catch systemic issues without overwhelming the team with data-entry chores.
 
@@ -123,7 +138,7 @@ Avoid these at all costs:
 - ❌ **Number of commits**
 - ❌ **Pull requests per engineer**
 - ❌ **Hours worked / Time online**
-- ❌ **AI-generated lines of code**
+- ❌ **Features shipped count (without usage or outcome tracking)**
 - ❌ **Ranking engineers by output**
 
 These are *activity* metrics, not *outcome* metrics. Measure these, and your developers will happily write shorter, messier PRs, commit every 10 minutes, and write verbose code just to make the chart go up to the right. 
@@ -135,4 +150,4 @@ If you're going to take one practical principle away from this for your early-st
 
 That gives you a perfectly balanced view while keeping the system simple enough to actually review in a 30-minute weekly leadership meeting. 
 
-As the company grows and you cross the 50–100 engineer threshold, you can absolutely expand into a richer scorecard with more detailed DevEx, reliability, and AI effectiveness measures. But until then? Keep it lean, keep it honest, and get back to shipping.
+As the company grows and you cross the 50–100 engineer threshold, you can absolutely expand into a richer scorecard with more detailed DevEx, reliability, and strategic business impact measures. But until then? Keep it lean, keep it honest, and get back to shipping.
