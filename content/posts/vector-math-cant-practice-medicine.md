@@ -1,7 +1,8 @@
 ---
+date: 2026-05-30T00:00:00Z
 title: "Vector Math Can't Practice Medicine"
 draft: false
-weight: 5
+hiddenInHomeList: true
 ---
 ## Why 90% of clinical AI startups are regulatory timebombs; and the architecture you actually have to build.
 
