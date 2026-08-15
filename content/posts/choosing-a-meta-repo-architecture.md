@@ -8,7 +8,7 @@ If you ask ten engineers how to structure your source code, you’ll get eleven 
 
 At [Aliveness Ventures](https://www.aliveness.ventures/), we build complex, high-stakes software. Our systems need to move fast, but they also have strict security, privacy, compliance, and IP requirements (HIPAA, GDPR, SOC 2). Oh, and each of our clients own their source code, infrastructure, and documentation from day one. 
 
-Faced with these constraints, we had to make a choice. Here is an honest breakdown of Monorepos, Multi-Repos, and Meta-Repos, and how we landed on the architecture that powers Aliveness Ventures today.
+Faced with these constraints, we had to make a choice. Here is a breakdown of Monorepos, Multi-Repos, and Meta-Repos, and how we landed on the architecture that powers Aliveness Ventures today.
 
 ---
 
@@ -61,7 +61,7 @@ To make the Meta-Repo architecture work, you need great tools. Here is what our 
 *   **Frontend Surfaces:** Astro (Website), React (Web App), Swift / Kotlin / Flutter (Native Apps)
 *   **Infrastructure:** IaC managed via Pulumi 
 *   **Documentation:** Structured, navigable knowledge utilizing [OpenSpec](https://openspec.dev/), [Diátaxis](https://diataxis.fr/), and [OKF](https://okf.md/)
-*   **AI/Agentic Tools:** A dedicated `skills` repository housing our agentic skill sets
+*   **AI/Agentic Tools:** A dedicated `agent-skills` repository housing our agentic skill sets
 *   **Task Management:** Linear (source of truth for cross-repo issues, tasks, and PRs).
 
 ### The Secret Weapon: Our `av` CLI Tool
@@ -73,7 +73,7 @@ A Meta-Repo is only as good as the tooling that glues it together. Because off-t
 1.  **Manifest-Driven Multi-Repo Management:** `av` reads our workspace manifests and seamlessly clones, updates, and orchestrates the specific repositories an engineer needs based on their current role and clearance level.
 2.  **Cross-Referencing Change Overlaps:** If an engineer touches a Go API but forgets to update the React frontend or the Pulumi infra, `av` flags the missing overlapping changes before the PR is even opened.
 3.  **Knowledge Conformance Validation:** It continuously checks that documentation (OpenSpec, Diátaxis, OKF) actually match the current state of the codebase, preventing the dreaded "drifted docs" syndrome.
-4.  **Skill & Eval Checks:** For our AI features, `av` automatically checks our agentic skill descriptions in the `skills` repo against our evaluation sets to ensure accuracy and performance regressions are caught locally.
+4.  **Skill & Eval Checks:** For our AI features, `av` automatically checks our agentic skill descriptions in the `agent-skills` repo against our evaluation sets to ensure accuracy and performance regressions are caught locally.
 
 ### Tying It Together with Linear
 
