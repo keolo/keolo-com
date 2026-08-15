@@ -2,7 +2,7 @@
 title: "JOYO"
 description: "How we built and launched JOYO from scratch in 6 months as the first studio-launched product at Aliveness Ventures."
 draft: false
-weight: 10
+weight: 15
 showtoc: false
 cover:
   image: "images/covers/joyo.jpg"

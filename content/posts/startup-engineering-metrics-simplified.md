@@ -2,7 +2,8 @@
 title: 'Startup Engineering Metrics Simplified'
 date: 2026-08-01T04:33:20Z
 draft: false
-weight: 5
+hiddenInHomeList: true
+weight: 10
 ---
 # The No-BS Engineering Dashboard for Early-Stage Startups
 
