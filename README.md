@@ -1,40 +1,38 @@
 # Keolo.com
 
-## Setup
+Personal website built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme.
 
-- Install Docker: [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- Hugo is run via Docker (version 0.140.2) - no local installation needed
+## Prerequisites
 
-## Workflow
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Hugo runs via Docker; no local installation needed)
 
-1. Build site and run development server: `make run`
-2. Create a new post: `make new-post NAME=my-post-name`
-3. Preview site: http://localhost:1313/
-4. Approve post: `draft: false`
-5. Build static site: `make build`
-6. Deploy site: `git commit -am "message" && git push`
-7. Site is automatically built and deployed to [GitLab Pages](https://gitlab.com/keolo-personal/keolo.gitlab.io/-/pipelines)
+## Commands
 
-## Available Commands
+```bash
+# Start local dev server with drafts enabled (http://localhost:1313)
+make run
 
-- `make run` - Run Hugo development server (includes draft posts)
-- `make build` - Build the static site to `public/` directory
-- `make clean` - Remove generated files
-- `make new-post NAME=<name>` - Create a new post with the given name
+# Create a new post in content/posts/<name>.md
+make new-post NAME=my-post-name
 
-## Usage
+# Build static site to public/
+make build
 
-- Edit configuration: `hugo.yaml`
-- Edit theme: `cp themes/PaperMod/layouts/partials/header.html layouts/partials/header.html`
+# Remove generated build files
+make clean
+```
 
-## Project Pages
+## Content & Development
 
-Project pages are standardized under the following structure: Challenge → Approach → Outcomes → Stack → CTA; keep under 350 words (excluding carousel and diagrams).
+- **Publishing**: Set `draft: false` in the post front matter. Pushing to `main` automatically builds and deploys the site to GitHub Pages via GitHub Actions.
+- **Configuration**: Edit site configuration in `hugo.yaml`.
+- **Theme Overrides**: Copy templates from `themes/PaperMod/layouts/` into `layouts/` to override them (e.g., `cp themes/PaperMod/layouts/partials/header.html layouts/partials/header.html`).
+- **Project Pages**: Follow the structure: **Challenge → Approach → Outcomes → Stack → CTA** (under 350 words, excluding carousels and diagrams).
 
-## Appendix
+## References
 
-- [Using Hugo's Syntax Highlighter Chroma](https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#using-hugos-syntax-highlighter-chroma)
-- [Hide a Page in Hugo](https://makewithhugo.com/hide-a-page/)
-- [Photo Swipe](https://photoswipe.com/getting-started/)
-- [Code Highlighting](https://swapoff.org/chroma/playground/)
-- [Favicons](https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918)
+- [PaperMod Chroma Syntax Highlighting](https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#using-hugos-syntax-highlighter-chroma)
+- [Chroma Style Gallery](https://swapoff.org/chroma/playground/)
+- [PhotoSwipe Documentation](https://photoswipe.com/getting-started/)
+- [Hiding a Page in Hugo](https://makewithhugo.com/hide-a-page/)
+- [Favicon Guidelines](https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918)
