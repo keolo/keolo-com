@@ -29,29 +29,37 @@ Imagine your underlying Large Language Model (whether it's Claude 3.5 Sonnet, GP
 
 * **The Guardrails** are the **steel barriers on the track edges and the pit-lane speed limiter**. Their sole purpose is negative constraint: keeping the car from plunging into the grandstand and preventing the driver from speeding where mechanics are walking.
 * **The Harness** is **everything else that turns that engine into a controllable, winning race car**: the carbon-fiber monocoque chassis, the steering wheel and paddle shifters, the active suspension, the telemetry sensors streaming 1,000 data points per second to the pit wall, the fire suppression system, the pit crew's refueling strategy, and the 6-point safety belt physically strapping the driver to the seat.
+```mermaid
+flowchart TD
+    subgraph Harness ["🏎️ <b>THE HARNESS</b> (The Complete Vehicle & Operating Systems)"]
+        direction TB
 
-```
-       ┌────────────────────────────────────────────────────────┐
-       │                      THE HARNESS                       │
-       │                                                        │
-       │   ┌───────────────┐               ┌────────────────┐   │
-       │   │  Tool Runtime │               │ State & Memory │   │
-       │   └───────┬───────┘               └────────┬───────┘   │
-       │           │                                │           │
-       │           ▼                                ▼           │
-       │     ┌───────────────────────────────────────────┐      │
-       │     │               AI AGENT CORE               │      │
-       │     │          (Probabilistic Engine)           │      │
-       │     └─────────────────────┬─────────────────────┘      │
-       │                           │                            │
-       │           ┌───────────────┴───────────────┐            │
-       │           ▼                               ▼            │
-       │   ┌────────────────┐             ┌─────────────────┐   │
-       │   │ 🚧 GUARDRAILS  │             │ Flight Recorder │   │
-       │   │ (Safety/Policy)│             │ (Observability) │   │
-       │   └────────────────┘             └─────────────────┘   │
-       │                                                        │
-       └────────────────────────────────────────────────────────┘
+        subgraph Upstream ["Execution & State Controls"]
+            Tools["🔧 <b>Tool Runtime</b><br><small>Gearbox & Steering Rack</small>"]
+            State["💾 <b>State & Memory</b><br><small>Fuel Management & Telemetry</small>"]
+        end
+
+        Engine(["🔥 <b>AI AGENT CORE</b><br><b>900-HP Racing Engine</b><br><small>Probabilistic Power</small>"])
+
+        subgraph Downstream ["Safety & Monitoring Perimeter"]
+            Guardrails["🚧 <b>Guardrails</b><br><small>Pit Limiter & Steel Barriers</small>"]
+            Telemetry["📊 <b>Flight Recorder</b><br><small>Pit Wall Telemetry</small>"]
+        end
+
+        Tools --> Engine
+        State --> Engine
+        Engine --> Guardrails
+        Engine --> Telemetry
+    end
+
+    style Harness fill:#f8fafc,stroke:#475569,stroke-width:2px,stroke-dasharray: 4 4
+    style Engine fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#ffffff
+    style Upstream fill:#ffffff,stroke:#cbd5e1,stroke-width:1px
+    style Downstream fill:#ffffff,stroke:#cbd5e1,stroke-width:1px
+    style Guardrails fill:#fffbeb,stroke:#d97706,stroke-width:1.5px
+    style Telemetry fill:#f0fdf4,stroke:#16a34a,stroke-width:1px
+    style Tools fill:#f8fafc,stroke:#64748b,stroke-width:1px
+    style State fill:#f8fafc,stroke:#64748b,stroke-width:1px
 ```
 
 Notice the crucial hierarchy: **Guardrails are just one subsystem inside the harness.**
@@ -168,24 +176,31 @@ To see why guardrails without a harness are useless, look at three common produc
 
 As a non-technical founder or product leader, understanding this dichotomy protects you from two fatal engineering traps:
 
-```
-                  ▲
-                  │
-   HIGH           │    THE OVER-GUARDED            THE PRODUCTION-READY
-                  │      PAPERWEIGHT                     SYSTEM
-                  │   Safe, but incapable        Resilient, governed,
-   GUARDRAIL      │     and brittle.              auditable & fast.
-   SOPHISTICATION │
-                  │  ─────────────────────────┼─────────────────────────
-                  │
-                  │       THE TOY MVP             THE UNGOVERNED
-                  │   Vulnerable & fragile.          BULLDOZER
-   LOW            │                            Fast and dangerous;
-                  │                            destroys production.
-                  │
-                  └─────────────────────────────────────────────────────►
-                         LOW                            HIGH
-                                HARNESS ROBUSTNESS
+```mermaid
+flowchart TB
+    subgraph Matrix ["<b>THE FOUNDER'S TRAP: GUARDRAILS VS. HARNESS</b>"]
+        direction TB
+
+        subgraph HighGuardrails ["▲ HIGH GUARDRAIL SOPHISTICATION"]
+            direction LR
+            Paperweight["<b>The Over-Guarded Paperweight</b><br><br>• 🛡️ Heavy safety & refusal filters<br>• ❌ Fragile state & no retry logic<br>• 🛑 <i>Safe, but accomplishes nothing</i>"]
+            Production["<b>The Production-Ready System</b><br><br>• 🛡️ Comprehensive safety perimeter<br>• ⚙️ Resilient state & recovery loops<br>• 🚀 <i>Autonomous, governed & reliable</i>"]
+        end
+
+        subgraph LowGuardrails ["▼ LOW GUARDRAIL SOPHISTICATION"]
+            direction LR
+            ToyMVP["<b>The Toy MVP</b><br><br>• ❌ No safety or injection defense<br>• ❌ Fragile state & no recovery<br>• ⚠️ <i>Breaks on the first edge case</i>"]
+            Bulldozer["<b>The Ungoverned Bulldozer</b><br><br>• ❌ Unchecked tool permissions<br>• ⚙️ Fast execution & deep access<br>• 💥 <i>One injection from disaster</i>"]
+        end
+    end
+
+    style Matrix fill:#f8fafc,stroke:#475569,stroke-width:2px
+    style HighGuardrails fill:#ffffff,stroke:#cbd5e1,stroke-width:1px
+    style LowGuardrails fill:#ffffff,stroke:#cbd5e1,stroke-width:1px
+    style Paperweight fill:#fffbeb,stroke:#d97706,stroke-width:2px,text-align:left
+    style Production fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,text-align:left
+    style ToyMVP fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,text-align:left
+    style Bulldozer fill:#fef2f2,stroke:#dc2626,stroke-width:2px,text-align:left
 ```
 
 1. **The Over-Guarded Paperweight (High Guardrails, Low Harness):**  
