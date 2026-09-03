@@ -1,5 +1,4 @@
 ---
-date: 2026-05-30T00:00:00Z
 title: "Vector Math Can't Practice Medicine"
 draft: false
 hiddenInHomeList: true

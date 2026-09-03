@@ -1,7 +1,7 @@
 ---
 title: 'Choosing a Meta-Repo Architecture'
-date: 2026-08-15T05:16:53Z
 draft: false
+hiddenInHomeList: true
 weight: 5
 ---
 Ask ten engineers how to structure source code, and you will get eleven different answers. The debate between monorepos and multi-repos has run for over a decade. But when you are coordinating AI agent workflows, strict data compliance, and multi-tenant IP boundaries, both models show real cracks. That is why we settled on a third option: the meta-repo.

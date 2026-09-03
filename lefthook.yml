@@ -1,0 +1,6 @@
+# lefthook.yml
+
+pre-commit:
+  commands:
+    prevent-direct-commit:
+      run: .githooks/pre-commit
