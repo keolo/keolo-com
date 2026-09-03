@@ -1,6 +1,5 @@
 ---
 title: 'Startup Engineering Metrics Simplified'
-date: 2026-08-01T04:33:20Z
 draft: false
 hiddenInHomeList: true
 weight: 10
