@@ -1,7 +1,8 @@
 ---
 title: "Your AI Doesn't Just Need Guardrails. It Needs a Harness."
 draft: false
-weight: 1
+weight: 5
+hiddenInHomeList: true
 description: "Confusing AI harnesses with guardrails burns startup runway. Here is an architectural breakdown of why AI agents need a robust harness to survive production."
 tags: ["AI", "Agentic AI", "System Architecture", "Startups", "Engineering Leadership"]
 ---
