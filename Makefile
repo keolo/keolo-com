@@ -16,9 +16,16 @@ help:
 	@echo "  clean      - Remove the generated site"
 	@echo "  new-post   - Create a new post (usage: make new-post NAME=my-post-name)"
 
+.PHONY: init-submodules
+init-submodules:
+	@if [ ! -f "themes/PaperMod/theme.toml" ]; then \
+		echo "Initializing git submodules..."; \
+		git submodule update --init --recursive; \
+	fi
+
 # Run Hugo server locally with Docker (with draft content)
 .PHONY: run
-run:
+run: init-submodules
 	docker run --rm \
 		-v $(PWD):/src \
 		-p $(HUGO_PORT):$(HUGO_PORT) \
@@ -27,7 +34,7 @@ run:
 
 # Build the static site
 .PHONY: build
-build:
+build: init-submodules
 	docker run --rm \
 		-v $(PWD):/src \
 		$(DOCKER_IMAGE) \
