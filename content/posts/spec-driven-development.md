@@ -2,21 +2,21 @@
 title: "Spec-Driven Development - Why AI Coding Needs Specs, Not Better Prompts"
 draft: false
 weight: 2
-description: "Prompting LLMs directly from raw feature ideas leads to hallucinated scope and regression churn. Here is how the Plan-Build-Learn spec-driven workflow turns human intent into verified software."
+description: "Prompting LLMs from raw feature ideas leads to hallucinated scope and regression churn. Here is how the Plan-Build-Learn spec-driven workflow turns intent into working code."
 tags: ["AI", "Software Engineering", "Product Management", "TDD", "Product Engineering System"]
 ---
 
-Most developers adopting AI coding assistants fall into a familiar loop: drop a loose feature description into a chat prompt, get back several hundred lines of reasonable-looking code, and spend the rest of the day patching broken imports, fixing edge cases, and untangling silent regressions.
+If you use AI coding assistants, you know the cycle: paste a rough feature description into a chat box, get back three hundred lines of plausible code, and spend the rest of your day hunting down broken imports, missed edge cases, and silent regressions.
 
-The issue isn't that language models are bad at writing code. It is that jumping straight from an informal idea to implementation forces the model to invent everything in between: architectural boundaries, state management, error handling, and unstated assumptions.
+The model isn't necessarily bad at writing syntax. The problem is asking it to jump straight from a vague idea to implementation. Without clear boundaries, the model has to invent everything in between—state management, error handling, data flow, and all your unstated constraints.
 
-Prompts alone cannot bridge that gap. When context is fuzzy, models fill the void by inventing plausible but untested assumptions. The solution isn't clever prompt engineering—it is applying a structured discipline: **Spec-Driven Development (SDD)** organized around a closed-loop **Plan → Build → Learn** lifecycle.
+Better prompt engineering won't solve this. When context is fuzzy, models hallucinate plausible defaults. To get reliable software out of an AI, you need an engineering harness: **Spec-Driven Development (SDD)** organized around a tight **Plan → Build → Learn** cycle.
 
 ---
 
-## The Spec-Driven Pipeline
+## The Spec-Driven Workflow
 
-Instead of relying on freeform chat threads to guide implementation, Spec-Driven Development establishes a structured, closed-loop pipeline from intent to production:
+Instead of running off ad-hoc chat threads, Spec-Driven Development breaks delivery into three stages:
 
 ```mermaid
 flowchart LR
@@ -26,13 +26,13 @@ flowchart LR
     LEARN -.->|Telemetry & learnings| PLAN
 ```
 
-Each stage in this pipeline acts as an explicit contract for the next, bound by deterministic quality gates that prevent drift before code is generated or merged.
+Each stage produces a clear contract for the next, separated by gates that catch misunderstandings before code gets written or merged into trunk.
 
 ---
 
 ## 1. Plan: From Intent to Ready Tasks
 
-The **Plan** stage turns ambiguous feature ideas into unambiguous, testable engineering contracts. Rather than jumping straight to generation, planning systematically moves through four phases:
+The **Plan** stage turns vague ideas into testable contracts. Before generating code, planning steps through four distinct checkpoints:
 
 ```mermaid
 flowchart TD
@@ -43,9 +43,9 @@ flowchart TD
     Tasks --> Ready(["🏁 Ready for Build"])
 ```
 
-### Capturing Intent & Boundaries (Proposal / PRD)
+### Clarify Intent & Scope (Proposal / PRD)
 
-Before designing APIs or database tables, we define the human intent: what problem needs solving, who it affects, what constraints apply, and how success will be measured.
+Before touching APIs or database schemas, write down what you actually want to achieve: the problem, who it affects, constraints, and how you will measure success.
 
 ```markdown
 # Proposal: Dark Mode
@@ -54,13 +54,13 @@ Before designing APIs or database tables, we define the human intent: what probl
 **Success Metric:** 20% of active users enable the dark theme within 30 days of release.
 ```
 
-The proposal purposefully omits implementation mechanics like CSS variables, state libraries, or schema migrations. It establishes the "why" and sets non-goals to prevent scope creep.
+Keep implementation details out of this document. No CSS variables, state managers, or schema migrations yet. You want clear agreement on the "why" and explicit non-goals to keep scope tight.
 
-### Behavioral Specifications & Architecture (`spec.md` & `design.md`)
+### Behavioral Specs & Architecture (`spec.md` & `design.md`)
 
-The specification layer translates product intent into concrete behavioral contracts and technical architecture before touching implementation code.
+Next, turn product intent into behavioral contracts and system architecture.
 
-Using structured specification formats like [OpenSpec](https://openspec.dev/), requirements are defined through verifiable Given/When/Then scenarios using RFC 2119 keywords:
+Using structured formats like [OpenSpec](https://openspec.dev/), define requirements with verifiable Given/When/Then scenarios and RFC 2119 keywords:
 
 ```markdown
 ### Requirement: Theme Toggle
@@ -73,15 +73,15 @@ The system SHALL let an authenticated user switch between light and dark themes 
 - AND the preference persists across subsequent browser sessions
 ```
 
-Alongside the behavioral contract, `design.md` specifies technical boundaries: component boundaries, state management models, storage schemas, and security invariants.
+Alongside the behavior, use `design.md` to map out technical boundaries: component boundaries, state flow, database schemas, and security constraints.
 
-Modern spec pipelines also practice **progressive rigor**:
-- **Micro Tier (`tier: micro`)**: For lightweight brownfield changes or single-component updates, requirements and tasks consolidate into a single, concise `spec.md`.
-- **Standard / Major Tiers (`tier: standard` / `tier: major`)**: For cross-component or architectural features, full artifact separation (`proposal.md`, `spec.md`, `design.md`, `tasks.md`) and formal Decision Records are enforced.
+Match ceremony to the risk (**progressive rigor**):
+- **Micro Tier (`tier: micro`)**: For bug fixes or simple UI tweaks, collapse requirements and tasks into a single `spec.md`.
+- **Standard & Major Tiers (`tier: standard` / `tier: major`)**: For multi-system changes or architectural updates, keep artifacts separate (`proposal.md`, `spec.md`, `design.md`, `tasks.md`) and document key choices in Decision Records.
 
-### Vertical Task Decomposition (`tasks.md`)
+### Slicing Vertical Tasks (`tasks.md`)
 
-Once the specification passes validation, the work decomposes into discrete, dependency-ordered tasks structured as a Directed Acyclic Graph (DAG):
+Once the specification is solid, break the work down into a dependency-ordered list of tasks (a DAG):
 
 ```markdown
 ## Task T1: Theme persistence API and store
@@ -95,23 +95,23 @@ Once the specification passes validation, the work decomposes into discrete, dep
 - blocked_by: [T1]
 ```
 
-Every task slices vertically across the necessary layers (interface, domain, data) rather than horizontally (no "DB-only" or "styling-only" PRs). Tasks explicitly declare dependencies (`blocked_by`), preventing out-of-order execution churn.
+Slice tasks vertically through UI, business logic, and storage—avoid horizontal "DB-only" or "styling-only" PRs. Declaring explicit dependencies (`blocked_by`) stops an AI from jumping ahead before the groundwork exists.
 
-### The Review Breakpoint: Definition of Ready (DoR)
+### Definition of Ready (DoR)
 
-The planning stage stops deterministically at the **Definition of Ready (DoR)** gate. DoR audits that:
-1. Intent, constraints, and success metrics are explicitly defined.
-2. Requirements are captured as verifiable Given/When/Then scenarios.
-3. Architecture, data contracts, and failure modes are addressed.
-4. Tasks are cleanly sliced with verified dependencies.
+Planning stops cold at the **Definition of Ready (DoR)** gate. Before opening an editor or kicking off a prompt:
+1. The problem, boundaries, and success metrics are written down.
+2. Requirements are captured as verifiable scenarios.
+3. Architecture, data models, and failure modes are resolved.
+4. Tasks are sliced with explicit dependencies.
 
-By halting at DoR, planning establishes an intentional human-in-the-loop review seam. Worktrees are not dirtied, branches are not provisioned, and agents do not start coding until the team aligns on the contract.
+This pause is intentional. You don't create branches, dirty git trees, or burn tokens on code until everyone agrees on what "done" looks like.
 
 ---
 
 ## 2. Build: Test-Driven Implementation & Trunk Safety
 
-Once a change satisfies DoR, execution transitions to the **Build** stage. Here, specifications become executable verification harnesses.
+Once a change clears DoR, execution moves to **Build**. Here, specifications become executable test suites.
 
 ```mermaid
 flowchart TD
@@ -122,15 +122,15 @@ flowchart TD
     DoD --> PR["Merge PR to Main Trunk<br/>(Feature Flagged)"]
 ```
 
-### Isolated Workspaces & Topological Execution
+### Isolated Worktrees & Topological Ordering
 
-Executing tasks directly in a shared working copy invites git conflicts, untracked artifacts, and context pollution. The build workflow automatically checks out an isolated Git worktree per task.
+Letting an AI write code directly in your active working branch is a quick way to accumulate git noise and untracked files. Check out an isolated Git worktree for each task (`feature/<slug>`).
 
-Furthermore, execution enforces topological dependencies: if a developer or agent attempts to execute `T2` while `T1` is still pending, the execution engine blocks the task and redirects attention to the unblocked dependency.
+Respect task dependencies. If `T2` depends on `T1`, don't attempt `T2` until `T1` is merged and verified. Keeping the order strict keeps context clean.
 
-### Executable Specs via Strict TDD
+### Why TDD Matters Even More with AI
 
-With an isolated workspace and scoped task in hand, **Test-Driven Development (TDD)** serves as the execution engine:
+With an isolated worktree and a clear task, **Test-Driven Development (TDD)** becomes your safety harness:
 
 ```
    ┌─────────┐
@@ -148,25 +148,25 @@ With an isolated workspace and scoped task in hand, **Test-Driven Development (T
    └─────────┘
 ```
 
-In an AI-assisted workflow, TDD is the antidote to model hallucination:
-- **Objective harness**: When you hand an agent a failing test alongside a Given/When/Then scenario, the model doesn't need to guess whether its implementation works. It has an objective test harness to run against.
-- **Fast feedback loop**: The agent iterates in red-green cycles, executing local test runners until assertions pass.
-- **Scope containment**: Because tests enforce exact spec scenarios, the model cannot arbitrarily invent unrelated features or refactor untouched subsystems.
+When you tell an LLM "build feature X," it gives you code that compiles and looks right at a glance. But when you hand it a failing test based on a Given/When/Then scenario:
+- **No guessing**: The model doesn't need to estimate whether its code works. It runs the test suite. Green means pass; red means try again.
+- **Fast feedback**: The agent iterates in red-green cycles, fixing bugs against real compiler errors and test assertions.
+- **Contained scope**: Because the tests verify exact requirements, the model is much less likely to wander off and rewrite untouched subsystems.
 
-### Automated Hygiene & Definition of Done (DoD)
+### Definition of Done (DoD)
 
-Before an implementation slice can be submitted or merged, it must clear the **Definition of Done (DoD)** gate:
-- All unit, integration, and contract tests pass.
-- Repository maintenance tasks (`make maintain`, linters, code formatters, documentation link validators) execute cleanly.
-- Unfinished or high-impact features are wrapped safely behind dark feature flags (`default: false`).
+Before opening a PR or merging into trunk, the branch must pass the **Definition of Done (DoD)**:
+- All unit, integration, and contract tests pass without skips.
+- Repository checks (`make maintain`, linters, formatters, and link checkers) run clean.
+- In-progress or risky features are tucked behind feature flags (`default: false`).
 
-Each completed task yields a small, focused Pull Request merged continuously into trunk.
+Keep PRs small. Land each completed task directly into trunk behind a flag instead of letting massive feature branches drift for weeks.
 
 ---
 
-## 3. Learn: Telemetry, Knowledge Codification & Archival
+## 3. Learn: Telemetry, Knowledge & Archival
 
-Shipping code to production is not the end of the lifecycle. The **Learn** stage closes the loop between deployed software and future planning.
+Deploying code isn't where things end. The **Learn** stage connects real-world production results back to your next round of planning.
 
 ```mermaid
 flowchart TD
@@ -177,20 +177,20 @@ flowchart TD
     Archive -.->|Feed Insights| NextPlan(["Next Plan Cycle"])
 ```
 
-### Evaluating Telemetry Against Hypotheses
+### Measure Against the Original Hypothesis
 
-Once deployed, the feature's real-world impact is evaluated against the hypotheses and metrics originally stated in the proposal:
-- Did 20% of active users adopt dark mode within 30 days?
-- Did latency or error budgets regress?
-- Are the observed metric deltas statistically significant?
+Once code is in production and rolls out behind a flag, check whether it actually delivered on the proposal:
+- Did users adopt dark mode as expected?
+- Did p99 latency or error rates budge?
+- Are the metric changes real, or just noise?
 
-Modern tooling evaluates runtime telemetry (e.g., PostHog events, error tracking) with sequential statistical significance checks, avoiding premature conclusions or confirmation bias. If a feature fails to move the intended needle or triggers user friction, feature flags allow instant rollback.
+If numbers tank or errors spike, turn the flag off. When you measure early, you don't have to guess whether a feature worked.
 
-### Codifying Durable Knowledge (OKF)
+### Save What You Learned (OKF)
 
-Engineering teams suffer from amnesia. Critical lessons learned during implementation—edge-case browser behaviors, state synchronization quirks, operational invariants—frequently get buried in merged PR comments or ephemeral AI chat histories.
-
-In the Learn stage, hard-won insights are promoted into durable documentation using standardized knowledge schemas like the **Open Knowledge Format (OKF)** in `docs/concepts/`:
+Every non-trivial build exposes subtle surprises: browser-specific layout glitches, auth token edge cases, or caching caveats.
+Usually, those discoveries get buried in squashed PR comments or lost in transient chat logs.
+Before moving to the next feature, document those system invariants—for example, using an Open Knowledge Format (OKF) file in `docs/concepts/`:
 
 ```markdown
 ---
@@ -205,24 +205,24 @@ sources:
 Client-side theme preferences must be synchronized with root HTML classes prior to first paint to avoid theme flash (FOUC).
 ```
 
-By curating durable domain models and architectural decisions, future agent sessions and engineers can instantly ground themselves in established system invariants.
+Writing down invariants gives both teammates and future AI runs immediate context, preventing them from making the same mistakes twice.
 
-### Atomic Archival & Closing the Loop
+### Archive and Feed the Next Cycle
 
-Finally, the completed change directory is atomically archived from `specs/changes/` to `specs/archive/`, marking all tasks completed and recording lifecycle timestamps.
+Finally, move completed change specs from `specs/changes/` into `specs/archive/`, marking tasks finished and capturing timestamps.
 
-The telemetry, user feedback, and architectural insights captured during the Learn stage directly seed the next **Plan** cycle, completing the feedback loop.
+What you learn from metrics, bugs, and user feedback feeds directly into your next **Plan** stage, closing the loop.
 
 ---
 
-## Toward a Product Engineering System
+## Building a System, Not Chasing Prompts
 
-Most teams adopting AI today operate ad hoc: pasting snippets into chat windows, arguing with models over broken imports, and hoping the assistant remembers yesterday's architectural decisions.
+Most teams adopting AI code ad hoc: pasting snippets into chat prompts, fighting with models over hallucinated imports, and hoping the bot remembers yesterday's architectural decisions.
 
-Teams shipping reliably treat this as a systems problem. Environments like [Aliveness Dev](https://github.com/aliveness-dev) operationalize the full **Plan → Build → Learn** pipeline:
-- Guiding founders, PMs, and engineers through structured intent capture and OpenSpec behavioral modeling.
-- Enforcing deterministic quality gates (DoR and DoD) and isolated Git worktree execution.
-- Driving test-driven execution and continuous trunk integration.
-- Evaluating production telemetry and codifying institutional knowledge.
+Teams shipping reliably treat this as a workflow problem. Tooling like [Aliveness Dev](https://github.com/aliveness-dev) operationalizes this **Plan → Build → Learn** pipeline:
+- Walking through intent capture and OpenSpec behavioral models.
+- Enforcing quality gates (DoR and DoD) and isolated worktrees.
+- Driving strict test-driven development into main trunk.
+- Tracking production telemetry and recording durable knowledge.
 
-AI models are extraordinary execution engines when given clear constraints and verifiable contracts. By anchoring development in a disciplined Plan-Build-Learn lifecycle, teams spend less time wrangling prompts and more time delivering durable, verified software.
+Language models make great execution engines when they have strict constraints and clear contracts. Ground them in a solid Plan-Build-Learn loop, and you can stop wrangling prompts and get back to shipping reliable software.
