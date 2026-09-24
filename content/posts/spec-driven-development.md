@@ -10,7 +10,7 @@ If you use AI coding assistants, you know the cycle: paste a rough feature descr
 
 The model isn't necessarily bad at writing syntax. The problem is asking it to jump straight from a vague idea to implementation. Without clear boundaries, the model has to invent everything in between—state management, error handling, data flow, and all your unstated constraints.
 
-Better prompt engineering won't solve this. When context is fuzzy, models hallucinate plausible defaults. To get reliable software out of an AI, you need an engineering harness: **Spec-Driven Development (SDD)** organized around a tight **Plan → Build → Learn** cycle.
+Better prompt engineering won't solve this. When context is fuzzy, models hallucinate plausible defaults. To get reliable software out of an AI, you need a product-engineering-qa harness: **Spec-Driven Development (SDD)** organized around a tight **Plan → Build → Learn** cycle.
 
 ---
 
@@ -20,13 +20,13 @@ Instead of running off ad-hoc chat threads, Spec-Driven Development breaks deliv
 
 ```mermaid
 flowchart LR
-    PLAN["Plan<br/>Proposal, PRD, spec, design, tasks"]
+    PLAN["Plan<br/>Proposal, spec, design, tasks"]
     PLAN --> BUILD["Build<br/>Red-green-refactor, CI/CD"]
     BUILD --> LEARN["Learn<br/>Measure, capture knowledge"]
     LEARN -.->|Telemetry & learnings| PLAN
 ```
 
-Each stage produces a clear contract for the next, separated by gates that catch misunderstandings before code gets written or merged into trunk.
+Each stage produces a clear contract for the next, separated by gates that catch misunderstandings before code gets written or merged into your codebase.
 
 ---
 
@@ -117,7 +117,7 @@ Once a change clears DoR, execution moves to **Build**. Here, specifications bec
 flowchart TD
     Start(["Build"]) --> Worktree["Provision Isolated Worktree<br/><code>feature/<slug></code>"]
     Worktree --> TDD["Strict TDD Cycle<br/>Red → Green → Refactor"]
-    TDD --> Maintain["Automated Maintenance<br/>Linters, Formatters, Graph Checks"]
+    TDD --> Maintain["Automated Maintenance<br/>Linters, Formatters, Validators"]
     Maintain --> DoD{"Definition of Done (DoD)<br/>Gate Pass"}
     DoD --> PR["Merge PR to Main Trunk<br/>(Feature Flagged)"]
 ```
@@ -220,7 +220,7 @@ What you learn from metrics, bugs, and user feedback feeds directly into your ne
 Most teams adopting AI code ad hoc: pasting snippets into chat prompts, fighting with models over hallucinated imports, and hoping the bot remembers yesterday's architectural decisions.
 
 Teams shipping reliably treat this as a workflow problem. Tooling like [Aliveness Dev](https://github.com/aliveness-dev) operationalizes this **Plan → Build → Learn** pipeline:
-- Walking through intent capture and OpenSpec behavioral models.
+- Walking through intent capture and spec-driven behavioral models.
 - Enforcing quality gates (DoR and DoD) and isolated worktrees.
 - Driving strict test-driven development into main trunk.
 - Tracking production telemetry and recording durable knowledge.
