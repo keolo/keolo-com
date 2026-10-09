@@ -65,20 +65,20 @@ Our day-to-day stack spans several specialized layers:
 *   **AI and Agents:** A dedicated `agent-skills` repository housing agent capabilities and prompt definitions
 *   **Issue Tracking:** Linear as the source of truth for cross-repo work
 
-### Workspace Tooling: The `av` CLI
+### Workspace Tooling: The `alv` CLI
 
-A meta-repo setup requires automation to keep independent repos in sync. Because existing workspace managers did not fit our multi-client compliance structure, we built a dedicated CLI called `av`.
+A meta-repo setup requires automation to keep independent repos in sync. Because existing workspace managers did not fit our multi-client compliance structure, we built a dedicated CLI called `alv`.
 
-Here is what `av` handles across our workspaces:
+Here is what `alv` handles across our workspaces:
 
-1.  **Manifest-driven repo orchestration:** `av` parses workspace manifests to clone, update, and wire together the specific repositories an engineer needs based on their project assignment and clearance.
-2.  **Cross-repo change detection:** If an engineer updates a Go API without adjusting dependent contracts in the React frontend or Pulumi definitions, `av` flags the missing changes before opening a pull request.
+1.  **Manifest-driven repo orchestration:** `alv` parses declarative workspace manifests (`alv.yaml`) to clone, update, and wire together the specific repositories an engineer needs based on their project assignment and clearance.
+2.  **Cross-repo change detection:** If an engineer updates a Go API without adjusting dependent contracts in the React frontend or Pulumi definitions, `alv` flags the missing changes before opening a pull request.
 3.  **Documentation conformance checks:** It verifies that OpenSpec behavioral specs, Diátaxis guides, and OKF knowledge entries match the actual codebase state, preventing documentation drift.
-4.  **Skill and eval validation:** For AI capabilities, `av` runs agent skill definitions in `agent-skills` against local evaluation suites to catch regressions before deployment.
+4.  **Skill and eval validation:** For AI capabilities, `alv` runs agent skill definitions in `agent-skills` against local evaluation suites to catch regressions before deployment.
 
 ### Managing Cross-Repo Work in Linear
 
-Because a feature might touch three or four repositories, we anchor our `av` branches to **Linear** tickets. This links the Go backend PR, the infrastructure PR, and the documentation update under one tracking issue, giving the team a single view of feature readiness.
+Because a feature might touch three or four repositories, we anchor our `alv` branches to **Linear** tickets. This links the Go backend PR, the infrastructure PR, and the documentation update under one tracking issue, giving the team a single view of feature readiness.
 
 ---
 
