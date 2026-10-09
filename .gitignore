@@ -1,5 +1,11 @@
 .av/
+.alv/
 
 .DS_Store
 public
 av.local.yaml
+alv.local.yaml
+alv-worktrees/
+alv-worktrees
+av-worktrees/
+av-worktrees
