@@ -1,18 +1,22 @@
 ---
-title: "Planned vs. Unplanned Work in Agentic Development"
+title: "When Code is Free, What Counts as Unplanned Work?"
 draft: false
 weight: 1
-description: "AI agents make writing code nearly instant, moving the bottleneck to intent and verification. Here is how to structure planned capabilities, fit-and-finish polish, and escalation boundaries in an AI-native SDLC."
+description: "When AI makes writing syntax nearly free, traditional agile definitions of work collapse. Here is how to distinguish planned capabilities from fit-and-finish polish without drowning in bureaucracy or prompt-and-pray chaos."
 tags: ["AI", "Software Engineering", "Product Engineering System", "AI SDLC", "Engineering Leadership"]
 ---
 
-For decades, writing syntax was the slowest part of software engineering. Every ritual—sprint planning, estimation, architectural reviews, and QA cycles—was calibrated around the weeks it took humans to type and wire up code.
+When the marginal cost of writing code collapses to near zero, the economic foundation of software engineering shifts underneath our feet.
 
-AI coding agents changed that almost overnight. What once took three days of typing can now be generated, refactored, and passed through unit tests in fifteen minutes.
+For decades, writing syntax was the most expensive part of building software. Sprints, estimation poker, architectural reviews, and QA cycles were all designed around one brutal bottleneck: turning ideas into working code took weeks of typing. Because typing was slow, **unplanned work was the enemy**. A surprise bug, an unmocked edge case, or a sudden scope change derailed sprints and blew up delivery dates.
 
-It feels like pure leverage. But as Eliyahu Goldratt noted in *The Goal*: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
+AI coding agents changed that dynamic almost overnight. What used to take three days of typing can now be generated, wired up, and covered with unit tests in fifteen minutes.
 
-Today, that inventory is unreviewed code. Agents generate pull requests far faster than teams can decide what they want, and far faster than humans can safely review, verify, and release them.
+When code is this cheap to produce, a dangerous temptation arises: *If an agent can build anything in ten minutes, why plan at all? Isn't all work just prompt-and-iterate?*
+
+That temptation leads straight into an inventory crisis. As Eliyahu Goldratt demonstrated in *The Goal*: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
+
+Today, that inventory is unreviewed, unverified code. Agents generate pull requests far faster than teams can specify what they actually want, and far faster than humans can review, verify, and safely release.
 
 ```mermaid
 flowchart LR
@@ -24,7 +28,7 @@ flowchart LR
     style DOWN fill:#ffebee,stroke:#d32f2f,stroke-width:2px
 ```
 
-To deliver reliably with agents, engineering teams must draw a clean, enforceable line between **Planned Work** and **Unplanned Work**.
+When code is free, writing un-specced software is the fastest way to bankrupt your architecture. To survive the agentic era, engineering teams must redefine their work taxonomy around two strictly bounded categories:
 
 | Dimension | Planned Work | Unplanned Work (Fit & Finish) |
 | :--- | :--- | :--- |
@@ -36,13 +40,13 @@ To deliver reliably with agents, engineering teams must draw a clean, enforceabl
 
 ---
 
-## Planned Work: From Intent to Verified Software
+## Planned Work: Intent to Verified Software
 
-Planned work is the systematic transformation of product intent into verified software. When agents write the code, planning is where engineering leverage actually lives.
+Planned work is deliberate capability expansion. When an agent can write 500 lines of syntax in thirty seconds, planning is where actual engineering leverage lives.
 
 ```mermaid
 flowchart TD
-    Intent["1. Capture Intent & Boundaries<br/><code>proposal.md</code>"] --> Specs["2. Behavioral Spec & Architecture<br/><code>spec.md</code> + <code>design.md</code>"]
+    Intent["1. Capture Intent & Scope<br/><code>proposal.md</code>"] --> Specs["2. Behavioral Spec & Architecture<br/><code>spec.md</code> + <code>design.md</code>"]
     Specs --> DoR{"Definition of Ready (DoR)<br/>Gate Pass"}
     DoR --> Tasks["3. Vertical Task DAG<br/><code>tasks.md</code>"]
     Tasks --> Build["4. Sandboxed TDD Execution<br/>Isolated Worktrees / Flags"]
@@ -51,14 +55,14 @@ flowchart TD
 ```
 
 ### 1. No Spec Means No Code
-If you hand an agent a vague ticket, it won't ask clarifying questions. It hallucinates plausible assumptions and writes hundreds of lines of working code that solves the wrong problem.
+If you feed an agent a vague ticket, it won't push back or ask clarifying questions. It hallucinates plausible assumptions and writes hundreds of lines of syntactically valid code that solves the wrong problem.
 
-If a feature cannot be specified with verifiable scenarios, it is not ready for an agent. Upstream work must first define:
+If a capability cannot be described with observable, verifiable scenarios, an agent should not touch it. Upstream planning must first establish:
 - Problem statements, target users, and explicit non-goals (`proposal.md`).
 - Behavioral contracts with verifiable Given/When/Then scenarios using standards like [OpenSpec](https://openspec.dev/).
 
 ### 2. Executable Acceptance Contracts
-Acceptance criteria are not informal bullet points. They are executable contracts that direct the agent's test harness:
+Acceptance criteria are no longer informal notes in Jira. They are formal contracts that directly anchor the agent's test harness:
 
 ```markdown
 ### Requirement: Idempotent Payment Settlement
@@ -71,10 +75,10 @@ The billing engine SHALL settle authorization holds idempotently within 72 hours
 - AND return HTTP 200 with the original settlement timestamp
 ```
 
-The agent converts these scenarios directly into red-green test suites during build, preventing speculative refactors.
+The agent converts these scenarios directly into red-green test suites during the build, eliminating speculative refactoring.
 
 ### 3. Progressive Rigor for Planned Changes
-Not every planned feature needs the same artifact overhead. Scale ceremony to blast radius:
+Not every planned feature requires a heavy administrative footprint. Scale documentation ceremony to the blast radius:
 
 - **Standard Tier (`tier: standard`)**: New endpoints, database migrations, state machine changes. Requires `proposal.md`, `spec.md`, `design.md`, `tasks.md`, and bifurcated review (spec approved before code is written).
 - **Major Tier (`tier: major`)**: Multi-system overhauls, billing redesigns, cross-repo contracts. Full PRD, research evidence, domain modeling, Decision Records, and architecture review.
@@ -87,16 +91,18 @@ Not every planned feature needs the same artifact overhead. Scale ceremony to bl
 
 ## Unplanned Work: Fit and Finish
 
-In traditional agile setups, unplanned work was often a catch-all bucket for fire drills and scope creep. In an agentic SDLC, unplanned work has a specific, legitimate role:
+If planned work covers capability expansion, what actually counts as **unplanned work** when code is free?
+
+In an agentic SDLC, unplanned work has a specific, legitimate role:
 
 > **Unplanned work consists exclusively of localized bug fixes, edge-case remediation, and post-build fit-and-finish polish on an already specified work item.**
 
 ### The Reality of Fit and Finish
-You spec a feature, an agent builds it in a clean worktree, all tests pass, and DoR/DoD are satisfied. Then you pull the branch, run it locally, and start clicking around.
+You spec a feature, an agent builds it in a clean worktree, all unit tests pass, and DoR/DoD are satisfied. Then you pull the branch, run it locally, and start clicking around.
 
 Empirical reality surfaces friction that no design document could foresee:
-- An empty state shows blank space instead of an onboarding prompt.
-- An error toast says `Error: 422` instead of identifying the invalid field.
+- An empty state shows blank space instead of a helpful onboarding prompt.
+- An error toast says `Error: 422` instead of identifying which input field was invalid.
 - A button tooltip clips off-screen on smaller viewports.
 - A currency input fails when pasting values containing whitespace or symbols.
 
@@ -116,10 +122,10 @@ flowchart TD
     style Polish fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### Does Unplanned Work Need Specs?
-Teams often fall into two traps with post-build polish:
-1. **The Bureaucracy Trap**: Requiring a full `proposal.md`, `spec.md`, and task DAG to fix 8px of padding or handle a null value. Developers will simply bypass the process.
-2. **The Prompt-and-Pray Trap**: Giving an agent loose prompts like *"make this look cleaner."* Without constraints, models hallucinate new dependencies, rewrite shared styles, and trigger regressions.
+### Does Fit and Finish Need Specs?
+When handling last-mile polish, teams usually fall into two traps:
+1. **The Bureaucracy Trap**: Demanding a full `proposal.md`, `spec.md`, and task DAG to fix 8px of padding or handle a null check. Developers will immediately bypass the process.
+2. **The Prompt-and-Pray Trap**: Giving an agent loose prompts like *"make this form look better."* Without constraints, models hallucinate new dependencies, rewrite shared styles, and introduce regressions.
 
 **Unplanned work does not need a spec document; it needs a deterministic verification anchor:**
 
@@ -175,4 +181,4 @@ Adopting an agentic SDLC is a workflow transformation, not a tooling upgrade.
 
 Traditional engineering culture celebrated the developer who typed thousands of lines of un-specced code. In an agentic organization, that developer creates review bottlenecks and technical debt.
 
-The high-leverage engineer is the one who clarifies intent, crafts unambiguous behavioral specifications, establishes strict verification guardrails, and knows exactly when to polish the fit-and-finish—and when to hit the circuit breaker.
+When code is free, the high-leverage engineer is the one who clarifies intent, crafts unambiguous behavioral specifications, establishes strict verification guardrails, and knows exactly when to polish the fit-and-finish—and when to hit the circuit breaker.
