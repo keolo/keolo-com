@@ -2,38 +2,34 @@
 title: "Planned vs. Unplanned Work in Agentic Development"
 draft: false
 weight: 1
-description: "AI agents have collapsed the Build phase from weeks to minutes, shifting the bottleneck upstream to intent and downstream to verification. Here is how to structure planned and unplanned work in an AI-native SDLC."
-tags: ["AI", "Agentic AI", "Software Engineering", "Product Engineering System", "AI SDLC", "Engineering Leadership"]
+description: "AI agents make writing code almost instant, shifting the bottleneck to what you build and how you verify it. Here is how to structure planned features, edge cases, and post-build polish in an agentic workflow."
+tags: ["AI", "Software Engineering", "Product Engineering System", "AI SDLC", "Engineering Leadership"]
 ---
 
-In the traditional software delivery lifecycle, engineering teams lived and died by a six-stage pipeline:
+For decades, writing code was the slowest part of building software.
 
-```
-Plan → Design → Build → Test → Deploy → Maintain
-```
+Requirements gathering, architectural reviews, QA cycles, and sprint planning were all built around a simple constraint: turning an idea into working syntax took days, weeks, or months of manual typing.
 
-For decades, the **Build** phase consumed the lion's share of engineering time, budget, and mental energy. Writing syntax, wiring controllers, plumbing database schemas, and wrestling with CSS took weeks or months. Every surrounding ritual—sprint estimation, requirements gathering, architectural reviews, QA testing, and release cabals—was calibrated around that deliberate, human-speed building tempo.
+AI coding agents changed that almost overnight.
 
-Then autonomous AI coding agents arrived.
+What used to take an engineer several days of focused typing can now be generated, wired up, and covered with unit tests in fifteen minutes.
 
-Tools powered by modern frontier models have compressed the Build phase by an order of magnitude. What once took an engineer three days of focused typing can now be generated, refactored, and passed through unit tests in fifteen minutes.
+At first, it feels like pure leverage. But as Eliyahu Goldratt demonstrated in *The Goal*, if you multiply the speed of one step in a pipeline without changing how work enters or leaves it, you do not speed up the system. You just pile up inventory in front of the next bottleneck.
 
-At first glance, this looks like an unalloyed productivity revolution. But as any student of Eliyahu Goldratt’s *Theory of Constraints* knows: **if you 100x the throughput of one stage in a pipeline without fundamentally restructuring the rest, you do not speed up the system. You just create an catastrophic inventory bottleneck.**
+Today, that inventory is unreviewed code. AI agents generate pull requests faster than teams can decide what they want, and far faster than humans can review, verify, and safely deploy the output.
 
-Today, engineering teams face an acute Work-In-Progress (WIP) crisis. AI agents are generating code faster than organizations can specify what to build, and far faster than humans can review, verify, and safely release it. 
-
-To survive agentic software development, we have to rethink how work enters the system—and fundamentally distinguish between **Planned** and **Unplanned** work.
+To ship reliably with agents, teams have to rethink how work moves through their pipeline—and draw a clear line between **planned work** and **unplanned work**.
 
 ---
 
 ## The Shifting Bottleneck of the AI SDLC
 
-When the center of the pipeline collapses, the constraints move aggressively to the edges:
+When the build phase collapses to minutes, the constraints move out to the edges:
 
 ```mermaid
 flowchart LR
-    UP["Upstream Constraint<br/><b>Deciding What to Build</b><br/>Intent & Quality Specs"] --> BUILD["Compressed Build<br/><b>Agentic Generation</b><br/>Minutes instead of Weeks"]
-    BUILD --> DOWN["Downstream Constraint<br/><b>Verification & Release</b><br/>Review, Evals & Gates"]
+    UP["Upstream Constraint<br/><b>Deciding What to Build</b><br/>Intent & Behavioral Specs"] --> BUILD["Compressed Build<br/><b>Agentic Generation</b><br/>Minutes instead of Days"]
+    BUILD --> DOWN["Downstream Constraint<br/><b>Verification & Release</b><br/>Tests, Evals & Gates"]
     
     style BUILD fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
     style UP fill:#fff3e0,stroke:#f57c00,stroke-width:2px
@@ -41,56 +37,52 @@ flowchart LR
 ```
 
 1. **The Upstream Constraint: Deciding What to Build**  
-   If you feed an AI agent vague prompts, hand-waving PRDs, or half-baked feature ideas, it won't push back and ask clarifying questions like a senior engineer would over coffee. It will hallucinate plausible assumptions, invent silent defaults, and generate hundreds of lines of syntactically flawless code that implements the wrong thing. The upstream bottleneck is now **clarifying intent and authoring unambiguous behavioral specifications**.
+   If you feed an agent a loose prompt or a vague ticket, it won't push back or ask clarifying questions. It fills the gaps with plausible assumptions and generates hundreds of lines of working code that implements the wrong thing. The upstream bottleneck is defining clear intent and testable behavioral specifications before prompting an agent.
 
-2. **The Downstream Constraint: Verification, Review, and Authorization**  
-   More code is hitting manual review queues designed for a trickle of human output. Senior engineers are drowning in 1,200-line diffs generated in seconds. Rubber-stamping PRs leads to silent regressions, while painstakingly parsing every agent-generated token grinds team velocity to a halt. The downstream bottleneck is now **automated verification, behavioral evals, and enforced release gates**.
+2. **The Downstream Constraint: Verification and Release**  
+   Review queues are flooded with massive pull requests generated in seconds. If reviewers rubber-stamp them, regressions slip through. If they painstakingly read every token, team velocity grinds to a halt. The downstream bottleneck is automated verification, behavioral evaluations, and deterministic release gates.
 
-Anthropic's engineering playbook and industry-leading AI SDLC architectures (such as the [Aliveness Product Engineering System](https://github.com/aliveness-dev)) resolve this bottleneck by surrounding agentic execution with versioned artifacts, automated checks, and deterministic feedback loops.
+Modern engineering frameworks—including the [Aliveness Product Engineering System](https://github.com/aliveness-dev)—address these bottlenecks with six practical disciplines:
 
-The blueprint for this modern delivery pipeline rests on six operational pillars:
+- **Capture Intent**: Pin down the actual user problem and target outcomes before touching code.
+- **Specify Behavior with Standards**: Use structured formats like OpenSpec with Given/When/Then scenarios.
+- **Anchor Agents with Context**: Ground models in shared domain concepts, golden libraries, and system invariants.
+- **Verify Continuously with Tests and Evals**: Rely on strict Test-Driven Development (TDD) and multi-turn behavioral evaluations.
+- **Decouple Reviews with Enforced Gates**: Separate spec review from code review, guarded by Definition of Ready (DoR) and Definition of Done (DoD).
+- **Feed Production Learnings Back into Knowledge**: Turn operational findings and post-mortems into durable documentation.
 
-- **Capture Intent**: Interrogate problem statements and outcomes before authoring code.
-- **Produce Requirements Using Standards**: Leverage machine-readable specifications like OpenSpec with Given/When/Then scenarios.
-- **Equip Agents with Reusable Components**: Anchor models with curated domain concepts, golden libraries, and institutional invariants.
-- **Run Tests Continuously, Including Evaluations**: Enforce strict Test-Driven Development (TDD) and multi-turn behavioral evaluations.
-- **Automate Review with Enforced Gates & Human Accountability**: Decouple spec reviews from code reviews, gate merges through Definition of Ready (DoR) and Definition of Done (DoD), and maintain clear human ownership.
-- **Feed Production Findings Back into Planning**: Route telemetry and incident post-mortems back into durable knowledge.
-
-Within this framework, the line between **Planned** and **Unplanned** work must be drawn with surgical precision.
+Within this workflow, you need a clear separation between what gets planned and what gets handled on the fly.
 
 ---
 
 ## Planned Work in Agentic Development
 
-Planned work represents deliberate, value-generating capability expansion. In an agentic SDLC, planned work is never defined as "writing code." **Planned work is the systematic transformation of raw intent into verified system behavior.**
+Planned work is deliberate capability expansion. In an agentic workflow, planned work is never defined as "writing code." **Planned work is the disciplined translation of intent into verified software.**
 
 ```mermaid
 flowchart TD
-    A["Raw Intent / Customer Friction"] --> B["1. Capture Intent & Boundaries<br/><code>proposal.md</code>"]
+    A["Raw Intent / User Problem"] --> B["1. Capture Intent & Scope<br/><code>proposal.md</code>"]
     B --> C["2. Behavioral Spec & Architecture<br/><code>spec.md</code> + <code>design.md</code>"]
     C --> D{"Definition of Ready (DoR)<br/>Gate Pass"}
-    D --> E["3. Vertical Slice DAG<br/><code>tasks.md</code>"]
+    D --> E["3. Vertical Task Decomposition<br/><code>tasks.md</code> (DAG)"]
     E --> F["4. Sandboxed TDD Execution<br/>Isolated Worktrees / Flags"]
     F --> G{"Definition of Done (DoD)<br/>Gate Pass"}
     G --> H["5. Telemetry & Durable Knowledge<br/>Open Knowledge Format"]
 ```
 
-Here is how each dimension of planned work operates when agents do the heavy lifting:
+Here is how planned work operates when agents handle implementation:
 
-### 1. When There Are No Clear Specs: Stop Execution
-In traditional engineering, teams frequently threw engineers at poorly specified tickets, expecting them to "figure it out as they code." With AI agents, doing this is organizational suicide. 
+### 1. No Clear Spec Means No Code
+In traditional setups, teams often handed engineers vague tickets and expected them to figure out the details as they went. Doing that with an AI agent just generates plausible technical debt.
 
-When specifications are fuzzy or absent, **generating code is strictly prohibited**. That work is not an implementation task; it is an upstream planning task. 
+When a specification is missing or ambiguous, writing code is the wrong step. The work is an upstream planning problem:
+- Capture the problem, user personas, constraints, and explicit non-goals (`proposal.md`).
+- Turn business expectations into observable behavioral contracts using standards like [OpenSpec](https://openspec.dev/) with formal RFC 2119 keywords (`SHALL`, `MUST`, `MAY`).
 
-Before an agent touches a repository:
-- Run structured intent extraction (`/capture-intent`) to drill into user personas, core friction, target metrics, and explicit non-goals.
-- Translate business goals into observable behavioral contracts using standards like [OpenSpec](https://openspec.dev/) with formal RFC 2119 keywords (`SHALL`, `MUST`, `MAY`).
-
-If the specification cannot be verified deterministically, the feature is not ready for an agent.
+If you cannot define how to verify a feature deterministically, an agent should not be writing code for it.
 
 ### 2. Acceptance Criteria as Executable Contracts
-In an agentic workflow, acceptance criteria are not hand-wavy bullet points in Jira. They are formal, scenario-driven contracts:
+Acceptance criteria are not casual bullet points in a tracker. They are formal, scenario-driven contracts:
 
 ```markdown
 ### Requirement: Idempotent Payment Settlement
@@ -104,43 +96,41 @@ The billing engine SHALL settle authorization holds idempotently within a 72-hou
 - AND emit an idempotent duplicate warning metric to telemetry
 ```
 
-Because these scenarios follow strict Given/When/Then structures, the agent can directly translate them into red-green test suites during the build phase. Acceptance criteria are the rails that prevent the agent from wandering off into speculative refactors.
+Because these scenarios follow a strict Given/When/Then format, the agent can convert them directly into red-green test suites during the build step. The criteria become the guardrails that prevent the agent from wandering off into unrequested refactoring.
 
-### 3. Definition of Ready (DoR) and Definition of Done (DoD)
-Quality gates must be enforced programmatically rather than left to reviewer goodwill:
+### 3. Clear Gates: Definition of Ready and Done
+Quality gates protect both sides of the build process:
 
-- **Definition of Ready (DoR)**: The gate that protects the Build phase. Before an agent provisions an isolated Git worktree or writes a test, the proposal, research evidence, behavioral scenarios, and technical design (`design.md`) must pass peer critique (`/verify-gates`).
-- **Definition of Done (DoD)**: The gate that protects main trunk. A task is not done when the agent says "I've implemented the feature." It is done when:
+- **Definition of Ready (DoR)**: Protects the build step. Before an agent provisions an isolated Git worktree or touches a test, the proposal, behavioral scenarios, and technical design (`design.md`) must pass review.
+- **Definition of Done (DoD)**: Protects the main trunk. A task is not complete when an agent reports that it finished. It is done when:
   1. All unit, integration, and contract tests pass with 100% scenario coverage.
-  2. Linters, formatters, and static security analyzers run clean.
+  2. Linters, formatters, and static checks pass clean.
   3. The change is isolated behind a dark feature flag (`default: false`).
-  4. Architectural choices are codified in an immutable Decision Record.
+  4. Architectural choices are recorded in a Decision Record.
 
 ### 4. Progressive Rigor for Planned Capabilities
-Not all planned work requires the same administrative weight. Teams should scale artifact ceremony to risk and blast radius using **Progressive Rigor**:
+Not every planned feature requires the same administrative footprint. Scale documentation ceremony to the blast radius using **Progressive Rigor**:
 
-| Tier | Trigger | Required Artifacts | Review Seam |
+| Tier | Trigger | Required Artifacts | Review Process |
 | :--- | :--- | :--- | :--- |
-| **Standard Tier (`tier: standard`)** | New API endpoint, schema mutation, or state machine modification | Full `proposal.md`, `spec.md`, `design.md`, `tasks.md` | Bifurcated review: Spec PR approval, followed by execution PRs |
-| **Major Tier (`tier: major`)** | Multi-system refactor, billing architecture overhaul, cross-repo contract | Full PRD, research evidence, OKF domain model, DRs, sliced DAG | Formal architecture review and multi-agent execution |
+| **Standard Tier (`tier: standard`)** | New API endpoint, database schema change, or state machine modification | `proposal.md`, `spec.md`, `design.md`, `tasks.md` | Bifurcated review: Approve spec first, then review code diffs |
+| **Major Tier (`tier: major`)** | Multi-system refactor, billing architecture overhaul, cross-repo contract | Full PRD, research evidence, domain model, DRs, sliced DAG | Formal architecture review and multi-agent execution |
 
-If a change modifies public contracts, mutates state machines, or introduces new infrastructure, it belongs in one of these planned tiers. It demands explicit intent, formal Given/When/Then scenarios, and a verified Definition of Ready before an agent writes a single line of production code.
+If a planned change alters public contracts, mutates state machines, or adds new infrastructure, it belongs in the Standard or Major tier. It requires clear intent, formal Given/When/Then scenarios, and a verified DoR before implementation begins.
 
-### 5. Estimating Scope and Timelines
-Traditional estimation techniques (story points, planning poker, typing hours) are broken in an agentic world. An agent doesn't care if an algorithm takes 50 lines or 500 lines of boilerplate.
+### 5. Scope and Timeline Estimation
+Traditional estimation techniques (story points, hours of typing) break down with agents. An agent takes roughly the same time to write fifty lines of simple logic as it does five hundred lines of boilerplate.
 
-In an agentic SDLC, scope and timeline estimation shifts to four new metrics:
-- **Specification Ambiguity**: How many unknown domain interactions or edge cases remain unresolved?
-- **Dependency Depth (DAG)**: How many sequential vertical slices (`tasks.md`) are required? Independent tasks can run across parallel agent worktrees; deep sequential dependency chains determine the critical path.
+In an agentic workflow, estimation shifts to four practical factors:
+- **Specification Ambiguity**: How many unknown interactions or edge cases remain unresolved?
+- **Dependency Depth (DAG)**: How many sequential vertical slices (`tasks.md`) are required? Independent tasks run in parallel worktrees; sequential chains set the critical path.
 - **Blast Radius**: How many existing contracts, shared schemas, or downstream services are touched?
-- **Verification Latency**: How long does it take for CI suites, containerized sandboxes, and behavioral evals to execute and prove correctness?
+- **Verification Latency**: How long does it take for CI suites, container sandboxes, and evaluations to prove correctness?
 
-### 6. Why the Change Was Made: Durable Knowledge
-One of the most dangerous side effects of agentic development is **institutional amnesia**. An agent generates code in an ephemeral context window. Once the PR merges and the chat session terminates, the reasoning behind subtle edge cases evaporates.
+### 6. Durable Knowledge
+Agents work in ephemeral context windows. Once a pull request merges and the session ends, the reasoning behind subtle decisions disappears.
 
-Planned work is not finished until that reasoning is codified into durable knowledge. 
-
-Using structured documentation formats like the Open Knowledge Format (OKF) in `docs/concepts/`, teams capture system invariants discovered during the build:
+Planned work is not complete until that context is recorded in durable documentation. Using structured formats like the Open Knowledge Format (OKF) in `docs/concepts/`, teams capture invariants discovered during implementation:
 
 ```markdown
 ---
@@ -156,17 +146,17 @@ sources:
 All payment settlement operations must acquire a distributed Redis lock keyed on the idempotency token before mutating the double-entry balance ledger.
 ```
 
-By persisting invariants in repository-level concepts, future agent runs read these files as ground-truth context, permanently immunizing your codebase against recurring architectural mistakes.
+Persisting invariants in repository concepts gives future agent runs clear ground truth, preventing models from repeating the same architectural mistakes.
 
 ---
 
-## Unplanned Work in Agentic Development
+## Unplanned Work: Sanding Down Rough Edges
 
-In traditional agile setups, "unplanned work" was a catch-all dumpster fire: critical production outages, sudden customer escalations, scope creep disguised as "quick asks," and surprise refactorings that hijacked entire two-week sprints.
+In traditional agile setups, "unplanned work" was often a catch-all bucket for production emergencies, sudden customer escalations, and mid-sprint scope creep.
 
-In an agentic SDLC, we redefine unplanned work with strict, disciplined boundaries:
+In an agentic workflow, unplanned work has a much tighter, more practical role:
 
-> **Unplanned work consists exclusively of small bug fixes, edge-case remediation, and post-build polish—sanding down the rough edges of an already planned and specified work item.**
+> **Unplanned work consists exclusively of small bug fixes, edge-case remediation, and post-build polish—sanding down the rough edges after a planned vertical slice is implemented.**
 
 ```mermaid
 flowchart TD
@@ -187,66 +177,70 @@ flowchart TD
     style Sanding fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### The Reality of "Sanding Down Rough Edges"
-When an autonomous agent implements a planned vertical slice, it builds strictly to the letter of the specification. The tests pass, the linter is green, and the acceptance scenarios are satisfied. 
+### The Reality of Sanding Down Edges
+Here is what actually happens in day-to-day development:
 
-Yet the moment an engineer checks out the worktree and actually uses the software, human intuition and empirical experience kick in:
-- A button tooltip clips against the screen edge on smaller viewports.
-- An empty state abruptly shows blank space instead of a helpful call-to-action.
-- An error message says `"Error: 422"` instead of explaining what form field failed validation.
-- A trailing decimal in currency calculations behaves unexpectedly when pasted from an external invoice.
+You write a solid spec, hand a vertical slice task to an agent, and it builds the feature. The unit tests pass, the linter is happy, and the acceptance criteria are met. 
 
-This post-implementation polish is not a failure of planning. Software is an empirical discipline; using a tangible system reveals ergonomic friction and boundary conditions that no team could fully anticipate in an abstract design document. 
+Then you pull the branch, run it locally, and start clicking around.
 
-This is the legitimate home of unplanned work: **sanding down the rough edges**.
+Almost immediately, you spot friction:
+- An empty state shows blank space instead of a helpful prompt.
+- An error message says `Error 422` instead of telling the user which field failed validation.
+- A button tooltip clips off the edge on narrower screens.
+- A currency input misbehaves when someone pastes a value with whitespace or a symbol.
+
+This is not a failure of planning. Software is empirical. You cannot anticipate every nuance of a user experience in an abstract markdown document before seeing the real thing. 
+
+This post-build polish is the natural, necessary home of unplanned work: **sanding down the rough edges**.
 
 ### Does Unplanned Work Need Specs?
-Engineering leaders often wrestle with a false dilemma when managing unplanned work:
-1. **The Bureaucratic Trap**: Demanding that an engineer author a full `proposal.md`, `spec.md`, `design.md`, and DAG for a 3-line CSS fix or a null-coalescing check. This creates paralyzing friction, and engineers will predictably abandon the process.
-2. **The Prompt-and-Pray Chaos**: Giving an agent an unconstrained prompt like *"clean this UI up"* or *"fix that edge case."* Without boundaries, the model hallucinates new dependencies, refactors ten unrelated files, introduces silent regressions, and destroys architectural consistency.
+When dealing with unplanned polish, teams usually swing between two bad extremes:
+1. **Too Much Process**: Insisting that an engineer write a full `proposal.md`, `spec.md`, and task breakdown just to adjust button margins or add a null check. This slows work to a crawl, and developers will simply bypass the process.
+2. **No Guardrails**: Giving an agent a loose prompt like *"make this form look better"* or *"clean up these edge cases."* Without boundaries, the model will hallucinate new UI libraries, rewrite CSS across multiple files, and introduce regressions.
 
-The answer is: **Unplanned work does not need a new specification document; it needs a deterministic verification anchor.**
+The middle ground is simple: **Unplanned work does not need a new specification document. It needs a deterministic verification anchor.**
 
-Depending on the nature of the rough edge, that anchor takes one of two forms:
+Depending on what you are polishing, that anchor takes one of two forms:
 
-#### 1. Behavioral & Logic Edges: The Test is the Spec
-If the unplanned work addresses a bug, a missing edge case, or unexpected logic behavior, do not write a markdown document. **The failing test is your specification.**
-- Point the agent to the failing condition.
-- Require the agent to write a minimal, red-green test reproducing the defect (e.g., passing an empty array or an unformatted phone number).
-- Once the test fails predictably, instruct the agent to write the minimal production code needed to turn it green without altering surrounding logic.
-- Optionally append the scenario directly into the parent feature's `spec.md` as an addendum scenario to keep the durable contract evergreen.
+#### 1. Logic and Behavioral Edge Cases: The Test is the Spec
+If the unplanned work addresses a bug, a missing edge case, or unexpected data handling, do not write a spec document. **Write a failing test.**
+- Point the agent to the failing scenario.
+- Have the agent write a minimal, red-green test reproducing the issue (for example, passing an empty array or an unformatted phone number).
+- Once the test fails predictably, let the agent write the minimum production code needed to turn it green without touching surrounding logic.
+- Optionally append the scenario to the parent feature's `spec.md` so the contract stays up to date.
 
-#### 2. Cosmetic & Ergonomic Polish: Bounded Context & Diff Verification
-If the unplanned work involves visual polish, copy tweaks, or UX smoothing:
-- Keep the agent's context window tightly bounded to the target component file (e.g., `git checkout -b polish/checkout-empty-state`).
-- Provide an explicit, declarative delta: *"In `PaymentSheet.tsx`, replace the blank state with `<EmptyState>` using copy 'No payment methods found' and center the action button."*
-- Prohibit the agent from touching shared themes, installing new UI packages, or refactoring sibling components.
-- The human verifies the resulting git diff directly. If the diff exceeds the expected blast radius, reject it immediately.
+#### 2. Cosmetic and Ergonomic Polish: Bounded Context & Diff Inspection
+If the polish is visual or ergonomic (copy adjustments, spacing, empty states):
+- Keep the agent's context strictly bounded to the target file or component (for example, on a quick `polish/checkout-empty-state` branch).
+- Use a concrete, declarative instruction: *"In `PaymentSheet.tsx`, replace the blank container with `<EmptyState>` showing 'No payment methods found' and center the button."*
+- Prohibit the agent from touching shared themes, installing new packages, or refactoring neighboring components.
+- Inspect the resulting diff directly. If the diff touches files outside the boundary, reject it immediately.
 
 ### The Iron Rule: Unplanned Work is Exclusively Micro-Tier
-This brings us to a fundamental architectural principle: **If work is Standard Tier or above, it can NEVER be unplanned.**
+This brings us to an essential operating rule: **If work is Standard Tier or above, it cannot be unplanned.**
 
-By definition:
-- **Micro Tier (`tier: micro`)**: Localized bug fixes, cosmetic polish, edge-case tests on an active task. This is the **only** tier permitted to execute as unplanned work.
-- **Standard Tier (`tier: standard`)**: New database migrations, schema field additions, new API routes, state machine transitions, or security permission updates.
-- **Major Tier (`tier: major`)**: Cross-boundary refactors, billing infrastructure rewrites, multi-system architectural contracts.
+In our tier model:
+- **Micro Tier (`tier: micro`)**: Localized bug fixes, cosmetic polish, and edge-case tests on an active task. This is the **only** tier allowed to run as unplanned work.
+- **Standard Tier (`tier: standard`)**: New database migrations, schema additions, new API endpoints, state machine transitions, or permission changes.
+- **Major Tier (`tier: major`)**: Cross-service refactors, billing overhauls, and multi-system architecture contracts.
 
-The moment an unplanned discovery requires a new database column, modifies a state machine, alters a public API contract, or impacts security invariants, **it is no longer "sanding down edges." It is an architectural change.**
+The moment an unplanned discovery requires a new database column, alters a state machine, or modifies a public API, **it is no longer "sanding down an edge." It is an architectural change.**
 
 ### The Escalation Circuit Breaker
-What happens when an engineer starts investigating a minor rounding error and discovers that the underlying payment ledger lacks concurrency protection?
+What happens when you start investigating a minor rounding issue and realize the underlying balance ledger lacks concurrency controls?
 
-**In agentic engineering, you must never allow an agent to patch structural flaws through ad-hoc chat prompts.**
+**Never let an agent patch architectural flaws through ad-hoc chat prompts.**
 
 ```
 [Unplanned Work: Sanding Rough Edges]
                   │
                   ▼
    Does it touch any of these?
-   ├── Database schemas or retention policies
-   ├── Established Given/When/Then contracts
+   ├── Database schemas or migrations
+   ├── Existing Given/When/Then contracts
    ├── State machine transitions
-   ├── Authentication & security invariants
+   ├── Authentication & security rules
    └── External dependencies or services
                   │
           ┌───────┴───────┐
@@ -257,18 +251,18 @@ What happens when an engineer starts investigating a minor rounding error and di
   Eject to Planned Work   Merge to Trunk
 ```
 
-If an unplanned discovery crosses the escalation boundary, the **Escalation Circuit Breaker** trips:
-1. **Halt Build Execution**: Stop prompting the agent in the active worktree. Do not allow speculative refactoring.
-2. **Eject to Planned Backlog**: File a new tracked capability item under the **Standard Tier**.
-3. **Run Upstream Planning**: Author the necessary `proposal.md`, specify the new behavior in `spec.md`, design the migration in `design.md`, and pass the Definition of Ready (DoR) gate before returning to code.
+When an unplanned fix crosses into structural territory, the **circuit breaker** trips:
+1. **Stop Implementation**: Do not keep prompting the agent in the active worktree.
+2. **Move to the Backlog**: File the work as a new **Standard Tier** item in your planned backlog.
+3. **Plan Before Coding**: Write the `proposal.md`, update or add the `spec.md`, design the migration in `design.md`, and pass the Definition of Ready gate before returning to code.
 
-By enforcing this boundary, you preserve developer velocity for everyday polish while protecting the codebase against the insidious architectural rot that rapid AI generation invites.
+This boundary keeps day-to-day polish fast while protecting the codebase from the architectural drift that unchecked agent generation creates.
 
 ---
 
-## Operating Principles for the Agentic Delivery Pipeline
+## Operating Principles for an Agentic Delivery Pipeline
 
-Adapting to this model requires rethinking how engineering teams measure success, conduct reviews, and allocate cognitive effort:
+Adapting to this model changes how teams review code, structure branches, and measure progress:
 
 ```mermaid
 flowchart TD
@@ -280,43 +274,41 @@ flowchart TD
 
     subgraph Agentic["Agentic SDLC (Verification is the Bottleneck)"]
         A1["Formal Specs & Invariants (DoR)"] --> A2["Autonomous Agent TDD (Minutes)"]
-        A2 --> A3["Automated Evals & Two-Axis Review (DoD)"]
+        A2 --> A3["Automated Evals & Bifurcated Review (DoD)"]
         A3 --> A4["Trunk Integration & Dark Flag Rollout"]
     end
 ```
 
-### 1. Verification is the Scarce Currency
-Generating code has a marginal cost approaching zero. Verifying that code is secure, idiomatic, resilient, and compliant has a very high cost. Treat test harnesses, contract verifiers, and behavioral evaluation suites as your primary engineering assets. Code is ephemeral; verification harnesses are permanent.
+### 1. Verification is the Scarce Resource
+Generating code is cheap. Verifying that code is secure, resilient, and correct is expensive. Treat test suites, contract checks, and evaluation harnesses as your primary engineering assets. Code can always be regenerated; verification harnesses provide lasting confidence.
 
 ### 2. Bifurcate the Review Seam
-Do not review specifications and code diffs in the same pull request. 
-- **Seam 1: The Specification Review**: The team reviews and signs off on `proposal.md`, `spec.md`, and `design.md`. Once this clears, intent and architecture are locked.
-- **Seam 2: The Execution Review**: The team reviews the agent's pull request solely against the agreed-upon specification. Did the tests faithfully implement the Given/When/Then scenarios? Did the linter pass? If yes, merge.
+Do not review specifications and code diffs in the same pull request.
+- **Seam 1: The Specification Review**: The team reviews and approves `proposal.md`, `spec.md`, and `design.md`. Once this clears, intent and architecture are set.
+- **Seam 2: The Code Review**: The team reviews the agent's pull request strictly against the agreed-upon specification. Did the tests verify the Given/When/Then scenarios? Did the checks pass? If yes, merge.
 
-Decoupling these reviews prevents senior engineers from debating product requirements inside a 500-line git diff.
+Separating these reviews stops engineers from debating product requirements inside a 600-line git diff.
 
-### 3. Maintain Trunk Safety with Dark Feature Flags
-Because agents complete tasks in small vertical slices, long-lived feature branches are obsolete. Every vertical slice merges directly to main trunk. Incomplete features remain dark behind boolean feature flags (`flag:checkout_v2: false`). This guarantees that code does not drift, CI runs continuously across the entire system, and release authorization is decoupled from code deployment.
+### 3. Keep Trunk Safe with Dark Feature Flags
+Because agents complete tasks in small vertical slices, long-lived feature branches are unnecessary. Merge vertical slices directly to the main trunk behind dark feature flags (`flag:checkout_v2: false`). This prevents merge conflicts, runs continuous integration across the whole codebase, and separates deployment from customer release.
 
 ### 4. Human Accountability Over Agent Autonomy
-Agents are exceptional copilots and autonomous execution engines inside sandboxes, but they cannot be held accountable for production outages, data breaches, or compliance violations. 
+Agents are great execution partners inside sandboxes, but they cannot own outcomes.
 
-Enforce a strict separation of concerns:
-- **Agents** propose specifications, generate red-green tests, write implementations, and diagnose errors.
-- **Humans** review gates, authorize releases, and own the final outcome.
+Maintain a clear division of responsibility:
+- **Agents** draft specifications, write tests, generate code, and diagnose errors.
+- **Humans** review gates, authorize releases, and remain accountable for production.
 
 ---
 
-## The Organizational and Cultural Challenge
+## The Cultural Shift
 
-Adopting an agentic SDLC is fundamentally not a tooling problem. It is a cultural transformation.
+Adopting an agentic SDLC is ultimately a workflow and cultural shift, not a tooling upgrade.
 
-Software engineering culture has spent four decades celebrating the heroic, caffeine-fueled developer who types thousands of lines of code into the night without a spec. Performance reviews rewarded raw output: commits made, lines authored, PRs opened.
+Engineering culture spent decades valuing the developer who could hammer out thousands of lines of code without a spec. Performance was measured by sheer volume: commits pushed, lines added, PRs merged.
 
-In an agentic organization, that dynamic inverts:
-- The engineer who writes 1,000 lines of un-specced code is a liability who creates review bottlenecks and technical debt.
-- The engineer who takes the time to author crystal-clear behavioral specifications, establishes strict TDD guardrails, and codifies durable domain knowledge is the high-leverage multiplier.
+In an agentic team, that dynamic flips:
+- Generating hundreds of lines of un-specced code creates review bottlenecks and hidden regressions.
+- The high-leverage engineer is the one who writes clear behavioral specifications, builds tight test harnesses, and captures system invariants so agents can execute safely.
 
-When you remove the friction of writing syntax, you expose every organizational dysfunction that was previously hidden behind slow build times: fuzzy product roadmaps, political disagreements over architecture, brittle CI pipelines, and sluggish review cycles.
-
-The teams that thrive in the agentic era will not be those with the fastest prompts. They will be the teams that design a rigorous system of constraints, treat specifications as code, and continually eliminate the operational bottlenecks that AI speed lays bare.
+When writing syntax is no longer the bottleneck, the real constraints become visible: unclear product direction, unspoken architectural assumptions, and slow review cycles. The teams that thrive with AI will not be the ones with the cleverest prompts—they will be the teams that build clear constraints, treat specifications as code, and master the balance between planned intent and post-build polish.
