@@ -6,17 +6,17 @@ description: "When AI makes writing syntax nearly free, traditional agile defini
 tags: ["AI", "Software Engineering", "Product Engineering System", "AI SDLC", "Engineering Leadership"]
 ---
 
-When the marginal cost of writing code collapses to near zero, the economic foundation of software engineering shifts underneath our feet.
+When writing code becomes nearly free, the economic foundation of software engineering flips.
 
-For decades, writing syntax was the most expensive part of building software. Sprints, estimation poker, architectural reviews, and QA cycles were all designed around one brutal bottleneck: turning ideas into working code took weeks of typing. Because typing was slow, **unplanned work was the enemy**. A surprise bug, an unmocked edge case, or a sudden scope change derailed sprints and blew up delivery dates.
+For decades, writing code was the slowest, most expensive part of building software. Sprint planning, estimation poker, and architecture reviews were all designed around one basic fact: turning an idea into working syntax took weeks of typing. Because typing was slow, unplanned work was the enemy. A surprise bug, a missing edge case, or a sudden requirement change blew up delivery schedules.
 
-AI coding agents changed that dynamic almost overnight. What used to take three days of typing can now be generated, wired up, and covered with unit tests in fifteen minutes.
+AI coding agents changed that almost overnight. What used to take three days of focused typing can now be generated, wired up, and tested in fifteen minutes.
 
-When code is this cheap to produce, a dangerous temptation arises: *If an agent can build anything in ten minutes, why plan at all? Isn't all work just prompt-and-iterate?*
+When code is this cheap to produce, an easy mistake is to assume we don't need to plan anymore: *If an agent can build anything in ten minutes, why plan at all? Isn't all work just prompt-and-iterate?*
 
-That temptation leads straight into an inventory crisis. As Eliyahu Goldratt demonstrated in *The Goal*: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
+That assumption quickly creates a massive inventory problem. As Eliyahu Goldratt showed in *The Goal*: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
 
-Today, that inventory is unreviewed, unverified code. Agents generate pull requests far faster than teams can specify what they actually want, and far faster than humans can review, verify, and safely release.
+Today, that inventory is unreviewed, unverified code. Agents generate pull requests far faster than teams can decide what they want, and far faster than humans can review, test, and safely deploy.
 
 ```mermaid
 flowchart LR
@@ -28,7 +28,7 @@ flowchart LR
     style DOWN fill:#ffebee,stroke:#d32f2f,stroke-width:2px
 ```
 
-When code is free, writing un-specced software is the fastest way to bankrupt your architecture. To survive the agentic era, engineering teams must redefine their work taxonomy around two strictly bounded categories:
+When code is free, generating un-specced software is the fastest way to wreck an architecture. To keep velocity high without losing control of quality, you have to split work into two distinct categories:
 
 | Dimension | Planned Work | Unplanned Work (Fit & Finish) |
 | :--- | :--- | :--- |
@@ -40,7 +40,7 @@ When code is free, writing un-specced software is the fastest way to bankrupt yo
 
 ---
 
-## Planned Work: Intent to Verified Software
+## Planned Work: Turning Intent into Software
 
 Planned work is deliberate capability expansion. When an agent can write 500 lines of syntax in thirty seconds, planning is where actual engineering leverage lives.
 
@@ -55,14 +55,14 @@ flowchart TD
 ```
 
 ### 1. No Spec Means No Code
-If you feed an agent a vague ticket, it won't push back or ask clarifying questions. It hallucinates plausible assumptions and writes hundreds of lines of syntactically valid code that solves the wrong problem.
+If you feed an agent a vague ticket, it won't push back or ask clarifying questions. It fills in blanks with plausible guesses and writes hundreds of lines of clean code that solves the wrong problem.
 
-If a capability cannot be described with observable, verifiable scenarios, an agent should not touch it. Upstream planning must first establish:
-- Problem statements, target users, and explicit non-goals (`proposal.md`).
+If a feature cannot be described with clear, testable scenarios, an agent shouldn't touch it. Upstream planning must first establish:
+- The problem statement, target users, and explicit non-goals (`proposal.md`).
 - Behavioral contracts with verifiable Given/When/Then scenarios using standards like [OpenSpec](https://openspec.dev/).
 
 ### 2. Executable Acceptance Contracts
-Acceptance criteria are no longer informal notes in Jira. They are formal contracts that directly anchor the agent's test harness:
+Acceptance criteria aren't casual bullet points in a tracker. They are formal contracts that directly anchor the agent's test suite:
 
 ```markdown
 ### Requirement: Idempotent Payment Settlement
@@ -84,7 +84,7 @@ Not every planned feature requires a heavy administrative footprint. Scale docum
 - **Major Tier (`tier: major`)**: Multi-system overhauls, billing redesigns, cross-repo contracts. Full PRD, research evidence, domain modeling, Decision Records, and architecture review.
 
 ### 4. Enforcement Gates: DoR and DoD
-- **Definition of Ready (DoR)**: Protects the build step. Code generation is blocked until proposal, specs, design, and task slices clear peer critique.
+- **Definition of Ready (DoR)**: Protects the build step. Code generation is blocked until proposal, specs, design, and task slices clear peer review.
 - **Definition of Done (DoD)**: Protects trunk. Code does not merge until all scenario tests pass, linters run clean, dark feature flags isolate incomplete features, and decisions are recorded.
 
 ---
@@ -93,20 +93,20 @@ Not every planned feature requires a heavy administrative footprint. Scale docum
 
 If planned work covers capability expansion, what actually counts as **unplanned work** when code is free?
 
-In an agentic SDLC, unplanned work has a specific, legitimate role:
+In an agentic SDLC, unplanned work has a specific, practical role:
 
 > **Unplanned work consists exclusively of localized bug fixes, edge-case remediation, and post-build fit-and-finish polish on an already specified work item.**
 
 ### The Reality of Fit and Finish
 You spec a feature, an agent builds it in a clean worktree, all unit tests pass, and DoR/DoD are satisfied. Then you pull the branch, run it locally, and start clicking around.
 
-Empirical reality surfaces friction that no design document could foresee:
+Reality surfaces friction that no design document could foresee:
 - An empty state shows blank space instead of a helpful onboarding prompt.
 - An error toast says `Error: 422` instead of identifying which input field was invalid.
 - A button tooltip clips off-screen on smaller viewports.
 - A currency input fails when pasting values containing whitespace or symbols.
 
-This is not a failure of planning. Software is empirical. Experiencing the tangible product reveals ergonomic gaps and boundary conditions. This last-mile polish—the **fit and finish**—is the true domain of unplanned work.
+This isn't a failure of planning. Software is an empirical craft. Using a working system reveals ergonomic gaps and edge cases that are difficult to anticipate in an abstract markdown file. This last-mile polish—the **fit and finish**—is the true domain of unplanned work.
 
 ```mermaid
 flowchart TD
@@ -144,19 +144,19 @@ The moment an unplanned discovery touches a database schema, alters a public API
 ### The Escalation Circuit Breaker
 When investigating a minor edge case reveals that the underlying data model or auth flow is flawed, **never let an agent patch structural flaws through ad-hoc chat prompts.**
 
-```
-[Unplanned Fit & Finish]
-           │
-           ▼
-Touches database schemas, API contracts,
-state transitions, or security rules?
-           │
-   ┌───────┴───────┐
-  YES              NO
-   │               │
-   ▼               ▼
-[🚨 Circuit Breaker]   [TDD Micro-Fix]
-Eject to Planned Work   Merge to Trunk
+```mermaid
+flowchart TD
+    Start["Unplanned Fit & Finish"] --> Check{"Touches schemas, API contracts,<br/>state transitions, or security rules?"}
+    
+    Check -- Yes --> Breaker["<b>🚨 Circuit Breaker Trips</b><br/>Stop prompting in active worktree"]
+    Breaker --> Escalate["<b>Eject to Planned Work</b><br/>File Standard Tier item<br/>Write proposal, spec & design<br/>Clear DoR before writing code"]
+    
+    Check -- No --> Fix["<b>TDD Micro-Fix / Bounded Polish</b><br/>Failing test or bounded diff<br/>Verify DoD"]
+    Fix --> Merge["Merge to Trunk"]
+
+    style Breaker fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    style Escalate fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Fix fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
 When the circuit breaker trips:
