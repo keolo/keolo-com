@@ -4,6 +4,7 @@ draft: false
 weight: 2
 description: "Prompting LLMs from raw feature ideas leads to hallucinated scope and regression churn. Here is how the Plan-Build-Learn spec-driven workflow turns intent into working code."
 tags: ["AI", "Software Engineering", "Product Management", "TDD", "Product Engineering System"]
+hiddenInHomeList: true
 ---
 
 If you use AI coding assistants, you know the cycle: paste a rough feature description into a chat box, get back three hundred lines of plausible code, and spend the rest of your day hunting down broken imports, missed edge cases, and silent regressions.
