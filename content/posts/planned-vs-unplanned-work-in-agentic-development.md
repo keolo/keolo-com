@@ -42,7 +42,7 @@ Whether you press `p` in a terminal dashboard or enter a prompt in a CLI, you pr
 flowchart TD
     Prompt["Developer Intent<br/><i>Single Unified Entry Point</i>"] --> Triage{"Agentic Scope Triage<br/>(Blast Radius & Surface Analysis)"}
     
-    Triage -->|Micro / Localized| Lite["<b>Lite Mode (tier: micro)</b><br/><code>spec.md</code> + <code>tasks.md</code><br/><i>Inline intent, Given/When/Then, task slices</i>"]
+    Triage -->|Lite / Localized| Lite["<b>Lite Mode (tier: lite)</b><br/><code>spec.md</code> + <code>tasks.md</code><br/><i>Inline intent, Given/When/Then, task slices</i>"]
     Triage -->|Standard / Multi-file| Std["<b>Standard Tier (tier: standard)</b><br/><code>proposal.md</code> + <code>spec.md</code><br/><code>design.md</code> + <code>tasks.md</code>"]
     Triage -->|Major / Architectural| Maj["<b>Major Tier (tier: major)</b><br/>Full PRD + Decision Records (DR)<br/>Domain Models (OKF) + Dark Flags"]
     
@@ -56,7 +56,7 @@ flowchart TD
     style Maj fill:#fff3e0,stroke:#f57c00,stroke-width:2px
 ```
 
-### 1. Lite Mode (`tier: micro`): Low Ceremony, High Velocity
+### 1. Lite Mode (`tier: lite`): Low Ceremony, High Velocity
 For localized changes—a bug fix, a small UI tweak, or fit-and-finish polish—heavy documentation is wasteful. 
 
 In Lite Mode, the system generates only two artifacts:
@@ -83,7 +83,7 @@ The developer experience never changes. You provide intent; the agentic system g
 
 ## Unplanned Work: The Reality of Fit and Finish
 
-If planned work spans everything from a 10-minute micro fix to a multi-month initiative, what actually counts as **unplanned work**?
+If planned work spans everything from a 10-minute lite fix to a multi-month initiative, what actually counts as **unplanned work**?
 
 In an agentic SDLC:
 
@@ -102,7 +102,7 @@ This isn't a failure of planning; software is an empirical medium. Interacting w
 
 ### Handling Fit and Finish Without Process Friction
 - **On an In-Flight Feature Branch**: Keep the polish on the same branch. You don't need new spec files—write a reproducing test or verify the bounded UI diff directly, satisfy DoD, and merge.
-- **On Code Already in Trunk**: Open an automated **Lite Mode (`tier: micro`)** change. The system generates `spec.md` and `tasks.md`, spins up an isolated sandbox, and delivers a clean micro-PR.
+- **On Code Already in Trunk**: Open an automated **Lite Mode (`tier: lite`)** change. The system generates `spec.md` and `tasks.md`, spins up an isolated sandbox, and delivers a clean PR.
 
 ---
 
@@ -112,20 +112,20 @@ The danger in agentic engineering occurs when an engineer or agent treats a deep
 
 You start out adjusting button padding, notice an edge case in checkout, and suddenly the agent is rewriting database models and auth middleware inside an ad-hoc chat session.
 
-**The Iron Rule:** Unplanned work can never exceed Micro Tier. If a change touches shared data schemas, public APIs, or security models, it cannot remain unplanned.
+**The Iron Rule:** Unplanned work can never exceed Lite Tier. If a change touches shared data schemas, public APIs, or security models, it cannot remain unplanned.
 
 ```mermaid
 flowchart TD
     Start["Unplanned Fit & Finish"] --> Check{"Touches schemas, public APIs,<br/>state machines, or security?"}
     
-    Check -- No --> Micro["<b>Stay in Lite Mode (tier: micro)</b><br/>Failing test or bounded diff<br/>Quick DoD verification & merge"]
+    Check -- No --> LiteNode["<b>Stay in Lite Mode (tier: lite)</b><br/>Failing test or bounded diff<br/>Quick DoD verification & merge"]
     
     Check -- Yes --> Breaker["<b>🚨 Circuit Breaker Trips</b><br/>Automated Tier Promotion"]
     Breaker --> Escalate["<b>Promote to Standard Tier</b><br/>Auto-scaffold proposal.md & design.md<br/>Initiate Decision Grilling Loop<br/>Enforce DoR before coding"]
     
     style Breaker fill:#ffebee,stroke:#d32f2f,stroke-width:2px
     style Escalate fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style Micro fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style LiteNode fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
 ### How the Circuit Breaker Operates Low-Friction
@@ -133,7 +133,7 @@ A circuit breaker fails if it feels like bureaucratic punishment. In an agentic 
 
 1. **Passive Tripwires**: The tooling monitors modified files. The moment a diff touches `prisma/schema.prisma`, `migrations/`, or route schemas, the system alerts:
    ```text
-   ⚠️ CIRCUIT BREAKER: Schema change detected in micro-tier fit-and-finish.
+   ⚠️ CIRCUIT BREAKER: Schema change detected in lite-tier fit-and-finish.
    Auto-promoting change to Standard Tier...
    ```
 2. **Automated Promotion**: The system upgrades the change to `tier: standard`, generating `proposal.md` and `design.md` pre-populated from the reproduction context and dirty diff.
@@ -144,7 +144,7 @@ A circuit breaker fails if it feels like bureaucratic punishment. In an agentic 
 
 ## Comparing the Tiers
 
-| Attribute | Lite Change (`tier: micro`) | Standard Change (`tier: standard`) | Major Change (`tier: major`) |
+| Attribute | Lite Change (`tier: lite`) | Standard Change (`tier: standard`) | Major Change (`tier: major`) |
 | :--- | :--- | :--- | :--- |
 | **Typical Use** | Fit & finish, edge cases, bug fixes | New endpoints, schemas, state transitions | Cross-repo contracts, core engine rewrites |
 | **Trigger** | Live testing or targeted issue | Roadmap capability or circuit-breaker escalation | Strategic initiative / multi-month PRD |
@@ -157,7 +157,7 @@ A circuit breaker fails if it feels like bureaucratic punishment. In an agentic 
 ## Operating Principles for Agentic Delivery
 
 1. **Keep the Entry Point Uniform**: Developers should have a single mental model for starting work. Let the system classify blast radius and scaffold progressive documentation depth.
-2. **The Test is the Spec for Micro Fixes**: Do not require full design documents for single-file bug fixes. A red-green unit test is the most precise specification possible.
+2. **The Test is the Spec for Lite Fixes**: Do not require full design documents for single-file bug fixes. A red-green unit test is the most precise specification possible.
 3. **Bifurcate Specification from Implementation**: For Standard and Major changes, review behavioral scenarios before writing code. Debating architecture inside an 800-line diff is a recipe for fatigue and regressions.
 4. **Isolate Work in Ephemeral Worktrees**: Run agent builds in isolated git worktrees. This keeps experimental changes separated from trunk and makes circuit-breaker escalation trivial to isolate.
 
