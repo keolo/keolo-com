@@ -34,7 +34,7 @@ When code is free, generating un-specced software is the fastest way to wreck an
 | :--- | :--- | :--- |
 | **Purpose** | Deliberate capability expansion | Localized bug fixes, edge cases & UX polish |
 | **Trigger** | Roadmap intent, customer problem | Testing the live branch post-build |
-| **Permitted Tiers** | Standard Tier & Major Tier | Micro Tier only (`tier: micro`) |
+| **Permitted Tiers** | All Tiers (`micro`, `standard`, `major`) | Micro Tier only (`tier: micro`) |
 | **Artifacts** | `proposal.md`, `spec.md`, `design.md`, `tasks.md` | Failing test (logic) or bounded diff (UI) |
 | **Quality Gate** | Formal DoR before code; DoD before merge | Targeted regression test / PR diff review |
 
@@ -78,9 +78,10 @@ The billing engine SHALL settle authorization holds idempotently within 72 hours
 The agent converts these scenarios directly into red-green test suites during the build, eliminating speculative refactoring.
 
 ### 3. Progressive Rigor for Planned Changes
-Not every planned feature requires a heavy administrative footprint. Scale documentation ceremony to the blast radius:
+Not every planned feature requires a heavy administrative footprint. Planned work spans all tiers—the ceremony scales proportionally to blast radius:
 
-- **Standard Tier (`tier: standard`)**: New endpoints, database migrations, state machine changes. Requires `proposal.md`, `spec.md`, `design.md`, `tasks.md`, and bifurcated review (spec approved before code is written).
+- **Lite Mode (`tier: micro`)**: Rapid, localized improvements or targeted fixes planned from telemetry or backlog items. Uses a single consolidated `spec.md` with inline intent, Given/When/Then scenarios, and task slices—bypassing separate PRDs and design docs.
+- **Standard Tier (`tier: standard`)**: New endpoints, database migrations, state machine changes. Requires separate `proposal.md`, `spec.md`, `design.md`, `tasks.md`, and bifurcated review (spec approved before code is written).
 - **Major Tier (`tier: major`)**: Multi-system overhauls, billing redesigns, cross-repo contracts. Full PRD, research evidence, domain modeling, Decision Records, and architecture review.
 
 ### 4. Enforcement Gates: DoR and DoD
@@ -133,11 +134,11 @@ When handling last-mile polish, teams usually fall into two traps:
 - **For Visual & Ergonomic Polish: Bounded Context & Diff Review.** Restrict the agent's context strictly to the single component, provide an explicit declarative prompt (e.g., *"In `PaymentSheet.tsx`, replace the blank container with `<EmptyState>` and center the button"*), and inspect the git diff directly. If the diff touches outside files, reject it.
 
 ### The Iron Rule: Unplanned Work is Exclusively Micro-Tier
-**If work is Standard Tier or above, it cannot be unplanned.**
+While planned changes leverage all tiers—from single-spec `micro` changes up to multi-system `major` overhauls—**unplanned work can never exceed Micro Tier**:
 
 - **Micro Tier (`tier: micro`)**: Localized fixes, cosmetic tweaks, edge-case tests. The **only** tier permitted as unplanned work.
-- **Standard Tier (`tier: standard`)**: Schema migrations, new endpoints, state transitions, security changes.
-- **Major Tier (`tier: major`)**: Cross-boundary architecture, core system rewrites.
+- **Standard Tier (`tier: standard`)**: Schema migrations, new endpoints, state transitions, security changes. **Always planned.**
+- **Major Tier (`tier: major`)**: Cross-boundary architecture, core system rewrites. **Always planned.**
 
 The moment an unplanned discovery touches a database schema, alters a public API, or changes a state machine, **it is no longer fit-and-finish polish. It is an architectural change.**
 
