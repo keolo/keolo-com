@@ -8,163 +8,95 @@ tags: ["AI", "Software Engineering", "Product Engineering System", "AI SDLC", "E
 
 When writing code becomes nearly free, the economic foundation of software engineering flips.
 
-For decades, writing syntax was the slowest, most expensive part of building software. Sprint planning, estimation poker, and change advisory boards all existed because turning an idea into working code took weeks of typing. Because typing was slow, unplanned work was the enemy. A surprise bug, an unhandled edge case, or a sudden requirement shift derailed entire roadmaps.
+For decades, writing syntax was the slowest, most expensive part of building software. Sprint planning, estimation poker, and change advisory boards all existed because turning an idea into working code took weeks of typing. Because typing was slow, unplanned work was the enemy—a surprise bug or sudden requirement shift derailed entire roadmaps.
 
 AI coding agents changed that almost overnight. What used to take three days of focused implementation can now be scaffolded, wired up, and tested in minutes.
 
-When code is this cheap to produce, teams often make one of two mistakes:
-1. **The Bureaucracy Trap**: Forcing developers to write multi-page PRDs, technical designs, and task tickets for every minor polish item. Developers quickly abandon the process.
+When code is this cheap to produce, teams tend to fall into one of two traps:
+1. **The Bureaucracy Trap**: Forcing developers to write multi-page PRDs, technical designs, and tickets for every minor polish item. Developers quickly route around the process.
 2. **The Prompt-and-Pray Trap**: Abandoning planning entirely under the illusion that "the agent can just fix it in chat." Without behavioral contracts, agents hallucinate assumptions, mutate database schemas, and generate unmaintainable sprawl.
 
 As Eliyahu Goldratt demonstrated in *The Goal*: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
 
-```mermaid
-flowchart LR
-    UP["<b>Upstream Constraint</b><br/>Deciding What to Build<br/><i>Intent & Behavioral Specs</i>"] --> BUILD["<b>Compressed Build</b><br/>Agentic Generation<br/><i>Minutes instead of Days</i>"]
-    BUILD --> DOWN["<b>Downstream Constraint</b><br/>Verification & Release<br/><i>Tests, Evals & Gates</i>"]
-    
-    style BUILD fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style UP fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style DOWN fill:#ffebee,stroke:#d32f2f,stroke-width:2px
-```
-
-Today, that inventory is unreviewed, unverified code. To keep delivery fast without losing architectural integrity, we need a system where **the developer experience stays identical, while the system dynamically scales the rigor**.
+Today, that inventory is unreviewed, unverified code—and the real bottlenecks have shifted upstream (deciding what to build) and downstream (verifying what was built).
 
 ---
 
-## One Developer Experience, Progressive Rigor
+## What Actually Counts as Unplanned Work
 
-In a modern Product Engineering System (PES), developers shouldn't have to fill out different administrative forms based on project size. The entry point is always the same: **state your intent**.
+If an agent can implement a feature in minutes, what still counts as **unplanned work**?
 
-The developer simply provides the problem statement and desired outcome. From that single prompt, the system inspects the codebase, assesses the blast radius, and **automatically categorizes the change into the appropriate tier**:
+> **In an agentic workflow, unplanned work is exclusively localized edge cases, bug fixes, and post-build fit-and-finish polish discovered after testing a working slice.**
 
-```mermaid
-flowchart TD
-    Prompt["Developer Intent<br/><i>Single Unified Entry Point</i>"] --> Triage{"Agentic Scope Triage<br/>(Blast Radius & Surface Analysis)"}
-    
-    Triage -->|Lite / Localized| Lite["<b>Lite Tier</b><br/><code>spec.md</code> + <code>tasks.md</code><br/><i>Inline intent, Given/When/Then, task slices</i>"]
-    Triage -->|Standard / Multi-file| Std["<b>Standard Tier</b><br/><code>proposal.md</code> + <code>spec.md</code><br/><code>design.md</code> + <code>tasks.md</code>"]
-    Triage -->|Major / Architectural| Maj["<b>Major Tier</b><br/>Full PRD + Decision Records (DR)<br/>Domain Models (OKF) + Dark Flags"]
-    
-    Lite --> Build["Sandboxed Execution & Gate Verification"]
-    Std --> Build
-    Maj --> Build
+You specify a feature, the agent builds it in a clean git worktree, and all unit tests pass. Then you launch the branch locally and start clicking around.
 
-    style Prompt fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style Lite fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
-    style Std fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style Maj fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-```
-
-### 1. Lite Tier: Low Ceremony, High Velocity
-For localized changes—a bug fix, a small UI tweak, or fit-and-finish polish—heavy documentation is wasteful. 
-
-In Lite Tier, the system generates only two artifacts:
-- **`spec.md`**: A single consolidated document containing inline Problem & Intent and 1–2 testable Given/When/Then scenarios using standards like [OpenSpec](https://openspec.dev/).
-- **`tasks.md`**: Vertical task slices for the agent to implement.
-
-No separate `proposal.md`, `research.md`, or `design.md` is created. The Definition of Ready (DoR) gate checks only that the scenarios and tasks are unambiguous, and implementation proceeds immediately.
-
-### 2. Standard Tier: Architectural Safeguards
-When a change introduces new API endpoints, database migrations, or state transitions, the system automatically escalates documentation ceremony:
-- **`proposal.md`**: Problem statement, target personas, hypotheses, and explicit non-goals.
-- **`spec.md`**: Exhaustive behavioral contracts (happy path, edge cases, failure states).
-- **`design.md`**: Component boundaries, sequence diagrams, and migration rollback strategies.
-- **`tasks.md`**: Sliced implementation DAG.
-
-Code generation is blocked until specifications and designs clear peer review (bifurcated review).
-
-### 3. Major Tier: High-Blast-Radius Overhauls
-For cross-repo migrations, billing engines, or auth overhauls, the system scales up to include Open Knowledge Format (OKF) domain concepts and formal Decision Records (`docs/decisions/DR-*.md`).
-
-The developer experience never changes. You provide intent; the agentic system generates the appropriate structural depth.
-
----
-
-## Unplanned Work: The Reality of Fit and Finish
-
-If planned work spans everything from a 10-minute lite fix to a multi-month initiative, what actually counts as **unplanned work**?
-
-In an agentic SDLC:
-
-> **Unplanned work consists exclusively of localized edge cases, bug fixes, and post-build fit-and-finish polish discovered after testing a working slice.**
-
-### Why Fit and Finish is Inevitable
-You specify a feature, the agent builds it in a clean worktree, all unit tests pass, and Definition of Done (DoD) is satisfied. Then you launch the branch locally and start clicking around.
-
-Reality surfaces ergonomic friction that no initial spec could foresee:
+Reality immediately surfaces ergonomic friction that no upfront spec could foresee:
 - An empty state shows blank space instead of a helpful call-to-action.
 - An error notification displays `Error: 422` instead of explaining which field failed.
 - A button tooltip clips off-screen on mobile viewports.
 - An input parser chokes when users paste strings containing non-breaking spaces.
 
-This isn't a failure of planning; software is an empirical medium. Interacting with a live build reveals polish opportunities that are impossible to predict in markdown. This last-mile refinement is the true domain of unplanned work.
+This isn't a failure of planning; software is an empirical medium. Interacting with a live build reveals last-mile polish that is impossible to predict in markdown.
 
-### Handling Fit and Finish Without Process Friction
-- **On an In-Flight Feature Branch**: Keep the polish on the same branch. You don't need new spec files—write a reproducing test or verify the bounded UI diff directly, satisfy DoD, and merge.
-- **On Code Already in Trunk**: Open an automated **Lite Tier** change. The system generates `spec.md` and `tasks.md`, spins up an isolated sandbox, and delivers a clean PR.
+Handling it shouldn't create process friction:
+- **On an in-flight feature branch**: Fix it on the same branch. Write a reproducing test or verify the bounded UI diff directly—for a single-file fix, a red-green test is the most precise specification possible.
+- **On code already in trunk**: Spin up a lightweight, isolated change with a short spec and task list, verify it in a sandbox, and merge a clean PR.
+
+---
+
+## One Entry Point, Progressive Rigor
+
+The mistake most teams make is asking engineers to pick a process before they start working. In an agentic workflow, **the developer experience never changes**: you state your intent—the problem and desired outcome.
+
+From that single prompt, the system inspects the codebase, assesses the blast radius, and automatically scales the documentation and review rigor to match the risk:
+
+| Attribute | Lite Tier | Standard Tier | Major Tier |
+| :--- | :--- | :--- | :--- |
+| **Typical Use** | Fit & finish, edge cases, localized bug fixes | New endpoints, schema changes, state transitions | Cross-repo contracts, billing or auth overhauls |
+| **Trigger** | Live testing or targeted issue | Roadmap feature or circuit-breaker escalation | Strategic initiative |
+| **Artifacts** | Consolidated `spec.md` (inline intent + 1–2 [OpenSpec](https://openspec.dev/) scenarios) & `tasks.md` | `proposal.md`, `spec.md`, `design.md`, `tasks.md` | Full PRD, domain models, architecture decision records |
+| **Before Coding** | Quick check that scenarios & tasks are unambiguous | Peer review of spec & design before code generation | Multi-stakeholder review + feature flag strategy |
+| **Allowed as Unplanned?** | **Yes** (the only permitted unplanned tier) | **No** | **No** |
+
+For Standard and Major changes, separating spec review from code review is critical. Debating architecture inside an 800-line agent-generated diff is a recipe for review fatigue and regressions. For Lite changes, skipping heavy design docs keeps velocity high.
 
 ---
 
 ## The Low-Friction Circuit Breaker
 
-The danger in agentic engineering occurs when an engineer or agent treats a deep architectural problem as a casual fit-and-finish task. 
+The real danger in agentic development isn't fit-and-finish work—it's scope drift disguised as fit-and-finish.
 
-You start out adjusting button padding, notice an edge case in checkout, and suddenly the agent is rewriting database models and auth middleware inside an ad-hoc chat session.
+You start out adjusting button padding, notice an edge case in checkout, and five minutes later the agent is rewriting database models and auth middleware inside an ad-hoc chat session.
 
-**The Iron Rule:** Unplanned work can never exceed Lite Tier. If a change touches shared data schemas, public APIs, or security models, it cannot remain unplanned.
+**The Iron Rule:** Unplanned work can never exceed Lite Tier. If a change touches shared data schemas, public APIs, state machines, or security models, it cannot remain unplanned.
 
 ```mermaid
 flowchart TD
     Start["Unplanned Fit & Finish"] --> Check{"Touches schemas, public APIs,<br/>state machines, or security?"}
     
-    Check -- No --> LiteNode["<b>Stay in Lite Tier</b><br/>Failing test or bounded diff<br/>Quick DoD verification & merge"]
+    Check -- No --> LiteNode["<b>Stay in Lite Tier</b><br/>Failing test or bounded diff<br/>Verify & merge"]
     
     Check -- Yes --> Breaker["<b>🚨 Circuit Breaker Trips</b><br/>Automated Tier Promotion"]
-    Breaker --> Escalate["<b>Promote to Standard Tier</b><br/>Auto-scaffold proposal.md & design.md<br/>Initiate Decision Grilling Loop<br/>Enforce DoR before coding"]
+    Breaker --> Escalate["<b>Promote to Standard Tier</b><br/>Pre-fill proposal & design from diff<br/>Ask 2–3 architectural questions<br/>Require review before coding"]
     
     style Breaker fill:#ffebee,stroke:#d32f2f,stroke-width:2px
     style Escalate fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style LiteNode fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### How the Circuit Breaker Operates Low-Friction
-A circuit breaker fails if it feels like bureaucratic punishment. In an agentic system, tripping the breaker is frictionless:
+A circuit breaker only works if it feels like a guardrail, not bureaucratic punishment. In practice, tripping it should be almost frictionless:
 
-1. **Passive Tripwires**: The tooling monitors modified files. The moment a diff touches `prisma/schema.prisma`, `migrations/`, or route schemas, the system alerts:
+1. **Passive Tripwires**: Tooling watches modified files. The moment a casual polish diff touches `prisma/schema.prisma`, `migrations/`, or route schemas, the system flags it immediately:
    ```text
    ⚠️ CIRCUIT BREAKER: Schema change detected in fit-and-finish polish.
    Auto-promoting change to Standard Tier...
    ```
-2. **Automated Promotion**: The system upgrades the change to Standard Tier, generating `proposal.md` and `design.md` pre-populated from the reproduction context and dirty diff.
-3. **Targeted Decision Grilling**: Rather than leaving a blank template, the agent asks 2–3 specific architectural questions to clarify the data contract.
-4. **Clean Branch Splitting**: Clean cosmetic polish remains on the current branch to merge immediately, while the architectural fix is parked into its own worktree awaiting DoR review.
-
----
-
-## Comparing the Tiers
-
-| Attribute | Lite Tier | Standard Tier | Major Tier |
-| :--- | :--- | :--- | :--- |
-| **Typical Use** | Fit & finish, edge cases, bug fixes | New endpoints, schemas, state transitions | Cross-repo contracts, core engine rewrites |
-| **Trigger** | Live testing or targeted issue | Roadmap capability or circuit-breaker escalation | Strategic initiative / multi-month PRD |
-| **Artifacts** | Consolidated `spec.md` + `tasks.md` | `proposal.md`, `spec.md`, `design.md`, `tasks.md` | PRD, Decision Records, Domain Models (OKF) |
-| **Gate Check** | Fast DoR (scenarios + tasks defined) | Bifurcated DoR (spec & design peer-reviewed) | Multi-stakeholder review + feature flag verification |
-| **Permitted as Unplanned?** | **Yes** (the only permitted unplanned tier) | **No** (must clear DoR before build) | **No** (must clear strategic roadmap review) |
-
----
-
-## Operating Principles for Agentic Delivery
-
-1. **Keep the Entry Point Uniform**: Developers should have a single mental model for starting work. Let the system classify blast radius and scaffold progressive documentation depth.
-2. **The Test is the Spec for Minor Refinements**: Do not require full design documents for single-file bug fixes or localized polish. A red-green unit test is the most precise specification possible.
-3. **Bifurcate Specification from Implementation**: For Standard and Major changes, review behavioral scenarios before writing code. Debating architecture inside an 800-line diff is a recipe for fatigue and regressions.
-4. **Isolate Work in Ephemeral Worktrees**: Run agent builds in isolated git worktrees. This keeps experimental changes separated from trunk and makes circuit-breaker escalation trivial to isolate.
+2. **Pre-Populated Escalation**: Instead of handing the engineer a blank template, the system auto-generates `proposal.md` and `design.md` pre-filled from the reproduction context and dirty diff.
+3. **Targeted Architectural Questions**: The agent asks 2–3 concrete questions to nail down the data contract and rollback path before writing further code.
+4. **Clean Worktree Splitting**: Because agent builds run in ephemeral git worktrees, the safe cosmetic polish stays on the original branch to merge right away, while the architectural fix is parked in its own worktree awaiting review.
 
 ---
 
 ## The Cultural Shift
 
-Adopting an AI-native SDLC is a workflow transformation, not a tooling upgrade.
-
-In traditional software development, status was tied to typing volume. In an agentic organization, typing volume is a commodity. High leverage belongs to the engineer who formulates sharp intent, relies on progressive rigor to guard against chaos, and knows how to use automated circuit breakers to protect architecture without slowing down.
+In traditional software development, leverage was tied to typing volume. When code is free, typing volume is a commodity. High leverage belongs to the engineer who formulates sharp intent, lets progressive rigor absorb the ceremony, and uses automated circuit breakers to protect architecture without slowing down.
