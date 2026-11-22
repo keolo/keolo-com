@@ -2,7 +2,7 @@
 title: "When Code is Free, What Counts as Unplanned Work?"
 draft: false
 weight: 1
-description: "When AI generates code in seconds, the developer experience shouldn't change whether you're fixing a typo or redesigning billing. Here is how progressive rigor and automated circuit breakers balance velocity with architectural safety."
+description: "Velocity is cheap when AI writes the code; safety isn't. Here’s how progressive rigor and automated circuit breakers keep both in balance."
 tags: ["AI", "Software Engineering", "Product Engineering System", "AI SDLC", "Engineering Leadership"]
 ---
 
