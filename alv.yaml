@@ -4,3 +4,11 @@ defaults:
   protocol: https
 sandbox:
   auto_setup: true
+features:
+  feat_pes_workflow_orchestration_local_msb_runtime: true
+  feat_pes_workflow_orchestration_restate_control_plane: true
+  feat_secure_unattended_agent_execution_sandbox_runtime: true
+  feat_secure_unattended_agent_execution_workspace_automation: true
+  feat_secure_unattended_agent_execution_unattended_supervisor: true
+  feat_secure_unattended_agent_execution_streaming_telemetry: true
+  enable_pipeline_autonomous_closed_loop: true
