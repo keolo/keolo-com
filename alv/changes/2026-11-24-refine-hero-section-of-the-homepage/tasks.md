@@ -36,15 +36,16 @@ related: []
   - [x] Highlight cards lay out responsively without vertical clipping on mobile (375px) or desktop (1440px).
 
 ## Task T3: Configure Sticky Navigation Below Hero and Scroll Interactions
+- status: COMPLETED
 - blocked_by: [T1, T2]
 - blocks: [T4]
 - **Spec Scenarios**: Scenario 1, Scenario 2, Scenario 5
 - **Description**:
   Ensure the `<Header />` rendered immediately below the hero section seamlessly engages `sticky top-0 z-40` as the visitor scrolls into the light-mode section of the homepage. Ensure the scroll down cue anchors smoothly to the content section (`#content`). Verify keyboard navigation, tab order, and `prefers-reduced-motion` compliance.
 ### Acceptance Criteria
-  - [ ] Navigation header is absent from the initial `100dvh` fold on first page load.
-  - [ ] Header sticks to the top of the viewport when scrolling into the Projects and Latest Posts sections.
-  - [ ] Smooth scrolling and scroll indicator respect `prefers-reduced-motion: reduce`.
+  - [x] Navigation header is absent from the initial `100dvh` fold on first page load.
+  - [x] Header sticks to the top of the viewport when scrolling into the Projects and Latest Posts sections.
+  - [x] Smooth scrolling and scroll indicator respect `prefers-reduced-motion: reduce`.
 
 ## Task T4: Author Automated Regression Tests & Validate Quality Gates
 - blocked_by: [T1, T2, T3]
