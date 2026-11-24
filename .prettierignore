@@ -1,0 +1,13 @@
+# Protected ALV specification & workspace artifacts
+alv/
+.alv/
+.av/
+
+# Legacy Hugo content (migrated to src/content/ and removed in T4)
+/content/
+
+# Build outputs & dependencies
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml

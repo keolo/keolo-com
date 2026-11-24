@@ -16,10 +16,10 @@ related: []
 - blocks: [T2, T3, T4, T5]
 - **Spec Scenarios**: Scenario 1, Scenario 2
 - **Description**:
-  Scaffold a latest-version Astro + TypeScript + Tailwind CSS v4 project using `pnpm` (Node.js 22+), configure ESLint + Prettier + `astro check`, wire up `Makefile` targets `run` (`alv run`), `maintain` (`alv maintain`), `build`, and `clean`, and remove obsolete Hugo/PaperMod files (`hugo.yaml`, `.hugo_build.lock`, `.gitmodules`, `themes/`, `archetypes/`, `layouts/`, `resources/`).
+  Scaffold a latest-version Astro + TypeScript + Tailwind CSS v4 project using `pnpm` (Node.js 22+), configure ESLint + Prettier + `astro check` (preserving `.prettierignore` exclusions for `alv/`, `.alv/`, `dist/`, `.astro/`, `node_modules/` so formatters never modify protected specification artifacts under `alv/changes/`), wire up `Makefile` targets `run` (`alv run`), `maintain` (`alv maintain`), `build`, and `clean`, and remove obsolete Hugo/PaperMod files (`hugo.yaml`, `.hugo_build.lock`, `.gitmodules`, `themes/`, `archetypes/`, `layouts/`, `resources/`).
 - **Acceptance Criteria**:
   - `pnpm install`, `alv run` (starts Astro dev server), and `alv maintain` (runs `astro check`, lint, format check, audit, and `astro build`) succeed cleanly.
-  - `.gitignore` updated for Astro (`dist/`, `.astro/`, `node_modules/`).
+  - `.gitignore` updated for Astro (`dist/`, `.astro/`, `node_modules/`) and `.prettierignore` excludes `alv/` so `spec.md`, `design.md`, and `proposal.md` are never modified.
   - Zero Hugo/PaperMod toolchain files remain.
 
 ## Task T2: Implement Build-Time Mermaid v13 Alpha DOM-Free SVG Pipeline
