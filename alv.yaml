@@ -1,4 +1,6 @@
 version: 1
 name: workspace
 defaults:
-    protocol: https
+  protocol: https
+sandbox:
+  auto_setup: true
