@@ -1,0 +1,104 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { describe, expect, it } from 'vitest';
+
+const rootDir = process.cwd();
+const distDir = path.join(rootDir, 'dist');
+const contentDir = path.join(rootDir, 'src', 'content');
+
+function walkFiles(dir: string, ext?: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const results: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...walkFiles(full, ext));
+    } else if (!ext || full.endsWith(ext)) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
+describe('migrated content integrity', () => {
+  it('contains zero raw Hugo shortcodes in src/content', () => {
+    const mdFiles = walkFiles(contentDir, '.md');
+    expect(mdFiles.length).toBeGreaterThan(15);
+    for (const file of mdFiles) {
+      const content = fs.readFileSync(file, 'utf8');
+      expect(content, `Hugo shortcode found in ${file}`).not.toContain('{{<');
+    }
+  });
+});
+
+describe('production dist output (when built)', () => {
+  const hasDist = fs.existsSync(path.join(distDir, 'index.html'));
+
+  it.skipIf(!hasDist)('emits required SEO, CNAME, RSS, sitemap, and LLM artifacts', () => {
+    const requiredFiles = [
+      'index.html',
+      'about/index.html',
+      'posts/index.html',
+      'projects/index.html',
+      'sitemap-index.xml',
+      'rss.xml',
+      'robots.txt',
+      'CNAME',
+      'llms.txt',
+      'llms-full.txt',
+    ];
+    for (const rel of requiredFiles) {
+      const full = path.join(distDir, rel);
+      expect(fs.existsSync(full), `Missing dist/${rel}`).toBe(true);
+      expect(fs.readFileSync(full, 'utf8').trim().length).toBeGreaterThan(0);
+    }
+
+    expect(fs.readFileSync(path.join(distDir, 'CNAME'), 'utf8').trim()).toBe('keolo.com');
+    expect(fs.readFileSync(path.join(distDir, 'robots.txt'), 'utf8')).toContain(
+      'https://keolo.com/sitemap-index.xml'
+    );
+  });
+
+  it.skipIf(!hasDist)(
+    'excludes draft posts from HTML routes, sitemap, RSS, and LLM indexes',
+    () => {
+      const draftSlugs = ['ui-ux-design', 'how-to-hire-and-nurture-a-high-performing-team'];
+
+      for (const slug of draftSlugs) {
+        expect(fs.existsSync(path.join(distDir, 'posts', slug, 'index.html'))).toBe(false);
+        expect(
+          fs.existsSync(path.join(distDir, 'posts', 'how-to-build-an-ehr', slug, 'index.html'))
+        ).toBe(false);
+      }
+
+      const indexFiles = ['rss.xml', 'llms.txt', 'llms-full.txt', 'sitemap-0.xml'].filter((f) =>
+        fs.existsSync(path.join(distDir, f))
+      );
+      for (const rel of indexFiles) {
+        const body = fs.readFileSync(path.join(distDir, rel), 'utf8');
+        for (const slug of draftSlugs) {
+          expect(body, `Draft slug ${slug} leaked into dist/${rel}`).not.toContain(slug);
+        }
+      }
+    }
+  );
+
+  it.skipIf(!hasDist)('renders inline Mermaid SVGs with zero client-side Mermaid scripts', () => {
+    const aboutHtml = fs.readFileSync(path.join(distDir, 'about', 'index.html'), 'utf8');
+    expect(aboutHtml).toContain('<figure class="mermaid-diagram"');
+    expect(aboutHtml).toContain('<svg');
+    expect(aboutHtml.toLowerCase()).not.toMatch(/<script[^>]*mermaid/);
+  });
+
+  it.skipIf(!hasDist)('includes canonical, OG, Twitter, and JSON-LD metadata on HTML pages', () => {
+    const htmlFiles = walkFiles(distDir, '.html');
+    expect(htmlFiles.length).toBeGreaterThan(10);
+    for (const file of htmlFiles) {
+      const html = fs.readFileSync(file, 'utf8');
+      expect(html, `Missing canonical in ${file}`).toContain('rel="canonical"');
+      expect(html, `Missing og:title in ${file}`).toContain('property="og:title"');
+      expect(html, `Missing twitter:card in ${file}`).toContain('name="twitter:card"');
+      expect(html, `Missing JSON-LD in ${file}`).toContain('application/ld+json');
+    }
+  });
+});

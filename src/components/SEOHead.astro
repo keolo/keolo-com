@@ -1,0 +1,107 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  tags?: string[];
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://keolo.com').toString(),
+  image = '/images/covers/profile.jpg',
+  type = 'website',
+  tags = [],
+  jsonLd,
+} = Astro.props;
+
+const siteTitle = 'Keolo';
+const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+const ogImage = image.startsWith('http')
+  ? image
+  : new URL(
+      image.startsWith('/') ? image : `/${image}`,
+      Astro.site ?? 'https://keolo.com'
+    ).toString();
+
+const defaultJsonLd =
+  type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        url: canonicalUrl,
+        image: ogImage,
+        keywords: tags.join(', '),
+        author: {
+          '@type': 'Person',
+          name: 'Keolo',
+          url: 'https://keolo.com/about/',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Aliveness Ventures',
+            url: 'https://aliveness.ventures',
+          },
+        },
+        publisher: {
+          '@type': 'Person',
+          name: 'Keolo',
+          url: 'https://keolo.com',
+        },
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Keolo',
+        url: 'https://keolo.com',
+        description,
+        author: {
+          '@type': 'Person',
+          name: 'Keolo',
+          jobTitle: 'Managing Partner & Fractional CTO',
+          url: 'https://keolo.com/about/',
+          sameAs: ['https://www.linkedin.com/in/keolo', 'https://github.com/keolo'],
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Aliveness Ventures',
+            url: 'https://aliveness.ventures',
+          },
+        },
+      };
+
+const structuredData = jsonLd ?? defaultJsonLd;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Keolo RSS Feed" href="/rss.xml" />
+
+<!-- OpenGraph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteTitle} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

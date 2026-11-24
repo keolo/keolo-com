@@ -1,0 +1,124 @@
+---
+export interface CarouselItem {
+  src: string;
+  alt: string;
+}
+
+export interface Props {
+  items: CarouselItem[];
+  id?: string;
+}
+
+const { items, id = 'project-carousel' } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <div
+      class="graphite-carousel my-8 overflow-hidden rounded-2xl border border-graphite-200 bg-white shadow-xs"
+      data-carousel={id}
+      tabindex="0"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Project gallery"
+    >
+      <div class="relative bg-graphite-100">
+        <div class="relative flex h-[320px] items-center justify-center sm:h-[460px] md:h-[540px]">
+          {items.map((item, idx) => (
+            <div
+              class:list={[
+                'carousel-slide absolute inset-0 flex items-center justify-center p-4 transition-opacity duration-300',
+                idx === 0 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0',
+              ]}
+              data-slide-index={idx}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                class="max-h-full max-w-full rounded-lg object-contain shadow-xs"
+              />
+            </div>
+          ))}
+        </div>
+
+        {items.length > 1 && (
+          <>
+            <button
+              type="button"
+              data-carousel-prev
+              aria-label="Previous slide"
+              class="absolute top-1/2 left-3 z-20 -translate-y-1/2 rounded-full border border-graphite-200 bg-white/90 px-3 py-2 text-sm font-medium text-graphite-900 shadow-xs backdrop-blur-xs transition hover:bg-white"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              data-carousel-next
+              aria-label="Next slide"
+              class="absolute top-1/2 right-3 z-20 -translate-y-1/2 rounded-full border border-graphite-200 bg-white/90 px-3 py-2 text-sm font-medium text-graphite-900 shadow-xs backdrop-blur-xs transition hover:bg-white"
+            >
+              →
+            </button>
+          </>
+        )}
+      </div>
+
+      {items.length > 1 && (
+        <div class="flex items-center justify-center gap-2 border-t border-graphite-200 bg-white px-4 py-3">
+          {items.map((item, idx) => (
+            <button
+              type="button"
+              data-carousel-dot={idx}
+              aria-label={`View slide ${idx + 1}: ${item.alt}`}
+              class:list={[
+                'h-2.5 w-2.5 rounded-full transition-colors',
+                idx === 0 ? 'bg-graphite-900' : 'bg-graphite-300 hover:bg-graphite-500',
+              ]}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+<script is:inline>
+  document.querySelectorAll('[data-carousel]').forEach((root) => {
+    const slides = Array.from(root.querySelectorAll('[data-slide-index]'));
+    const dots = Array.from(root.querySelectorAll('[data-carousel-dot]'));
+    if (slides.length <= 1) return;
+
+    let current = 0;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        if (i === current) {
+          slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+        } else {
+          slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+          slide.classList.remove('opacity-100', 'z-10');
+        }
+      });
+      dots.forEach((dot, i) => {
+        if (i === current) {
+          dot.classList.add('bg-graphite-900');
+          dot.classList.remove('bg-graphite-300');
+        } else {
+          dot.classList.remove('bg-graphite-900');
+          dot.classList.add('bg-graphite-300');
+        }
+      });
+    }
+
+    root.querySelector('[data-carousel-prev]')?.addEventListener('click', () => show(current - 1));
+    root.querySelector('[data-carousel-next]')?.addEventListener('click', () => show(current + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') show(current - 1);
+      if (event.key === 'ArrowRight') show(current + 1);
+    });
+  });
+</script>

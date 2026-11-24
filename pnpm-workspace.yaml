@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+overrides:
+  postcss-selector-parser: '>=6.1.5'
+  esbuild: '>=0.28.1'

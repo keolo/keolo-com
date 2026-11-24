@@ -1,0 +1,66 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Carousel, { type CarouselItem } from '../components/Carousel.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  coverImage?: string;
+  gallery?: CarouselItem[];
+  tags?: string[];
+}
+
+const { title, description, coverImage, gallery = [], tags = [] } = Astro.props;
+const normalizedCover = coverImage
+  ? coverImage.startsWith('/')
+    ? coverImage
+    : `/${coverImage}`
+  : undefined;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={normalizedCover}
+  type="article"
+  tags={tags}
+>
+  <article class="mx-auto max-w-4xl">
+    <header class="mb-10 border-b border-graphite-200 pb-8">
+      <div class="mb-4 flex items-center gap-2 text-sm text-graphite-500">
+        <a href="/projects/" class="transition-colors hover:text-graphite-900">Projects</a>
+        <span>/</span>
+        <span class="text-graphite-700">{title}</span>
+      </div>
+      <h1 class="text-3xl font-bold tracking-tight text-graphite-950 sm:text-5xl">{title}</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-graphite-600">{description}</p>
+    </header>
+
+    {gallery.length > 0 && <Carousel items={gallery} id={`carousel-${title.toLowerCase()}`} />}
+
+    <div
+      class="prose prose-zinc max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-graphite-900 prose-a:underline-offset-4"
+    >
+      <slot />
+    </div>
+
+    <section class="mt-16 rounded-2xl border border-graphite-200 bg-white p-8 text-center">
+      <h2 class="text-2xl font-semibold tracking-tight text-graphite-950">
+        Building something ambitious?
+      </h2>
+      <p class="mx-auto mt-3 max-w-xl text-graphite-600">
+        I partner with founders as a Fractional CTO to take high-stakes products from 0 → 1 and
+        beyond.
+      </p>
+      <a
+        href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Egyi1WiHd5jvKcIoI3B6T9NnGpeIssIZd7vGybBS6Sl_JyUBMjMk7Lp3YL2GCfb_GjyVjbDMI?gv=true"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 inline-flex items-center gap-2 rounded-lg bg-graphite-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-graphite-800"
+      >
+        Book a Call
+        <span aria-hidden="true">→</span>
+      </a>
+    </section>
+  </article>
+</BaseLayout>

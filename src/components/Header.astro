@@ -1,0 +1,113 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'About' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/posts/', label: 'Posts' },
+];
+
+const bookingUrl =
+  'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Egyi1WiHd5jvKcIoI3B6T9NnGpeIssIZd7vGybBS6Sl_JyUBMjMk7Lp3YL2GCfb_GjyVjbDMI?gv=true';
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-graphite-200/80 bg-graphite-50/85 backdrop-blur-md"
+>
+  <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a
+      href="/"
+      class="flex items-center gap-2.5 text-base font-semibold tracking-tight text-graphite-950 transition-opacity hover:opacity-80"
+    >
+      <img src="/k-mark.svg" alt="Keolo mark" class="h-6 w-6" width="24" height="24" />
+      <span>Keolo</span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'rounded-lg px-3.5 py-2 text-sm font-medium transition-colors',
+              isActive(link.href)
+                ? 'bg-graphite-900 text-white'
+                : 'text-graphite-600 hover:bg-graphite-200/60 hover:text-graphite-950',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-2 inline-flex items-center gap-1.5 rounded-lg bg-graphite-950 px-4 py-2 text-sm font-medium text-white shadow-xs transition-all hover:bg-graphite-800"
+      >
+        Book a Call
+        <span aria-hidden="true">→</span>
+      </a>
+    </nav>
+
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+      class="inline-flex items-center justify-center rounded-lg border border-graphite-200 p-2 text-graphite-700 transition-colors hover:bg-graphite-100 md:hidden"
+    >
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-graphite-200 bg-white px-4 py-4 md:hidden">
+    <div class="flex flex-col gap-1">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'rounded-lg px-3 py-2 text-sm font-medium',
+              isActive(link.href)
+                ? 'bg-graphite-900 text-white'
+                : 'text-graphite-700 hover:bg-graphite-100',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-graphite-950 px-4 py-2.5 text-sm font-medium text-white"
+      >
+        Book a Call
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

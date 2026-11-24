@@ -1,38 +1,52 @@
-# Keolo.com
+# keolo.com
 
-Personal website built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme.
+Personal website for **Keolo**, Managing Partner & Fractional CTO at [Aliveness Ventures](https://aliveness.ventures), built with [Astro](https://astro.build/), [Tailwind CSS v4](https://tailwindcss.com/), and build-time [Mermaid v13 Alpha](https://mermaid.js.org/) SVG rendering.
 
 ## Prerequisites
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Hugo runs via Docker; no local installation needed)
+- **Node.js** 22+
+- **pnpm**
 
-## Commands
+## Developer Workflow
 
 ```bash
-# Start local dev server with drafts enabled (http://localhost:1313)
-make run
+# Install dependencies
+pnpm install
 
-# Create a new post in content/posts/<name>.md
-make new-post NAME=my-post-name
+# Start local Astro dev server (includes draft: true posts)
+alv run
+# or: make run
 
-# Build static site to public/
+# Run full maintenance suite (astro check, ESLint, Prettier, Vitest, audit, astro build)
+alv maintain
+# or: make maintain
+
+# Run unit & integration tests
+pnpm test
+
+# Production build (outputs to dist/)
 make build
 
-# Remove generated build files
+# Clean generated artifacts
 make clean
 ```
 
-## Content & Development
+## Content Authoring
 
-- **Publishing**: Set `draft: false` in the post front matter. Pushing to `main` automatically builds and deploys the site to GitHub Pages via GitHub Actions.
-- **Configuration**: Edit site configuration in `hugo.yaml`.
-- **Theme Overrides**: Copy templates from `themes/PaperMod/layouts/` into `layouts/` to override them (e.g., `cp themes/PaperMod/layouts/partials/header.html layouts/partials/header.html`).
-- **Project Pages**: Follow the structure: **Challenge → Approach → Outcomes → Stack → CTA** (under 350 words, excluding carousels and diagrams).
+- **Posts**: `src/content/posts/` (standalone articles + multi-part `how-to-build-an-ehr/` series)
+- **Projects**: `src/content/projects/` (case studies with interactive `<Carousel />` galleries)
+- **Drafts**: Set `draft: true` in frontmatter to preview locally in `alv run` while automatically excluding the entry from production builds, `sitemap-index.xml`, `rss.xml`, `llms.txt`, and `llms-full.txt`.
 
-## References
+## Build-Time Mermaid v13 SVG Pipeline
 
-- [PaperMod Chroma Syntax Highlighting](https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#using-hugos-syntax-highlighter-chroma)
-- [Chroma Style Gallery](https://swapoff.org/chroma/playground/)
-- [PhotoSwipe Documentation](https://photoswipe.com/getting-started/)
-- [Hiding a Page in Hugo](https://makewithhugo.com/hide-a-page/)
-- [Favicon Guidelines](https://medium.com/web-dev-survey-from-kyoto/favicon-nightmare-how-to-maintain-sanity-7628bfc39918)
+All fenced ` ```mermaid ` blocks are rendered DOM-free at build/dev time via `src/lib/mermaid-v13.ts` (`mermaid@13.0.0-alpha.3`) into inline `<svg>` elements. Zero client-side Mermaid JavaScript is shipped to the browser, and invalid or unsupported diagrams fail the build fast with the offending file path.
+
+## SEO & LLM Outputs
+
+Production builds generate:
+
+- `dist/sitemap-index.xml` and `dist/rss.xml`
+- `dist/robots.txt` and `dist/CNAME` (`keolo.com`)
+- `dist/llms.txt` (structured site index for AI agents)
+- `dist/llms-full.txt` (complete plain-text/Markdown content bundle)
+- Per-page canonical URLs, OpenGraph/Twitter meta tags, and JSON-LD structured data.

@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import { getPublishedPosts, isEhrSeriesPost, type PostEntry } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: PostEntry;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const isEhr = isEhrSeriesPost(post.slug);
+let seriesChapters: { slug: string; title: string }[] = [];
+
+if (isEhr) {
+  const allPosts = await getPublishedPosts();
+  seriesChapters = allPosts
+    .filter((p) => isEhrSeriesPost(p.slug) && p.slug !== 'how-to-build-an-ehr')
+    .map((p) => ({ slug: p.slug, title: p.data.title }));
+}
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  tags={post.data.tags}
+  coverImage={post.data.cover?.image}
+  draft={post.data.draft}
+  seriesTitle={isEhr ? 'How to build an EHR' : undefined}
+  seriesChapters={seriesChapters}
+  currentSlug={post.slug}
+>
+  <Content />
+</PostLayout>
