@@ -32,147 +32,172 @@ const highlights = [
 <BaseLayout
   title="Keolo"
   description="Tech leadership for high-stakes startups. Fractional CTO for AI, HealthTech & FinTech startups at Aliveness Ventures."
+  headerPlacement="below-hero"
 >
-  <section class="py-10 sm:py-16">
-    <div class="max-w-3xl">
-      <p
-        class="inline-flex items-center gap-2 rounded-full border border-graphite-200 bg-white px-3.5 py-1 text-xs font-medium text-graphite-600"
-      >
-        Fractional CTO • AI, HealthTech &amp; FinTech
-      </p>
-      <h1
-        class="mt-6 text-4xl font-bold tracking-tight text-graphite-950 sm:text-5xl sm:leading-[1.1]"
-      >
-        Tech leadership for high-stakes startups
-      </h1>
-      <p class="mt-6 text-lg leading-relaxed text-graphite-600 sm:text-xl">
-        I’m <strong class="font-semibold text-graphite-950">Keolo</strong>, Partner &amp; CTO at{
-          ' '
-        }
-        <a
-          href="https://aliveness.ventures"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-medium text-graphite-900 underline decoration-graphite-300 underline-offset-4 transition-colors hover:decoration-graphite-900"
-        >
-          Aliveness Ventures
-        </a>
-        , turning ideas into <strong class="font-semibold text-graphite-950"
-          >revenue-generating products</strong
-        >. 20+ years building products and startups.
-      </p>
+  <Fragment slot="hero">
+    <section
+      class="relative flex w-full min-h-screen min-h-[100dvh] flex-col justify-center bg-graphite-950 px-4 py-16 text-white sm:px-6 lg:px-8"
+    >
+      <div class="mx-auto w-full max-w-5xl">
+        <div class="max-w-3xl">
+          <p
+            class="inline-flex items-center gap-2 rounded-full border border-graphite-800 bg-graphite-900/80 px-3.5 py-1 text-xs font-medium text-graphite-300"
+          >
+            Fractional CTO • AI, HealthTech &amp; FinTech
+          </p>
+          <h1
+            class="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl sm:leading-[1.1]"
+          >
+            Tech leadership for high-stakes startups
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed text-graphite-300 sm:text-xl">
+            I’m <strong class="font-semibold text-white">Keolo</strong>, Partner &amp; CTO at{' '}
+            <a
+              href="https://aliveness.ventures"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-medium text-white underline decoration-graphite-600 underline-offset-4 transition-colors hover:decoration-white"
+            >
+              Aliveness Ventures
+            </a>
+            , turning ideas into <strong class="font-semibold text-white"
+              >revenue-generating products</strong
+            >. 20+ years building products and startups.
+          </p>
 
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a
-          href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Egyi1WiHd5jvKcIoI3B6T9NnGpeIssIZd7vGybBS6Sl_JyUBMjMk7Lp3YL2GCfb_GjyVjbDMI?gv=true"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-lg bg-graphite-950 px-5 py-3 text-sm font-medium text-white shadow-xs transition hover:bg-graphite-800"
-        >
-          Book a Call
-          <span aria-hidden="true">→</span>
-        </a>
-        <a
-          href="/about/"
-          class="inline-flex items-center gap-2 rounded-lg border border-graphite-200 bg-white px-5 py-3 text-sm font-medium text-graphite-800 transition hover:border-graphite-300 hover:bg-graphite-100"
-        >
-          About &amp; Engagement Models
-        </a>
-      </div>
-    </div>
-
-    <MotionReveal class="mt-14 grid gap-4 sm:grid-cols-2">
-      {
-        highlights.map((item) => (
-          <div class="rounded-2xl border border-graphite-200 bg-white p-6 transition hover:border-graphite-300">
-            <h2 class="text-sm font-semibold tracking-tight text-graphite-950">{item.label}</h2>
-            <p class="mt-2 text-sm leading-relaxed text-graphite-600">{item.detail}</p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Egyi1WiHd5jvKcIoI3B6T9NnGpeIssIZd7vGybBS6Sl_JyUBMjMk7Lp3YL2GCfb_GjyVjbDMI?gv=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-graphite-950 shadow-xs transition hover:bg-graphite-200"
+            >
+              Book a Call
+              <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="/about/"
+              class="inline-flex items-center gap-2 rounded-lg border border-graphite-800 bg-graphite-900/60 px-5 py-3 text-sm font-medium text-graphite-200 transition hover:border-graphite-700 hover:bg-graphite-800"
+            >
+              About &amp; Engagement Models
+            </a>
           </div>
-        ))
-      }
-    </MotionReveal>
-  </section>
+        </div>
 
-  <MotionReveal class="mt-12 border-t border-graphite-200 pt-14">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">
-          Selected Work
-        </p>
-        <h2 class="mt-1 text-2xl font-bold tracking-tight text-graphite-950">Projects</h2>
-      </div>
-      <a href="/projects/" class="text-sm font-medium text-graphite-600 hover:text-graphite-950">
-        All projects →
-      </a>
-    </div>
-
-    <div class="mt-8 grid gap-6 md:grid-cols-3">
-      {
-        projects.map((project) => (
-          <a
-            href={`/projects/${project.slug}/`}
-            class="group flex flex-col overflow-hidden rounded-2xl border border-graphite-200 bg-white transition hover:border-graphite-400"
-          >
-            {project.data.cover?.image && (
-              <div class="aspect-16/10 overflow-hidden bg-graphite-100">
-                <img
-                  src={
-                    project.data.cover.image.startsWith('/')
-                      ? project.data.cover.image
-                      : `/${project.data.cover.image}`
-                  }
-                  alt={project.data.title}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
+        <MotionReveal class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            highlights.map((item) => (
+              <div class="rounded-2xl border border-graphite-800/80 bg-graphite-900/40 p-6 transition hover:border-graphite-700">
+                <h2 class="text-sm font-semibold tracking-tight text-white">{item.label}</h2>
+                <p class="mt-2 text-sm leading-relaxed text-graphite-300">{item.detail}</p>
               </div>
-            )}
-            <div class="flex flex-1 flex-col p-5">
-              <h3 class="text-lg font-semibold text-graphite-950 group-hover:underline">
-                {project.data.title}
-              </h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-graphite-600">
-                {project.data.description}
-              </p>
-              <span class="mt-4 text-xs font-semibold text-graphite-800">Read case study →</span>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </MotionReveal>
-
-  <MotionReveal class="mt-16 border-t border-graphite-200 pt-14">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">Writing</p>
-        <h2 class="mt-1 text-2xl font-bold tracking-tight text-graphite-950">Latest Posts</h2>
+            ))
+          }
+        </MotionReveal>
       </div>
-      <a href="/posts/" class="text-sm font-medium text-graphite-600 hover:text-graphite-950">
-        All posts →
-      </a>
-    </div>
 
-    <div class="mt-8 divide-y divide-graphite-200 rounded-2xl border border-graphite-200 bg-white">
-      {
-        featuredPosts.map((post) => (
-          <a
-            href={`/posts/${post.slug}/`}
-            class="group flex flex-col justify-between gap-2 p-6 transition hover:bg-graphite-50 sm:flex-row sm:items-center"
-          >
-            <div>
-              <h3 class="text-base font-semibold text-graphite-950 group-hover:underline">
-                {post.data.title}
-              </h3>
-              {post.data.description && (
-                <p class="mt-1 line-clamp-2 text-sm text-graphite-600">{post.data.description}</p>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <a
+          href="#content"
+          aria-label="Scroll down"
+          class="text-graphite-400 transition-colors hover:text-white"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </Fragment>
+
+  <div id="content" class="scroll-mt-16">
+    <MotionReveal class="mt-12 border-t border-graphite-200 pt-14">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">
+            Selected Work
+          </p>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-graphite-950">Projects</h2>
+        </div>
+        <a href="/projects/" class="text-sm font-medium text-graphite-600 hover:text-graphite-950">
+          All projects →
+        </a>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        {
+          projects.map((project) => (
+            <a
+              href={`/projects/${project.slug}/`}
+              class="group flex flex-col overflow-hidden rounded-2xl border border-graphite-200 bg-white transition hover:border-graphite-400"
+            >
+              {project.data.cover?.image && (
+                <div class="aspect-16/10 overflow-hidden bg-graphite-100">
+                  <img
+                    src={
+                      project.data.cover.image.startsWith('/')
+                        ? project.data.cover.image
+                        : `/${project.data.cover.image}`
+                    }
+                    alt={project.data.title}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
               )}
-            </div>
-            <span class="shrink-0 text-sm font-medium text-graphite-500 group-hover:text-graphite-950">
-              Read →
-            </span>
-          </a>
-        ))
-      }
-    </div>
-  </MotionReveal>
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-graphite-950 group-hover:underline">
+                  {project.data.title}
+                </h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-graphite-600">
+                  {project.data.description}
+                </p>
+                <span class="mt-4 text-xs font-semibold text-graphite-800">Read case study →</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </MotionReveal>
+
+    <MotionReveal class="mt-16 border-t border-graphite-200 pt-14">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">Writing</p>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-graphite-950">Latest Posts</h2>
+        </div>
+        <a href="/posts/" class="text-sm font-medium text-graphite-600 hover:text-graphite-950">
+          All posts →
+        </a>
+      </div>
+
+      <div
+        class="mt-8 divide-y divide-graphite-200 rounded-2xl border border-graphite-200 bg-white"
+      >
+        {
+          featuredPosts.map((post) => (
+            <a
+              href={`/posts/${post.slug}/`}
+              class="group flex flex-col justify-between gap-2 p-6 transition hover:bg-graphite-50 sm:flex-row sm:items-center"
+            >
+              <div>
+                <h3 class="text-base font-semibold text-graphite-950 group-hover:underline">
+                  {post.data.title}
+                </h3>
+                {post.data.description && (
+                  <p class="mt-1 line-clamp-2 text-sm text-graphite-600">{post.data.description}</p>
+                )}
+              </div>
+              <span class="shrink-0 text-sm font-medium text-graphite-500 group-hover:text-graphite-950">
+                Read →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </MotionReveal>
+  </div>
 </BaseLayout>

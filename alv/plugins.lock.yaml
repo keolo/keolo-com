@@ -1,0 +1,23 @@
+version: 1
+updated_at: "2026-11-24T23:40:27Z"
+plugins:
+  alv/antigravity-plugin:
+    version: 0.14.13
+    source: https://github.com/aliveness-dev
+    resolved_sha256: fe1af851355b8a55ecb37ab48a8df37dc0acbf06c74314805b831aad4bf1e4fe
+    installed_path: /root/.gemini/config/plugins/alv
+  alv/claude-plugin:
+    version: 0.14.13
+    source: https://github.com/aliveness-dev
+    resolved_sha256: 36e39892f4b8758f07990011969b8269372d72c868351fdab7c9fd061ee9602e
+    installed_path: /root/.claude/skills/alv
+  alv/codex-plugin:
+    version: 0.14.13
+    source: https://github.com/aliveness-dev
+    resolved_sha256: 9e7cdb8fb65d3a34e8ecabe9592a6c910f3aaa7dd07d7c270a71f48a4dd12d3c
+    installed_path: /root/.codex/plugins/alv
+  alv/opencode-plugin:
+    version: 0.14.13
+    source: https://github.com/aliveness-dev
+    resolved_sha256: 3d820a19f8fc1c7dc4c457e0422cbce117ae5894739dbd9e2841cd325ac6aa34
+    installed_path: /root/.config/opencode/plugins/alv

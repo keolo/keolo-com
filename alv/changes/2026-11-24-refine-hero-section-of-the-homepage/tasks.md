@@ -12,15 +12,16 @@ related: []
 # Execution Tasks: Refine Hero Section of the Homepage
 
 ## Task T1: Refactor `BaseLayout.astro` for Flexible Header Placement
+- status: COMPLETED
 - blocked_by: []
 - blocks: [T2, T3, T4]
 - **Spec Scenarios**: Scenario 1, Scenario 2, Scenario 4
 - **Description**:
   Update `src/layouts/BaseLayout.astro` to accept an optional `headerPlacement?: 'top' | 'below-hero' | 'none'` prop (defaulting to `'top'`). When `headerPlacement === 'below-hero'`, render a dedicated `<slot name="hero" />` before `<Header />`, followed by `<main>` for normal content flow. Verify all subpages (`about.astro`, `projects/`, `posts/`, `PostLayout.astro`, `ProjectLayout.astro`) continue to render `<Header />` at the top of the page without regressions.
 ### Acceptance Criteria
-  - [ ] `BaseLayout.astro` supports `headerPlacement="below-hero"` with `<slot name="hero" />` positioned above `<Header />`.
-  - [ ] Default `headerPlacement="top"` preserves identical layout structure for all subpages.
-  - [ ] Zero TypeScript or lint errors (`astro check`).
+  - [x] `BaseLayout.astro` supports `headerPlacement="below-hero"` with `<slot name="hero" />` positioned above `<Header />`.
+  - [x] Default `headerPlacement="top"` preserves identical layout structure for all subpages.
+  - [x] Zero TypeScript or lint errors (`astro check`).
 
 ## Task T2: Implement Full-Screen Dark-Mode Hero Section on Homepage
 - blocked_by: [T1]

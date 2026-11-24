@@ -101,4 +101,34 @@ describe('production dist output (when built)', () => {
       expect(html, `Missing JSON-LD in ${file}`).toContain('application/ld+json');
     }
   });
+
+  it.skipIf(!hasDist)('verifies homepage hero tokens and header placement', () => {
+    const indexHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
+
+    // Verifying hero tokens
+    expect(indexHtml).toContain('min-h-[100dvh]');
+    expect(indexHtml).toContain('bg-graphite-950');
+
+    // Verifying header is below hero
+    const heroIndex = indexHtml.indexOf('min-h-[100dvh]');
+    const headerIndex = indexHtml.indexOf('<header');
+    expect(heroIndex).toBeGreaterThan(-1);
+    expect(headerIndex).toBeGreaterThan(heroIndex);
+  });
+
+  it.skipIf(!hasDist)('verifies header placement at the top on subpages', () => {
+    const subpages = ['about/index.html', 'projects/index.html', 'posts/index.html'];
+
+    for (const subpage of subpages) {
+      const html = fs.readFileSync(path.join(distDir, subpage), 'utf8');
+
+      const bodyIndex = html.indexOf('<body');
+      const headerIndex = html.indexOf('<header');
+      const mainIndex = html.indexOf('<main');
+
+      expect(bodyIndex).toBeGreaterThan(-1);
+      expect(headerIndex).toBeGreaterThan(bodyIndex);
+      expect(mainIndex).toBeGreaterThan(headerIndex);
+    }
+  });
 });
