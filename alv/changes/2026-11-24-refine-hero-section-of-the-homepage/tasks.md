@@ -48,11 +48,12 @@ related: []
   - [x] Smooth scrolling and scroll indicator respect `prefers-reduced-motion: reduce`.
 
 ## Task T4: Author Automated Regression Tests & Validate Quality Gates
+- status: COMPLETED
 - blocked_by: [T1, T2, T3]
 - blocks: []
 - **Spec Scenarios**: Scenario 1, Scenario 2, Scenario 3, Scenario 4, Scenario 5
 - **Description**:
   Add unit and integration tests in `src/lib/__tests__/site-build.test.ts` verifying homepage hero tokens (`min-h-[100dvh]`, `bg-graphite-950`), header placement below the hero on `/`, and header placement at the top on subpages (`/about`, `/projects`, `/posts`). Run `alv gate check dor` to verify all Definition of Ready checks pass cleanly.
 ### Acceptance Criteria
-  - [ ] Automated tests in `src/lib/__tests__/site-build.test.ts` verify hero viewport height, dark mode tokens, and header placement rules.
-  - [ ] `alv gate check dor alv/changes/2026-11-24-refine-hero-section-of-the-homepage` passes all local specification gates.
+  - [x] Automated tests in `src/lib/__tests__/site-build.test.ts` verify hero viewport height, dark mode tokens, and header placement rules.
+  - [x] `alv gate check dor alv/changes/2026-11-24-refine-hero-section-of-the-homepage` passes all local specification gates.
