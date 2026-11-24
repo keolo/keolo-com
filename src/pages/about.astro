@@ -1,0 +1,41 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const aboutEntry = await getEntry('pages', 'about');
+if (!aboutEntry) {
+  throw new Error('Missing src/content/pages/about.md');
+}
+const { Content } = await aboutEntry.render();
+const coverImage = aboutEntry.data.cover?.image
+  ? aboutEntry.data.cover.image.startsWith('/')
+    ? aboutEntry.data.cover.image
+    : `/${aboutEntry.data.cover.image}`
+  : '/images/covers/profile.jpg';
+---
+
+<BaseLayout
+  title="About"
+  description="Managing Partner & Fractional CTO at Aliveness Ventures. Turning ambitious technical visions into compliant, scalable, revenue-generating products since 2005."
+  image={coverImage}
+>
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-10 border-b border-graphite-200 pb-8">
+      <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">Profile</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight text-graphite-950 sm:text-5xl">
+        {aboutEntry.data.title}
+      </h1>
+      <img
+        src={coverImage}
+        alt="Keolo profile"
+        class="mt-8 w-full rounded-2xl border border-graphite-200 object-cover shadow-xs"
+      />
+    </header>
+
+    <div
+      class="prose prose-zinc max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-graphite-900 prose-a:underline-offset-4"
+    >
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

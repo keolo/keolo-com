@@ -1,0 +1,100 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SeriesNav, { type SeriesChapter } from '../components/SeriesNav.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  tags?: string[];
+  coverImage?: string;
+  draft?: boolean;
+  seriesTitle?: string;
+  seriesChapters?: SeriesChapter[];
+  currentSlug?: string;
+}
+
+const {
+  title,
+  description = `${title} — by Keolo`,
+  tags = [],
+  coverImage,
+  draft = false,
+  seriesTitle,
+  seriesChapters = [],
+  currentSlug = '',
+} = Astro.props;
+
+const normalizedCover = coverImage
+  ? coverImage.startsWith('/')
+    ? coverImage
+    : `/${coverImage}`
+  : undefined;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={normalizedCover}
+  type="article"
+  tags={tags}
+>
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-10 border-b border-graphite-200 pb-8">
+      <div class="mb-4 flex items-center gap-2 text-sm text-graphite-500">
+        <a href="/posts/" class="transition-colors hover:text-graphite-900">Posts</a>
+        <span>/</span>
+        {
+          draft && (
+            <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
+              Draft
+            </span>
+          )
+        }
+      </div>
+
+      <h1 class="text-3xl font-bold tracking-tight text-graphite-950 sm:text-4xl">{title}</h1>
+
+      {description && <p class="mt-4 text-lg leading-relaxed text-graphite-600">{description}</p>}
+
+      {
+        tags.length > 0 && (
+          <div class="mt-5 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="rounded-full border border-graphite-200 bg-white px-3 py-1 text-xs font-medium text-graphite-600">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        normalizedCover && (
+          <img
+            src={normalizedCover}
+            alt={title}
+            class="mt-8 w-full rounded-2xl border border-graphite-200 object-cover shadow-xs"
+          />
+        )
+      }
+    </header>
+
+    {
+      seriesTitle && seriesChapters.length > 0 && (
+        <SeriesNav seriesTitle={seriesTitle} chapters={seriesChapters} currentSlug={currentSlug} />
+      )
+    }
+
+    <div
+      class="prose prose-zinc max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-graphite-900 prose-a:underline-offset-4 prose-img:rounded-xl prose-img:border prose-img:border-graphite-200"
+    >
+      <slot />
+    </div>
+
+    {
+      seriesTitle && seriesChapters.length > 0 && (
+        <SeriesNav seriesTitle={seriesTitle} chapters={seriesChapters} currentSlug={currentSlug} />
+      )
+    }
+  </article>
+</BaseLayout>

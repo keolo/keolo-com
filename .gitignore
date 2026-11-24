@@ -2,7 +2,10 @@
 .alv/
 
 .DS_Store
-public
+dist/
+.astro/
+node_modules/
+
 av.local.yaml
 alv.local.yaml
 alv-worktrees/

@@ -1,0 +1,49 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-graphite-200 bg-white">
+  <div
+    class="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
+  >
+    <div>
+      <div class="flex items-center gap-2 text-sm font-semibold text-graphite-950">
+        <img src="/k-mark.svg" alt="Keolo" class="h-5 w-5" width="20" height="20" />
+        <span>Keolo</span>
+      </div>
+      <p class="mt-1.5 text-sm text-graphite-500">
+        Partner &amp; Fractional CTO at{' '}
+        <a
+          href="https://aliveness.ventures"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium text-graphite-700 underline decoration-graphite-300 underline-offset-4 hover:text-graphite-950"
+        >
+          Aliveness Ventures
+        </a>
+        . © {year}
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-5 text-sm text-graphite-600">
+      <a
+        href="https://www.linkedin.com/in/keolo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transition-colors hover:text-graphite-950"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/keolo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transition-colors hover:text-graphite-950"
+      >
+        GitHub
+      </a>
+      <a href="/rss.xml" class="transition-colors hover:text-graphite-950">RSS</a>
+      <a href="/llms.txt" class="transition-colors hover:text-graphite-950">llms.txt</a>
+    </div>
+  </div>
+</footer>

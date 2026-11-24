@@ -1,60 +1,44 @@
-# Hugo Docker development Makefile
+# Keolo.com Astro development & maintenance Makefile
 
-# Variables
-DOCKER_IMAGE := hugomods/hugo:exts
-HUGO_PORT := 1313
-
-# Set default goal
 .DEFAULT_GOAL := help
 
-# Default target
-.PHONY: help
+.PHONY: help install run test lint maintain build clean
+
 help:
 	@echo "Available targets:"
-	@echo "  run        - Run Hugo server locally with Docker (with draft posts)"
-	@echo "  build      - Build the static site using Docker"
-	@echo "  clean      - Remove the generated site"
-	@echo "  new-post   - Create a new post (usage: make new-post NAME=my-post-name)"
+	@echo "  run        - Start Astro dev server (invoked by 'alv run')"
+	@echo "  maintain   - Run typecheck, lint, format check, tests, audit, and build (invoked by 'alv maintain')"
+	@echo "  test       - Run unit and integration tests"
+	@echo "  lint       - Run ESLint and astro check"
+	@echo "  build      - Build production static site to dist/"
+	@echo "  clean      - Remove generated build artifacts"
 
-.PHONY: init-submodules
-init-submodules:
-	@if [ ! -f "themes/PaperMod/theme.toml" ]; then \
-		echo "Initializing git submodules..."; \
-		git submodule update --init --recursive; \
+install:
+	@if [ ! -d "node_modules" ] || [ ! -f "node_modules/.bin/astro" ]; then \
+		pnpm install --frozen-lockfile || pnpm install; \
 	fi
 
-# Run Hugo server locally with Docker (with draft content)
-.PHONY: run
-run: init-submodules
-	docker run --rm \
-		-v $(PWD):/src \
-		-p $(HUGO_PORT):$(HUGO_PORT) \
-		$(DOCKER_IMAGE) \
-		hugo server -D --bind 0.0.0.0
+run: install
+	pnpm run dev
 
-# Build the static site
-.PHONY: build
-build: init-submodules
-	docker run --rm \
-		-v $(PWD):/src \
-		$(DOCKER_IMAGE) \
-		hugo
+test: install
+	pnpm run test
 
-# Clean the generated site
-.PHONY: clean
+lint: install
+	pnpm run check
+	pnpm run lint
+	pnpm run format:check
+
+maintain: install
+	pnpm run check
+	pnpm run lint
+	pnpm run format:check
+	pnpm run test
+	pnpm audit --audit-level=high || true
+	pnpm run build
+
+build: install
+	pnpm run build
+
 clean:
-	rm -rf public/
-
-# Create a new post
-.PHONY: new-post
-new-post:
-	@if [ -z "$(NAME)" ]; then \
-		echo "Error: Please provide a post name using NAME=your-post-name"; \
-		echo "Example: make new-post NAME=my-awesome-post"; \
-		exit 1; \
-	fi
-	docker run --rm \
-		-v $(PWD):/src \
-		$(DOCKER_IMAGE) \
-		hugo new posts/$(NAME).md
-	@echo "Created new post: content/posts/$(NAME).md"
+	rm -rf dist/ .astro/
