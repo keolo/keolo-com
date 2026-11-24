@@ -17,6 +17,7 @@ install:
 	@if [ ! -d "node_modules" ] || [ ! -f "node_modules/.bin/astro" ]; then \
 		pnpm install --frozen-lockfile || pnpm install; \
 	fi
+	@node scripts/ensure-node.mjs
 
 run: install
 	pnpm run dev

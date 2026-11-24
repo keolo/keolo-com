@@ -18,7 +18,7 @@ export async function GET(context: APIContext) {
   ];
 
   if (about) {
-    sections.push(`# About (${baseUrl}/about/)`, '', about.body.trim(), '', '---', '');
+    sections.push(`# About (${baseUrl}/about/)`, '', (about.body ?? '').trim(), '', '---', '');
   }
 
   for (const project of projects) {
@@ -27,7 +27,7 @@ export async function GET(context: APIContext) {
       '',
       project.data.description,
       '',
-      project.body.trim(),
+      (project.body ?? '').trim(),
       '',
       '---',
       ''
@@ -39,7 +39,7 @@ export async function GET(context: APIContext) {
       `# Post: ${post.data.title} (${baseUrl}/posts/${post.slug}/)`,
       '',
       post.data.description ? `${post.data.description}\n` : '',
-      post.body.trim(),
+      (post.body ?? '').trim(),
       '',
       '---',
       ''

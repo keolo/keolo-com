@@ -1,12 +1,12 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const aboutEntry = await getEntry('pages', 'about');
 if (!aboutEntry) {
   throw new Error('Missing src/content/pages/about.md');
 }
-const { Content } = await aboutEntry.render();
+const { Content } = await render(aboutEntry);
 const coverImage = aboutEntry.data.cover?.image
   ? aboutEntry.data.cover.image.startsWith('/')
     ? aboutEntry.data.cover.image
