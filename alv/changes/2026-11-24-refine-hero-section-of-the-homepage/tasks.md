@@ -24,15 +24,16 @@ related: []
   - [x] Zero TypeScript or lint errors (`astro check`).
 
 ## Task T2: Implement Full-Screen Dark-Mode Hero Section on Homepage
+- status: COMPLETED
 - blocked_by: [T1]
 - blocks: [T3, T4]
 - **Spec Scenarios**: Scenario 1, Scenario 3, Scenario 5
 - **Description**:
   Refactor the hero section in `src/pages/index.astro` to occupy the full viewport height (`w-full min-h-screen min-h-[100dvh] bg-graphite-950 text-white`) rendered in the `hero` slot. Style the role badge with dark pill styling (`bg-graphite-900/80 border-graphite-800 text-graphite-300`), heading in crisp white (`text-white`), body copy in `text-graphite-300`, primary CTA button in high-contrast solid white (`bg-white text-graphite-950 hover:bg-graphite-200`), secondary CTA in dark border (`border-graphite-800 bg-graphite-900/60 text-graphite-200`), and the 4 highlight cards in a responsive grid (`grid gap-4 sm:grid-cols-2 lg:grid-cols-4`) with translucent dark cards (`bg-graphite-900/40 border-graphite-800/80 text-graphite-300`). Add a subtle scroll cue at the bottom of the fold.
 ### Acceptance Criteria
-  - [ ] The hero section fills 100% of viewport height (`min-h-[100dvh]`) with `bg-graphite-950`.
-  - [ ] All typography, buttons, and highlight cards use dark-mode Graphite tokens satisfying WCAG AA contrast.
-  - [ ] Highlight cards lay out responsively without vertical clipping on mobile (375px) or desktop (1440px).
+  - [x] The hero section fills 100% of viewport height (`min-h-[100dvh]`) with `bg-graphite-950`.
+  - [x] All typography, buttons, and highlight cards use dark-mode Graphite tokens satisfying WCAG AA contrast.
+  - [x] Highlight cards lay out responsively without vertical clipping on mobile (375px) or desktop (1440px).
 
 ## Task T3: Configure Sticky Navigation Below Hero and Scroll Interactions
 - blocked_by: [T1, T2]
