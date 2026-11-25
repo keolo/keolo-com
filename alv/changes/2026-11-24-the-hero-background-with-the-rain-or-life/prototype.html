@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human-Agentic Factory — Mouse-Triggered ASCII Backgrounds</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #09090b;
+      color: #f4f4f5;
+      font-family: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+      user-select: none;
+    }
+
+    #ascii-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Optional Hero Overlay Preview */
+    .hero-preview {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .hero-preview.visible {
+      opacity: 1;
+    }
+
+    .hero-card {
+      max-width: 680px;
+      text-align: center;
+      padding: 2.5rem 2.25rem;
+      border-radius: 20px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(9, 9, 11, 0.84) 0%,
+        rgba(9, 9, 11, 0.52) 60%,
+        rgba(9, 9, 11, 0) 100%
+      );
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(244, 244, 245, 0.6);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.04;
+      color: #fafafa;
+    }
+
+    .hero-sub {
+      margin: 1.25rem auto 0;
+      max-width: 520px;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: rgba(244, 244, 245, 0.68);
+    }
+
+    /* Minimal Mode Switcher */
+    .controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      max-width: calc(100vw - 24px);
+    }
+
+    .mode-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(14, 14, 18, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .mode-bar button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: rgba(244, 244, 245, 0.6);
+      font: 500 12px/1 "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .mode-bar button:hover {
+      color: #ffffff;
+    }
+
+    .mode-bar button.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .mode-bar .divider {
+      width: 1px;
+      margin: 4px 4px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: rgba(244, 244, 245, 0.44);
+      letter-spacing: 0.02em;
+      text-align: center;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="ascii-bg" aria-hidden="true"></canvas>
+
+  <section class="hero-preview" id="hero-preview" aria-hidden="true">
+    <div class="hero-card">
+      <span class="hero-eyebrow">Autonomous Production Systems</span>
+      <h1 class="hero-title">The Human-Agentic Factory</h1>
+      <p class="hero-sub">
+        Orchestrate specialized AI agents with precision human oversight—built for continuous, high-craft output.
+      </p>
+    </div>
+  </section>
+
+  <div class="controls">
+    <nav class="mode-bar" aria-label="Animation variation">
+      <button data-mode="contours" class="active">Contours</button>
+      <button data-mode="life">Life</button>
+      <button data-mode="orchestrator">Orchestrator</button>
+      <button data-mode="agents">Agents</button>
+      <button data-mode="rain">Rain</button>
+      <button data-mode="lattice">Lattice</button>
+      <span class="divider" aria-hidden="true"></span>
+      <button id="toggle-hero" type="button">Hero Text</button>
+    </nav>
+    <div class="hint" id="mode-hint">Move cursor to carve topographic contours · Click for elevation wave</div>
+  </div>
+
+  <script>
+    (() => {
+      // === Configuration ===
+      const CONFIG = {
+        initialMode: "contours", // "contours" | "life" | "orchestrator" | "agents" | "rain" | "lattice"
+        cellW: 9,
+        cellH: 10,
+        fontSize: 10,
+        bgColor: "#09090b",
+        bgShimmerCount: 30,      // Subtle standby grid texture (no colored fires)
+      };
+
+      const HINTS = {
+        contours:     "Move cursor to carve topographic contours · Click for elevation wave",
+        life:         "Move cursor to paint live seeds · Click for cellular burst",
+        orchestrator: "Move cursor to dispatch agent tasks · Click to broadcast network wave",
+        agents:       "Move cursor to dispatch orthogonal bots · Click to summon squad",
+        rain:         "Move cursor to shed ASCII rain streams · Click for rainburst",
+        lattice:      "Sweep across compute tiles to activate · Click for calibration sweep",
+      };
+
+      const CHARS_LIGHT  = ["░", "▖", "▗", "▘", "▝"];
+      const CHARS_MEDIUM = ["▒", "▀", "▄", "▌", "▐", "▞", "▚"];
+      const CHARS_DENSE  = ["█", "▓", "▛", "▜", "▙", "▟", "▀", "▄", "▌", "▐"];
+      const CHARS_BG     = ["░", "▒", "▖", "▗", "▘", "▝", "▚", "▞", "▀", "▄", "▌", "▐"];
+
+      const PALETTE = [
+        [255, 59, 48],    // Red
+        [255, 112, 52],   // Coral / Orange
+        [255, 179, 38],   // Amber
+        [245, 224, 52],   // Yellow
+        [120, 235, 72],   // Lime
+        [34, 214, 118],   // Emerald
+        [24, 218, 224],   // Cyan
+        [56, 152, 255],   // Sky Blue
+        [99, 102, 241],   // Indigo
+        [176, 102, 255],  // Violet
+        [244, 72, 150],   // Magenta
+      ];
+
+      const WHITE_HIGHLIGHT = [245, 248, 255];
+      const BG_TEXT_BASE = [24, 24, 28];
+
+      const canvas = document.getElementById("ascii-bg");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const baseCanvas = document.createElement("canvas");
+      const baseCtx = baseCanvas.getContext("2d", { alpha: false });
+      const hintEl = document.getElementById("mode-hint");
+
+      const FONT = `${CONFIG.fontSize}px "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace`;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let cols = 0;
+      let rows = 0;
+      let mode = CONFIG.initialMode;
+
+      const activeCells = new Map();
+
+      // Pointer tracking (triggers only on movement / clicks)
+      const pointer = {
+        x: 0,
+        y: 0,
+        active: false,
+        lastTriggerX: 0,
+        lastTriggerY: 0,
+      };
+
+      // Mode states
+      let contourPulses = [];
+
+      let lifeGrid = new Uint8Array(0);
+      let lifeNext = new Uint8Array(0);
+      let lifeAge = new Uint8Array(0);
+      let lifeAccum = 0;
+
+      let nodes = [];
+      let dagPackets = [];
+
+      let bots = [];
+      let beacons = [];
+      let pulses = [];
+
+      let drops = [];
+
+      const TILE_W = 8;
+      const TILE_H = 5;
+      const STRIDE_X = TILE_W + 1;
+      const STRIDE_Y = TILE_H + 1;
+      let tiles = [];
+      let tileCols = 0;
+      let tileRows = 0;
+      let latticeWaves = [];
+      let lastHoverTileIdx = -1;
+
+      function cellHash(col, row) {
+        let h = (col * 374761393 + row * 668265263) | 0;
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return (h ^ (h >>> 16)) >>> 0;
+      }
+
+      function pick(arr) {
+        return arr[(Math.random() * arr.length) | 0];
+      }
+
+      function charForEnergy(energy, hash) {
+        const list =
+          energy > 0.65 ? CHARS_DENSE :
+          energy > 0.30 ? CHARS_MEDIUM :
+          CHARS_LIGHT;
+        return hash !== undefined ? list[hash % list.length] : pick(list);
+      }
+
+      function bgShadeAt(col, row) {
+        const wave =
+          Math.sin(col * 0.17 + row * 0.09) * 0.5 +
+          Math.cos(col * 0.08 - row * 0.21) * 0.5;
+        const jitter = (Math.random() - 0.5) * 10;
+        const v = Math.max(14, Math.min(34, Math.round(21 + wave * 4 + jitter)));
+        return `rgb(${v}, ${v}, ${v + 2})`;
+      }
+
+      function drawBaseCell(col, row) {
+        const x = col * CONFIG.cellW;
+        const y = row * CONFIG.cellH;
+        baseCtx.fillStyle = CONFIG.bgColor;
+        baseCtx.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+        baseCtx.fillStyle = bgShadeAt(col, row);
+        baseCtx.fillText(pick(CHARS_BG), x + CONFIG.cellW * 0.5, y + CONFIG.cellH * 0.5);
+      }
+
+      function setupCanvas(targetCanvas, targetCtx) {
+        targetCanvas.width = Math.floor(width * dpr);
+        targetCanvas.height = Math.floor(height * dpr);
+        targetCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        targetCtx.font = FONT;
+        targetCtx.textAlign = "center";
+        targetCtx.textBaseline = "middle";
+      }
+
+      function rebuildBaseGrid() {
+        baseCtx.fillStyle = CONFIG.bgColor;
+        baseCtx.fillRect(0, 0, width, height);
+        for (let r = 0; r < rows; r++) {
+          const cy = r * CONFIG.cellH + CONFIG.cellH * 0.5;
+          for (let c = 0; c < cols; c++) {
+            baseCtx.fillStyle = bgShadeAt(c, r);
+            baseCtx.fillText(pick(CHARS_BG), c * CONFIG.cellW + CONFIG.cellW * 0.5, cy);
+          }
+        }
+      }
+
+      function igniteCell(col, row, energy, decay, rgb, now, isWhite = false) {
+        if (col < 0 || col >= cols || row < 0 || row >= rows) return;
+        const idx = row * cols + col;
+        const existing = activeCells.get(idx);
+
+        if (existing) {
+          if (energy >= existing.energy * 0.72) {
+            existing.energy = Math.max(existing.energy, Math.min(1, energy));
+            existing.decay = Math.min(existing.decay, decay);
+            if (isWhite) existing.isWhite = true;
+            if (rgb && energy >= 0.45) {
+              existing.r = rgb[0];
+              existing.g = rgb[1];
+              existing.b = rgb[2];
+            }
+            existing.char = charForEnergy(existing.energy);
+          }
+        } else {
+          const color = rgb || PALETTE[cellHash(col, row) % PALETTE.length];
+          activeCells.set(idx, {
+            col,
+            row,
+            energy: Math.min(1, energy),
+            decay,
+            r: color[0],
+            g: color[1],
+            b: color[2],
+            isWhite,
+            char: charForEnergy(Math.min(1, energy)),
+            nextMutate: now + 75 + Math.random() * 140,
+          });
+        }
+      }
+
+      // =========================================================
+      // 1. CONTOURS (Mouse-Carved Topographic Elevation Field)
+      // =========================================================
+      function spawnContourPulse(col, row, isClick = false) {
+        if (contourPulses.length >= 16) contourPulses.shift();
+        contourPulses.push({
+          col,
+          row,
+          radius: isClick ? 3 : 5,
+          targetRadius: isClick ? 34 : 17 + Math.random() * 6,
+          energy: isClick ? 1.45 : 1.0,
+          decay: isClick ? 0.36 : 0.52,
+        });
+      }
+
+      function renderContours(dt, elapsed) {
+        if (contourPulses.length === 0) return;
+
+        let minC = cols, maxC = 0, minR = rows, maxR = 0;
+
+        for (let i = contourPulses.length - 1; i >= 0; i--) {
+          const p = contourPulses[i];
+          p.radius += (p.targetRadius - p.radius) * Math.min(1, 3.6 * dt);
+          p.energy -= p.decay * dt;
+          if (p.energy <= 0.04) {
+            contourPulses.splice(i, 1);
+            continue;
+          }
+          const pad = Math.ceil(p.radius * 1.45);
+          if (p.col - pad < minC) minC = Math.max(0, p.col - pad);
+          if (p.col + pad > maxC) maxC = Math.min(cols - 1, p.col + pad);
+          if (p.row - pad < minR) minR = Math.max(0, p.row - pad);
+          if (p.row + pad > maxR) maxR = Math.min(rows - 1, p.row + pad);
+        }
+
+        if (contourPulses.length === 0) return;
+
+        const t = reducedMotion ? elapsed * 0.25 : elapsed;
+
+        for (let row = minR; row <= maxR; row++) {
+          const y = row * CONFIG.cellH;
+          const cy = y + CONFIG.cellH * 0.5;
+
+          for (let col = minC; col <= maxC; col++) {
+            let elev = 0;
+            for (let i = 0; i < contourPulses.length; i++) {
+              const p = contourPulses[i];
+              const dx = col - p.col;
+              const dy = row - p.row;
+              const r2 = p.radius * p.radius;
+              const d2 = dx * dx + dy * dy;
+              if (d2 < r2 * 2.1) {
+                elev += p.energy * Math.exp(-d2 / (r2 * 0.42));
+              }
+            }
+
+            if (elev < 0.14) continue;
+
+            // Organic topographic terrain distortion
+            const warp =
+              0.24 * Math.sin(col * 0.11 + t * 0.9) * Math.cos(row * 0.11 - t * 0.7) +
+              0.15 * Math.sin((col - row) * 0.08 + t * 0.55);
+
+            const field = elev * 3.0 + warp * Math.min(1, elev * 1.6);
+            const distToLine = Math.abs(field - Math.round(field));
+            if (distToLine >= 0.12) continue;
+
+            const h = cellHash(col, row);
+            if ((h & 7) === 0) continue;
+
+            const edgeFade = Math.min(1, (elev - 0.14) * 3.2);
+            const bandSharp = Math.pow(1 - distToLine / 0.12, 0.85);
+            const intensity = Math.min(1, edgeFade * bandSharp * 1.15);
+            if (intensity < 0.08) continue;
+
+            const isCrest = intensity > 0.82 && (h & 15) === 1;
+            const rgb = isCrest ? WHITE_HIGHLIGHT : PALETTE[h % PALETTE.length];
+
+            const r = (BG_TEXT_BASE[0] + (rgb[0] - BG_TEXT_BASE[0]) * intensity) | 0;
+            const g = (BG_TEXT_BASE[1] + (rgb[1] - BG_TEXT_BASE[1]) * intensity) | 0;
+            const b = (BG_TEXT_BASE[2] + (rgb[2] - BG_TEXT_BASE[2]) * intensity) | 0;
+
+            const x = col * CONFIG.cellW;
+            ctx.fillStyle = CONFIG.bgColor;
+            ctx.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+            ctx.fillText(
+              charForEnergy(intensity, h + ((t * 4) | 0)),
+              x + CONFIG.cellW * 0.5,
+              cy
+            );
+          }
+        }
+      }
+
+      // =========================================================
+      // 2. LIFE (Mouse-Seeded Conway's Game of Life)
+      // =========================================================
+      function initLife() {
+        lifeGrid = new Uint8Array(cols * rows);
+        lifeNext = new Uint8Array(cols * rows);
+        lifeAge = new Uint8Array(cols * rows);
+        lifeAccum = 0;
+      }
+
+      function seedLifeCluster(cx, cy, radius, density, now) {
+        if (cols === 0 || rows === 0) return;
+        for (let dy = -radius; dy <= radius; dy++) {
+          for (let dx = -radius; dx <= radius; dx++) {
+            if (Math.hypot(dx, dy) > radius) continue;
+            if (Math.random() > density) continue;
+            const c = (cx + dx + cols) % cols;
+            const r = (cy + dy + rows) % rows;
+            const idx = r * cols + c;
+            lifeGrid[idx] = 1;
+            lifeAge[idx] = 1;
+            const h = cellHash(c, r);
+            igniteCell(c, r, 1.0, 1.5, PALETTE[h % PALETTE.length], now, true);
+          }
+        }
+      }
+
+      function updateLife(dt, now) {
+        lifeAccum += dt;
+        const stepInterval = 0.088;
+        if (lifeAccum < stepInterval) return;
+        lifeAccum -= stepInterval;
+
+        for (let r = 0; r < rows; r++) {
+          const rUp = (r - 1 + rows) % rows;
+          const rDn = (r + 1) % rows;
+          const rowOff = r * cols;
+          const upOff = rUp * cols;
+          const dnOff = rDn * cols;
+
+          for (let c = 0; c < cols; c++) {
+            const cLt = (c - 1 + cols) % cols;
+            const cRt = (c + 1) % cols;
+
+            const neighbors =
+              lifeGrid[upOff + cLt] + lifeGrid[upOff + c] + lifeGrid[upOff + cRt] +
+              lifeGrid[rowOff + cLt]                      + lifeGrid[rowOff + cRt] +
+              lifeGrid[dnOff + cLt] + lifeGrid[dnOff + c] + lifeGrid[dnOff + cRt];
+
+            const idx = rowOff + c;
+            const alive = lifeGrid[idx];
+            const nextAlive = alive
+              ? (neighbors === 2 || neighbors === 3 ? 1 : 0)
+              : (neighbors === 3 ? 1 : 0);
+
+            lifeNext[idx] = nextAlive;
+
+            if (nextAlive) {
+              const born = alive === 0;
+              lifeAge[idx] = born ? 1 : Math.min(255, lifeAge[idx] + 1);
+              const h = cellHash(c, r);
+              // Active frontiers burn bright; older static still-lifes cool subtly
+              const energy = born ? 1.0 : (lifeAge[idx] > 32 ? 0.42 : 0.82);
+              igniteCell(c, r, energy, born ? 1.5 : 1.15, PALETTE[h % PALETTE.length], now, born);
+            } else {
+              lifeAge[idx] = 0;
+            }
+          }
+        }
+
+        const tmp = lifeGrid;
+        lifeGrid = lifeNext;
+        lifeNext = tmp;
+      }
+
+      // =========================================================
+      // 3. ORCHESTRATOR (Human-Triggered Agent Mesh DAG)
+      // =========================================================
+      function initOrchestrator() {
+        nodes = [];
+        dagPackets = [];
+
+        const targetNodes = Math.max(12, Math.min(20, Math.floor((cols * rows) / 700)));
+        const minDist = Math.min(cols, rows) * 0.18;
+
+        for (let attempt = 0; attempt < 300 && nodes.length < targetNodes; attempt++) {
+          const c = Math.floor(cols * (0.1 + Math.random() * 0.8));
+          const r = Math.floor(rows * (0.12 + Math.random() * 0.76));
+          let tooClose = false;
+          for (const n of nodes) {
+            if (Math.hypot(n.col - c, n.row - r) < minDist) {
+              tooClose = true;
+              break;
+            }
+          }
+          if (!tooClose) {
+            nodes.push({
+              col: c,
+              row: r,
+              pulse: 0,
+              neighbors: [],
+              color: pick(PALETTE),
+            });
+          }
+        }
+
+        for (let i = 0; i < nodes.length; i++) {
+          const dists = [];
+          for (let j = 0; j < nodes.length; j++) {
+            if (i === j) continue;
+            dists.push({ idx: j, d: Math.hypot(nodes[j].col - nodes[i].col, nodes[j].row - nodes[i].row) });
+          }
+          dists.sort((a, b) => a.d - b.d);
+          nodes[i].neighbors = dists.slice(0, 3).map((x) => x.idx);
+        }
+      }
+
+      function dispatchDagPacket(x1, y1, x2, y2, targetNodeIdx, fromNodeIdx, hops, color, speed = 54) {
+        if (dagPackets.length >= 64) return;
+        const horizFirst = Math.random() < 0.5;
+        dagPackets.push({
+          x: x1,
+          y: y1,
+          waypoints: [
+            { x: horizFirst ? x2 : x1, y: horizFirst ? y1 : y2 },
+            { x: x2, y: y2 },
+          ],
+          wpIdx: 0,
+          targetNodeIdx,
+          fromNodeIdx,
+          hops,
+          speed: speed + Math.random() * 14,
+          color: color || pick(PALETTE),
+        });
+      }
+
+      function triggerOrchestratorFrom(col, row, count, hops) {
+        if (nodes.length === 0) return;
+        const sorted = nodes
+          .map((n, idx) => ({ idx, d: Math.hypot(n.col - col, n.row - row) }))
+          .sort((a, b) => a.d - b.d)
+          .slice(0, count);
+
+        for (const item of sorted) {
+          const dst = nodes[item.idx];
+          dispatchDagPacket(col, row, dst.col, dst.row, item.idx, -1, hops, pick(PALETTE), 60);
+        }
+      }
+
+      function stampNodeCluster(cx, cy, intensity, color, now, isWhiteCenter = false) {
+        const offsets = [
+          [0, 0], [1, 0], [-1, 0], [0, 1], [0, -1],
+          [1, 1], [-1, -1], [1, -1], [-1, 1],
+        ];
+        for (let i = 0; i < offsets.length; i++) {
+          const [dx, dy] = offsets[i];
+          const isCenter = i === 0;
+          const isCorner = i >= 5;
+          if (isCorner && intensity < 0.45) continue;
+          if (!isCenter && intensity < 0.22) continue;
+          const e = isCenter ? intensity : intensity * (isCorner ? 0.5 : 0.78);
+          igniteCell(cx + dx, cy + dy, e, 2.4, color, now, isCenter && isWhiteCenter);
+        }
+      }
+
+      function updateOrchestrator(dt, now) {
+        // Render standby + energized agent nodes (no random dispatches)
+        for (const n of nodes) {
+          if (n.pulse > 0) {
+            n.pulse = Math.max(0, n.pulse - dt * 1.35);
+          }
+          // Subtle standby marker so architecture is faintly perceptible
+          const displayEnergy = Math.max(0.16, n.pulse);
+          stampNodeCluster(n.col, n.row, displayEnergy, n.color, now, n.pulse > 0.72);
+        }
+
+        // Advance triggered packets along Manhattan paths
+        for (let i = dagPackets.length - 1; i >= 0; i--) {
+          const p = dagPackets[i];
+          const target = p.waypoints[p.wpIdx];
+          const dx = target.x - p.x;
+          const dy = target.y - p.y;
+          const dist = Math.hypot(dx, dy);
+          const step = p.speed * dt;
+          const prevX = p.x;
+          const prevY = p.y;
+
+          if (dist <= step) {
+            p.x = target.x;
+            p.y = target.y;
+            p.wpIdx++;
+          } else {
+            p.x += (dx / dist) * step;
+            p.y += (dy / dist) * step;
+          }
+
+          const segDist = Math.hypot(p.x - prevX, p.y - prevY);
+          const sub = Math.max(1, Math.ceil(segDist * 1.4));
+          for (let s = 1; s <= sub; s++) {
+            const t = s / sub;
+            const c = Math.round(prevX + (p.x - prevX) * t);
+            const r = Math.round(prevY + (p.y - prevY) * t);
+            const isHead = s === sub;
+            const h = cellHash(c, r);
+            igniteCell(c, r, isHead ? 1.0 : 0.82, 1.35 + (h % 60) * 0.01, PALETTE[h % PALETTE.length], now, isHead);
+          }
+
+          if (p.wpIdx >= p.waypoints.length) {
+            const arrived = nodes[p.targetNodeIdx];
+            if (arrived) {
+              arrived.pulse = 1.0;
+              // Bounded downstream cascade (stops cleanly when hops reach 0)
+              if (p.hops > 0 && arrived.neighbors.length > 0) {
+                const candidates = arrived.neighbors.filter((idx) => idx !== p.fromNodeIdx);
+                const fanout = Math.min(candidates.length, p.hops >= 2 ? 2 : 1);
+                for (let f = 0; f < fanout; f++) {
+                  const nextIdx = candidates[(Math.random() * candidates.length) | 0];
+                  const nextNode = nodes[nextIdx];
+                  dispatchDagPacket(
+                    arrived.col,
+                    arrived.row,
+                    nextNode.col,
+                    nextNode.row,
+                    nextIdx,
+                    p.targetNodeIdx,
+                    p.hops - 1,
+                    arrived.color,
+                    50
+                  );
+                }
+              }
+            }
+            dagPackets.splice(i, 1);
+          }
+        }
+      }
+
+      // =========================================================
+      // 4. AGENTS (Human-Dispatched Orthogonal Floor Bots)
+      // =========================================================
+      const CARDINAL = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+      function initAgents() {
+        bots = [];
+        beacons = [];
+        pulses = [];
+      }
+
+      function dispatchScoutBot(startCol, startRow, targetCol, targetRow, beaconId = null) {
+        if (bots.length >= 60) bots.shift();
+        bots.push({
+          col: Math.max(0, Math.min(cols - 1, startCol)),
+          row: Math.max(0, Math.min(rows - 1, startRow)),
+          targetCol: Math.max(1, Math.min(cols - 2, targetCol)),
+          targetRow: Math.max(1, Math.min(rows - 2, targetRow)),
+          beaconId,
+          stepAccum: 0,
+          speed: 26 + Math.random() * 18,
+          color: pick(PALETTE),
+          dir: (Math.random() * 4) | 0,
+        });
+      }
+
+      let nextBeaconId = 1;
+
+      function summonAgentSquad(targetCol, targetRow) {
+        const id = nextBeaconId++;
+        const color = pick(PALETTE);
+        beacons.push({ id, col: targetCol, row: targetRow, color, remaining: 8 });
+        pulses.push({ col: targetCol, row: targetRow, r: 1, maxR: 7, color: WHITE_HIGHLIGHT });
+
+        for (let i = 0; i < 8; i++) {
+          const angle = (i / 8) * Math.PI * 2 + (Math.random() - 0.5) * 0.35;
+          const dist = 18 + Math.random() * 18;
+          const sc = Math.round(targetCol + Math.cos(angle) * dist);
+          const sr = Math.round(targetRow + Math.sin(angle) * dist);
+          dispatchScoutBot(sc, sr, targetCol, targetRow, id);
+        }
+      }
+
+      function updateAgents(dt, now) {
+        // Render active human-placed beacons
+        for (let i = beacons.length - 1; i >= 0; i--) {
+          const b = beacons[i];
+          if (b.remaining <= 0) {
+            beacons.splice(i, 1);
+            continue;
+          }
+          igniteCell(b.col, b.row, 0.95, 2.5, b.color, now, true);
+          igniteCell(b.col + 1, b.row, 0.55, 2.5, b.color, now, false);
+          igniteCell(b.col - 1, b.row, 0.55, 2.5, b.color, now, false);
+          igniteCell(b.col, b.row + 1, 0.55, 2.5, b.color, now, false);
+          igniteCell(b.col, b.row - 1, 0.55, 2.5, b.color, now, false);
+        }
+
+        // Expand square completion pulses
+        for (let i = pulses.length - 1; i >= 0; i--) {
+          const p = pulses[i];
+          p.r += 16 * dt;
+          if (p.r > p.maxR) {
+            pulses.splice(i, 1);
+            continue;
+          }
+          const ri = Math.round(p.r);
+          const fade = 1 - p.r / p.maxR;
+          for (let d = -ri; d <= ri; d++) {
+            igniteCell(p.col + d, p.row - ri, fade * 0.85, 2.2, p.color, now, false);
+            igniteCell(p.col + d, p.row + ri, fade * 0.85, 2.2, p.color, now, false);
+            igniteCell(p.col - ri, p.row + d, fade * 0.85, 2.2, p.color, now, false);
+            igniteCell(p.col + ri, p.row + d, fade * 0.85, 2.2, p.color, now, false);
+          }
+        }
+
+        // Advance orthogonal bots toward their targets, then power down cleanly
+        for (let i = bots.length - 1; i >= 0; i--) {
+          const b = bots[i];
+          b.stepAccum += b.speed * dt;
+          let finished = false;
+
+          while (b.stepAccum >= 1) {
+            b.stepAccum -= 1;
+            const dx = b.targetCol - b.col;
+            const dy = b.targetRow - b.row;
+
+            if (Math.abs(dx) + Math.abs(dy) <= 1) {
+              pulses.push({ col: b.targetCol, row: b.targetRow, r: 1, maxR: 5, color: b.color });
+              if (b.beaconId !== null) {
+                const beacon = beacons.find((x) => x.id === b.beaconId);
+                if (beacon) beacon.remaining--;
+              }
+              finished = true;
+              break;
+            }
+
+            const preferX = Math.abs(dx) > Math.abs(dy)
+              ? Math.random() < 0.84
+              : Math.random() < 0.16;
+
+            if ((preferX && dx !== 0) || dy === 0) {
+              b.dir = dx > 0 ? 0 : 1;
+            } else {
+              b.dir = dy > 0 ? 2 : 3;
+            }
+
+            b.col = Math.max(0, Math.min(cols - 1, b.col + CARDINAL[b.dir][0]));
+            b.row = Math.max(0, Math.min(rows - 1, b.row + CARDINAL[b.dir][1]));
+
+            igniteCell(b.col, b.row, 1.0, 1.35, b.color, now, true);
+          }
+
+          if (finished) bots.splice(i, 1);
+        }
+      }
+
+      // =========================================================
+      // 5. RAIN (Mouse-Shed ASCII Block Cascades)
+      // =========================================================
+      function initRain() {
+        drops = [];
+      }
+
+      function spawnRainDrop(col, startRow, maxDist) {
+        if (drops.length >= 140) drops.shift();
+        const c = Math.max(0, Math.min(cols - 1, col));
+        drops.push({
+          col: c,
+          y: startRow,
+          endY: Math.min(rows + 2, startRow + (maxDist || 22 + Math.random() * 44)),
+          speed: 18 + Math.random() * 24,
+          lastRow: startRow - 1,
+        });
+      }
+
+      function updateRain(dt, now) {
+        for (let i = drops.length - 1; i >= 0; i--) {
+          const d = drops[i];
+          d.y += d.speed * dt;
+
+          if (d.y >= d.endY) {
+            drops.splice(i, 1);
+            continue;
+          }
+
+          const curRow = Math.floor(d.y);
+          if (curRow !== d.lastRow && curRow >= 0 && curRow < rows) {
+            const startRow = Math.max(0, d.lastRow + 1);
+            for (let r = startRow; r <= curRow; r++) {
+              const isHead = r === curRow;
+              const fadeOut = Math.min(1, (d.endY - r) / 8);
+              igniteCell(
+                d.col,
+                r,
+                (isHead ? 1.0 : 0.85) * fadeOut,
+                0.85 + Math.random() * 0.85,
+                pick(PALETTE),
+                now,
+                isHead && fadeOut > 0.5
+              );
+              if (Math.random() < 0.2) {
+                const side = Math.random() < 0.5 ? -1 : 1;
+                igniteCell(
+                  d.col + side,
+                  r,
+                  0.45 * fadeOut,
+                  1.5 + Math.random() * 0.8,
+                  pick(PALETTE),
+                  now
+                );
+              }
+            }
+            d.lastRow = curRow;
+          }
+        }
+      }
+
+      // =========================================================
+      // 6. LATTICE (Mouse-Triggered Compute Tile Matrix)
+      // =========================================================
+      function initLattice() {
+        tileCols = Math.ceil(cols / STRIDE_X);
+        tileRows = Math.ceil(rows / STRIDE_Y);
+        tiles = [];
+        latticeWaves = [];
+        lastHoverTileIdx = -1;
+
+        for (let tr = 0; tr < tileRows; tr++) {
+          for (let tc = 0; tc < tileCols; tc++) {
+            tiles.push({
+              tc,
+              tr,
+              energy: 0,
+              progress: 1,
+            });
+          }
+        }
+      }
+
+      function activateTile(tc, tr, energy, resetProgress = false) {
+        if (tc < 0 || tc >= tileCols || tr < 0 || tr >= tileRows) return;
+        const tile = tiles[tr * tileCols + tc];
+        tile.energy = Math.max(tile.energy, energy);
+        if (resetProgress) tile.progress = 0;
+      }
+
+      function updateLattice(dt, elapsed) {
+        for (let i = latticeWaves.length - 1; i >= 0; i--) {
+          const w = latticeWaves[i];
+          w.r += w.speed * dt;
+          if (w.r > w.maxR) latticeWaves.splice(i, 1);
+        }
+
+        for (const tile of tiles) {
+          for (const w of latticeWaves) {
+            const md = Math.abs(tile.tc - w.cx) + Math.abs(tile.tr - w.cy);
+            if (Math.abs(md - w.r) < 1.05) {
+              tile.energy = Math.max(tile.energy, 0.96);
+              if (tile.progress >= 0.95) tile.progress = 0.25;
+            }
+          }
+
+          if (tile.energy <= 0.03) continue;
+
+          tile.energy = Math.max(0, tile.energy - dt * 0.72);
+          tile.progress = Math.min(1, tile.progress + dt * 2.1);
+
+          const startCol = tile.tc * STRIDE_X;
+          const startRow = tile.tr * STRIDE_Y;
+          const filledCols = Math.ceil(tile.progress * TILE_W);
+
+          for (let ly = 0; ly < TILE_H; ly++) {
+            const row = startRow + ly;
+            if (row >= rows) continue;
+            const y = row * CONFIG.cellH;
+            const cy = y + CONFIG.cellH * 0.5;
+
+            for (let lx = 0; lx < TILE_W; lx++) {
+              const col = startCol + lx;
+              if (col >= cols) continue;
+
+              const isBorder = lx === 0 || lx === TILE_W - 1 || ly === 0 || ly === TILE_H - 1;
+              const isLoaded = lx < filledCols;
+              const h = cellHash(col, row);
+
+              if (!isBorder && !isLoaded) continue;
+              if (!isBorder && (h & 3) === 0) continue;
+
+              const cellIntensity = tile.energy * (isBorder ? 0.52 : 0.92);
+              const isStatusLed = lx === 1 && ly === 1 && tile.energy > 0.6;
+              const rgb = isStatusLed || (tile.energy > 0.9 && (h & 15) === 0)
+                ? WHITE_HIGHLIGHT
+                : PALETTE[h % PALETTE.length];
+
+              const e = Math.pow(Math.min(1, cellIntensity), 0.85);
+              const r = (BG_TEXT_BASE[0] + (rgb[0] - BG_TEXT_BASE[0]) * e) | 0;
+              const g = (BG_TEXT_BASE[1] + (rgb[1] - BG_TEXT_BASE[1]) * e) | 0;
+              const b = (BG_TEXT_BASE[2] + (rgb[2] - BG_TEXT_BASE[2]) * e) | 0;
+
+              const x = col * CONFIG.cellW;
+              ctx.fillStyle = CONFIG.bgColor;
+              ctx.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+              ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+              ctx.fillText(
+                charForEnergy(e, h + ((elapsed * 5) | 0)),
+                x + CONFIG.cellW * 0.5,
+                cy
+              );
+            }
+          }
+        }
+      }
+
+      // =========================================================
+      // Mode Lifecycle & Mouse Trigger Handlers
+      // =========================================================
+      function resetModeState() {
+        activeCells.clear();
+        contourPulses = [];
+        hintEl.textContent = HINTS[mode] || "";
+        if (mode === "life") initLife();
+        else if (mode === "orchestrator") initOrchestrator();
+        else if (mode === "agents") initAgents();
+        else if (mode === "rain") initRain();
+        else if (mode === "lattice") initLattice();
+      }
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        cols = Math.ceil(width / CONFIG.cellW);
+        rows = Math.ceil(height / CONFIG.cellH);
+
+        setupCanvas(canvas, ctx);
+        setupCanvas(baseCanvas, baseCtx);
+        rebuildBaseGrid();
+        resetModeState();
+      }
+
+      function handlePointerMove(x, y) {
+        const now = performance.now();
+        if (!pointer.active) {
+          pointer.lastTriggerX = x;
+          pointer.lastTriggerY = y;
+        }
+        pointer.x = x;
+        pointer.y = y;
+        pointer.active = true;
+
+        const moved = Math.hypot(x - pointer.lastTriggerX, y - pointer.lastTriggerY);
+        const col = Math.floor(x / CONFIG.cellW);
+        const row = Math.floor(y / CONFIG.cellH);
+
+        if (mode === "contours") {
+          if (moved >= 28) {
+            spawnContourPulse(col, row, false);
+            pointer.lastTriggerX = x;
+            pointer.lastTriggerY = y;
+          }
+        } else if (mode === "life") {
+          if (moved >= 12) {
+            seedLifeCluster(col, row, 2, 0.52, now);
+            pointer.lastTriggerX = x;
+            pointer.lastTriggerY = y;
+          }
+        } else if (mode === "orchestrator") {
+          if (moved >= 44) {
+            triggerOrchestratorFrom(col, row, 2, 2);
+            pointer.lastTriggerX = x;
+            pointer.lastTriggerY = y;
+          }
+        } else if (mode === "agents") {
+          if (moved >= 30) {
+            for (let i = 0; i < 2; i++) {
+              const angle = Math.random() * Math.PI * 2;
+              const dist = 12 + Math.random() * 18;
+              dispatchScoutBot(
+                col,
+                row,
+                Math.round(col + Math.cos(angle) * dist),
+                Math.round(row + Math.sin(angle) * dist)
+              );
+            }
+            pointer.lastTriggerX = x;
+            pointer.lastTriggerY = y;
+          }
+        } else if (mode === "rain") {
+          if (moved >= 10) {
+            spawnRainDrop(col + (((Math.random() * 3) | 0) - 1), row);
+            if (moved > 26) spawnRainDrop(col + (((Math.random() * 5) | 0) - 2), row);
+            pointer.lastTriggerX = x;
+            pointer.lastTriggerY = y;
+          }
+        } else if (mode === "lattice") {
+          const tc = Math.floor(col / STRIDE_X);
+          const tr = Math.floor(row / STRIDE_Y);
+          const tileIdx = tr * tileCols + tc;
+          if (tileIdx !== lastHoverTileIdx && tc >= 0 && tc < tileCols && tr >= 0 && tr < tileRows) {
+            lastHoverTileIdx = tileIdx;
+            activateTile(tc, tr, 1.0, true);
+            activateTile(tc + 1, tr, 0.58, false);
+            activateTile(tc - 1, tr, 0.58, false);
+            activateTile(tc, tr + 1, 0.58, false);
+            activateTile(tc, tr - 1, 0.58, false);
+          }
+        }
+      }
+
+      window.addEventListener("pointermove", (e) => handlePointerMove(e.clientX, e.clientY), { passive: true });
+      window.addEventListener("touchmove", (e) => {
+        if (e.touches.length > 0) handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+
+      window.addEventListener("pointerdown", (e) => {
+        if (e.target.closest(".controls")) return;
+        const col = Math.floor(e.clientX / CONFIG.cellW);
+        const row = Math.floor(e.clientY / CONFIG.cellH);
+        const now = performance.now();
+
+        if (mode === "contours") {
+          spawnContourPulse(col, row, true);
+        } else if (mode === "life") {
+          seedLifeCluster(col, row, 5, 0.5, now);
+        } else if (mode === "orchestrator") {
+          triggerOrchestratorFrom(col, row, 6, 3);
+        } else if (mode === "agents") {
+          summonAgentSquad(col, row);
+        } else if (mode === "rain") {
+          for (let dx = -12; dx <= 12; dx += 2) {
+            spawnRainDrop(col + dx, row - ((Math.random() * 4) | 0), 35 + Math.random() * 45);
+          }
+        } else if (mode === "lattice") {
+          latticeWaves.push({
+            cx: Math.floor(col / STRIDE_X),
+            cy: Math.floor(row / STRIDE_Y),
+            r: 0,
+            maxR: tileCols + tileRows,
+            speed: 18,
+          });
+        }
+      });
+
+      window.addEventListener("pointerleave", () => {
+        pointer.active = false;
+        lastHoverTileIdx = -1;
+      });
+
+      // Switcher buttons
+      const modeButtons = document.querySelectorAll(".mode-bar button[data-mode]");
+      modeButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          mode = btn.dataset.mode;
+          modeButtons.forEach((b) => b.classList.toggle("active", b === btn));
+          resetModeState();
+        });
+      });
+
+      // Hero text preview toggle
+      const heroToggle = document.getElementById("toggle-hero");
+      const heroOverlay = document.getElementById("hero-preview");
+      heroToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const visible = heroOverlay.classList.toggle("visible");
+        heroToggle.classList.toggle("active", visible);
+      });
+
+      window.addEventListener("resize", resize);
+      resize();
+
+      // =========================================================
+      // Main Render Loop
+      // =========================================================
+      let lastTime = performance.now();
+      const startTime = lastTime;
+
+      function animate(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        const elapsed = (now - startTime) * 0.001;
+        lastTime = now;
+
+        // 1. Subtle dark-gray standby texture shimmer
+        if (!reducedMotion && cols > 0 && rows > 0) {
+          for (let i = 0; i < CONFIG.bgShimmerCount; i++) {
+            drawBaseCell((Math.random() * cols) | 0, (Math.random() * rows) | 0);
+          }
+        }
+
+        // 2. Copy cached dark-gray ASCII grid 1:1 onto main canvas
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(baseCanvas, 0, 0);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        // 3. Step active mode
+        const stepDt = reducedMotion ? dt * 0.35 : dt;
+        if (mode === "contours") {
+          renderContours(stepDt, elapsed);
+        } else if (mode === "life") {
+          updateLife(stepDt, now);
+        } else if (mode === "orchestrator") {
+          updateOrchestrator(stepDt, now);
+        } else if (mode === "agents") {
+          updateAgents(stepDt, now);
+        } else if (mode === "rain") {
+          updateRain(stepDt, now);
+        } else if (mode === "lattice") {
+          updateLattice(stepDt, elapsed);
+        }
+
+        // 4. Render & decay active lit ASCII block cells
+        if (mode !== "contours" && mode !== "lattice") {
+          for (const [idx, cell] of activeCells) {
+            cell.energy -= cell.decay * stepDt;
+
+            if (cell.energy <= 0.02) {
+              activeCells.delete(idx);
+              continue;
+            }
+
+            if (cell.isWhite && cell.energy < 0.84) {
+              cell.isWhite = false;
+            }
+
+            if (!reducedMotion && now >= cell.nextMutate) {
+              cell.char = charForEnergy(cell.energy);
+              cell.nextMutate = now + 85 + Math.random() * 150;
+            }
+
+            const e = Math.pow(Math.min(1, cell.energy), 0.85);
+            const srcR = cell.isWhite ? WHITE_HIGHLIGHT[0] : cell.r;
+            const srcG = cell.isWhite ? WHITE_HIGHLIGHT[1] : cell.g;
+            const srcB = cell.isWhite ? WHITE_HIGHLIGHT[2] : cell.b;
+
+            const r = (BG_TEXT_BASE[0] + (srcR - BG_TEXT_BASE[0]) * e) | 0;
+            const g = (BG_TEXT_BASE[1] + (srcG - BG_TEXT_BASE[1]) * e) | 0;
+            const b = (BG_TEXT_BASE[2] + (srcB - BG_TEXT_BASE[2]) * e) | 0;
+
+            const x = cell.col * CONFIG.cellW;
+            const y = cell.row * CONFIG.cellH;
+
+            ctx.fillStyle = CONFIG.bgColor;
+            ctx.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+            ctx.fillText(cell.char, x + CONFIG.cellW * 0.5, y + CONFIG.cellH * 0.5);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
