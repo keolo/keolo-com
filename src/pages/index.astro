@@ -36,7 +36,7 @@ const highlights = [
 >
   <Fragment slot="hero">
     <section
-      class="relative flex w-full min-h-screen min-h-[100dvh] flex-col justify-center bg-graphite-950 px-4 py-16 text-white sm:px-6 lg:px-8"
+      class="relative flex w-full min-h-screen min-h-[100dvh] flex-col justify-end bg-graphite-950 px-4 pb-24 pt-16 text-white sm:px-6 sm:pb-28 lg:px-8 lg:pb-32"
     >
       <div class="mx-auto w-full max-w-5xl">
         <div class="max-w-3xl">
@@ -48,10 +48,10 @@ const highlights = [
           <h1
             class="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl sm:leading-[1.1]"
           >
-            Tech leadership for high-stakes startups
+            Keolo
           </h1>
           <p class="mt-6 text-lg leading-relaxed text-graphite-300 sm:text-xl">
-            I’m <strong class="font-semibold text-white">Keolo</strong>, Partner &amp; CTO at{' '}
+            Partner &amp; CTO at{' '}
             <a
               href="https://aliveness.ventures"
               target="_blank"
@@ -83,17 +83,6 @@ const highlights = [
             </a>
           </div>
         </div>
-
-        <MotionReveal class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {
-            highlights.map((item) => (
-              <div class="rounded-2xl border border-graphite-800/80 bg-graphite-900/40 p-6 transition hover:border-graphite-700">
-                <h2 class="text-sm font-semibold tracking-tight text-white">{item.label}</h2>
-                <p class="mt-2 text-sm leading-relaxed text-graphite-300">{item.detail}</p>
-              </div>
-            ))
-          }
-        </MotionReveal>
       </div>
 
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 motion-safe:animate-bounce">
@@ -115,7 +104,20 @@ const highlights = [
   </Fragment>
 
   <div id="content" class="scroll-mt-16">
-    <MotionReveal class="mt-12 border-t border-graphite-200 pt-14">
+    <section aria-label="Highlights">
+      <MotionReveal class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          highlights.map((item) => (
+            <div class="rounded-2xl border border-graphite-200 bg-white p-6 shadow-xs transition hover:border-graphite-400">
+              <h2 class="text-sm font-semibold tracking-tight text-graphite-950">{item.label}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-graphite-600">{item.detail}</p>
+            </div>
+          ))
+        }
+      </MotionReveal>
+    </section>
+
+    <MotionReveal class="mt-16 border-t border-graphite-200 pt-14">
       <div class="flex items-end justify-between gap-4">
         <div>
           <p class="text-xs font-semibold tracking-wider text-graphite-500 uppercase">
