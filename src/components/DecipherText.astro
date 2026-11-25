@@ -195,6 +195,9 @@ const segments: Segment[] = [
       return;
     }
 
+    // Temporarily disable the decrypt / scramble effect per user request
+    const ENABLE_DECRYPT = false;
+
     // Character set matching Motion's default scrambleText pool plus requested cyber/decipher symbols:
     // https://examples.motion.dev/js/scramble-text-stagger-center
     // Symbols: ! ? > | ^ _ : - = [ ] ◇ □ ◈ ■ ▭ ░ ▒ ▓
@@ -250,7 +253,9 @@ const segments: Segment[] = [
           }
         }
 
-        requestAnimationFrame(scrambleLoop);
+        if (ENABLE_DECRYPT) {
+          requestAnimationFrame(scrambleLoop);
+        }
 
         // Initial brief hesitation before starting to type (synchronized with hero title reveal)
         await delay(280);
@@ -273,7 +278,9 @@ const segments: Segment[] = [
             // Type the erroneous character(s)
             for (const letter of typo.typoLetters) {
               const typoSpan = document.createElement('span');
-              typoSpan.className = 'decipher-char is-scrambling is-typo';
+              typoSpan.className = ENABLE_DECRYPT
+                ? 'decipher-char is-scrambling is-typo'
+                : 'decipher-char is-resolved is-typo';
               typoSpan.textContent = letter;
               if (typoSpans.length === 0) {
                 prevEl.after(typoSpan);
@@ -285,13 +292,15 @@ const segments: Segment[] = [
               }
               typoSpans.push(typoSpan);
 
-              activeScrambles.push({
-                el: typoSpan,
-                target: letter,
-                startTime: performance.now(),
-                duration: 150,
-                lastFlip: 0,
-              });
+              if (ENABLE_DECRYPT) {
+                activeScrambles.push({
+                  el: typoSpan,
+                  target: letter,
+                  startTime: performance.now(),
+                  duration: 150,
+                  lastFlip: 0,
+                });
+              }
 
               await delay(22 + Math.random() * 12);
             }
@@ -327,7 +336,7 @@ const segments: Segment[] = [
             el.classList.add('is-resolved');
             // Snappy inter-word advance
             await delay(20 + Math.random() * 15);
-          } else {
+          } else if (ENABLE_DECRYPT) {
             el.classList.add('is-scrambling');
             activeScrambles.push({
               el,
@@ -347,6 +356,22 @@ const segments: Segment[] = [
               keyDelay = 220 + Math.random() * 50; // pause at period
             } else if (targetChar === '&' || targetChar === '+') {
               keyDelay = 35 + Math.random() * 20; // slight touch delay
+            }
+
+            await delay(keyDelay);
+          } else {
+            // Decrypt temporarily disabled: typewriter reveal character directly
+            el.textContent = targetChar;
+            el.classList.add('is-resolved');
+
+            let keyDelay = 12 + Math.random() * 12; // 12-24ms fast typing
+
+            if (targetChar === ',') {
+              keyDelay = 140 + Math.random() * 40;
+            } else if (targetChar === '.') {
+              keyDelay = 220 + Math.random() * 50;
+            } else if (targetChar === '&' || targetChar === '+') {
+              keyDelay = 35 + Math.random() * 20;
             }
 
             await delay(keyDelay);
