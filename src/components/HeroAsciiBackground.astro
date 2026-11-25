@@ -107,7 +107,7 @@
       return MODES[nextIdx];
     }
 
-    const mode: Mode = getNextMode();
+    let mode: Mode = getNextMode();
 
     // Expose selected mode for developer inspection / debugging
     (window as unknown as { __heroBgMode?: string }).__heroBgMode = mode;
@@ -572,6 +572,147 @@
       }
     });
     observer.observe(canvas);
+
+    function triggerWelcomeBurst(targetMode: Mode) {
+      if (cols === 0 || rows === 0) return;
+      const centerC = Math.floor(cols / 2);
+      const centerR = Math.floor(rows / 2);
+      const now = performance.now();
+
+      if (targetMode === 'rain') {
+        for (let i = -12; i <= 12; i += 2) {
+          const rowOffset = Math.random() * 4 + Math.abs(i) * 0.4;
+          spawnRainDrop(centerC + i, Math.max(0, centerR - 12 - rowOffset), 30);
+        }
+      } else if (targetMode === 'life') {
+        seedLifeCluster(centerC, centerR, 4, 0.55, now);
+      } else if (targetMode === 'contours') {
+        for (let i = 0; i < 2; i++) {
+          spawnContourRipple(centerC, centerR, Math.max(cols, rows) * 0.55, 1.0, 24, -i * 5);
+        }
+      } else if (targetMode === 'orchestrator') {
+        igniteCell(centerC, centerR, 1.0, 0.5, WHITE_HIGHLIGHT, now, true, '◈');
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          spawnOrchestratorTask(centerC, centerR, a, 20 + Math.random() * 14);
+        }
+      } else if (targetMode === 'agents') {
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          spawnAgent(centerC, centerR, 1, a);
+        }
+      } else if (targetMode === 'lattice') {
+        igniteCell(centerC, centerR, 1.0, 0.6, WHITE_HIGHLIGHT, now, true, '┼');
+        spawnLatticePulse(centerC, centerR, 'wave', Math.max(cols, rows) * 0.55);
+        spawnLatticePulse(centerC, centerR, 'axis', Math.max(cols, rows) * 0.7);
+      }
+    }
+
+    function updateButtonTitles() {
+      const prevBtn = document.getElementById('hero-bg-prev');
+      const nextBtn = document.getElementById('hero-bg-next');
+      const modeLabel = document.getElementById('hero-bg-mode-label');
+      const currentIdx = MODES.indexOf(mode);
+      const prevMode = MODES[(currentIdx - 1 + MODES.length) % MODES.length];
+      const nextMode = MODES[(currentIdx + 1) % MODES.length];
+
+      if (prevBtn) {
+        prevBtn.setAttribute('title', `Previous animation: ${prevMode.toUpperCase()}`);
+        prevBtn.setAttribute('aria-label', `Previous animation (${prevMode})`);
+      }
+      if (nextBtn) {
+        nextBtn.setAttribute('title', `Next animation: ${nextMode.toUpperCase()}`);
+        nextBtn.setAttribute('aria-label', `Next animation (${nextMode})`);
+      }
+      if (modeLabel) {
+        modeLabel.textContent = mode.toUpperCase();
+      }
+    }
+
+    function switchMode(target?: 'next' | 'prev' | Mode) {
+      let newIdx = 0;
+      const currentIdx = MODES.indexOf(mode);
+
+      if (target === 'next') {
+        newIdx = (currentIdx + 1) % MODES.length;
+      } else if (target === 'prev') {
+        newIdx = (currentIdx - 1 + MODES.length) % MODES.length;
+      } else if (target && (MODES as readonly string[]).includes(target)) {
+        newIdx = MODES.indexOf(target as Mode);
+      } else {
+        newIdx = (currentIdx + 1) % MODES.length;
+      }
+
+      mode = MODES[newIdx];
+
+      try {
+        sessionStorage.setItem(STORAGE_KEY, String(newIdx));
+        localStorage.setItem(STORAGE_KEY, String(newIdx));
+      } catch {
+        // ignore
+      }
+
+      (window as unknown as { __heroBgMode?: string }).__heroBgMode = mode;
+
+      activeDrops.length = 0;
+      activeRipples.length = 0;
+      activePackets.length = 0;
+      activeAgents.length = 0;
+      activeLatticePulses.length = 0;
+      liveCount = 0;
+      if (lifeGrid) lifeGrid.fill(0);
+      activeCells.clear();
+
+      triggerWelcomeBurst(mode);
+      updateButtonTitles();
+
+      window.dispatchEvent(
+        new CustomEvent('hero-bg-changed', {
+          detail: { mode, index: newIdx, total: MODES.length },
+        })
+      );
+
+      ensureLoopRunning();
+      return mode;
+    }
+
+    const prevBtn = document.getElementById('hero-bg-prev');
+    const nextBtn = document.getElementById('hero-bg-next');
+    const modeBtn = document.getElementById('hero-bg-mode-name');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchMode('prev');
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchMode('next');
+      });
+    }
+
+    if (modeBtn) {
+      modeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchMode('next');
+      });
+    }
+
+    window.addEventListener('hero-bg-switch', (e: Event) => {
+      const custom = e as CustomEvent<{ direction?: 'next' | 'prev' | Mode }>;
+      switchMode(custom.detail?.direction);
+    });
+
+    (window as unknown as { __switchHeroBgMode?: typeof switchMode }).__switchHeroBgMode =
+      switchMode;
+
+    updateButtonTitles();
 
     function animate(now: number) {
       const dt = Math.min((now - lastTime) / 1000, 0.05);

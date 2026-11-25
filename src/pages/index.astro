@@ -42,6 +42,63 @@ const highlights = [
     >
       <HeroAsciiBackground />
 
+      <!-- Top Right Animation Switcher -->
+      <div
+        class="hero-switcher-enter absolute top-6 right-4 z-20 flex items-center gap-1 sm:top-8 sm:right-6 lg:top-8 lg:right-8"
+        role="region"
+        aria-label="Background animation switcher"
+      >
+        <button
+          type="button"
+          id="hero-bg-prev"
+          aria-label="Previous animation"
+          title="Previous animation"
+          class="group flex cursor-pointer items-center p-1.5 text-graphite-500 transition-colors duration-200 hover:text-white"
+        >
+          <svg
+            class="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          id="hero-bg-mode-name"
+          title="Click to cycle animation"
+          class="min-w-[8rem] cursor-pointer text-center text-[10px] font-medium tracking-widest text-graphite-500 uppercase opacity-80 transition-colors duration-200 hover:text-graphite-300 select-none"
+        >
+          <span id="hero-bg-mode-label">RAIN</span>
+        </button>
+
+        <button
+          type="button"
+          id="hero-bg-next"
+          aria-label="Next animation"
+          title="Next animation"
+          class="group flex cursor-pointer items-center p-1.5 text-graphite-500 transition-colors duration-200 hover:text-white"
+        >
+          <svg
+            class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
       <!-- Ambient background glow for visual depth -->
       <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div
@@ -99,7 +156,7 @@ const highlights = [
         </div>
       </div>
 
-      <div class="hero-scroll-enter absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div class="hero-scroll-enter absolute bottom-8 left-1/2 z-20 -translate-x-1/2">
         <a
           href="#content"
           aria-label="Scroll down"
@@ -114,6 +171,7 @@ const highlights = [
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path
               stroke-linecap="round"
@@ -307,6 +365,10 @@ const highlights = [
     animation: heroFadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
   }
 
+  .hero-switcher-enter {
+    animation: heroBadgeFade 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  }
+
   .hero-scroll-enter {
     animation: heroBadgeFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
   }
@@ -321,6 +383,7 @@ const highlights = [
     .hero-badge-enter,
     .hero-title-enter,
     .hero-cta-enter,
+    .hero-switcher-enter,
     .hero-scroll-enter,
     .hero-scroll-enter a {
       animation: none !important;
