@@ -30,7 +30,7 @@ blocks: [T2, T3, T4, T5]
 ## Task T2: Implement ASCII Rain Simulation and Mouse-Triggered Cascades
 
 ```yaml
-status: PENDING
+status: IN PROGRESS
 blocked_by: [T1]
 blocks: [T3, T4, T5]
 ```
