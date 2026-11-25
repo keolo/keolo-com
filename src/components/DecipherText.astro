@@ -14,7 +14,7 @@ interface Segment {
   class?: string;
 }
 
-const segments: Segment[] = [
+const line1Segments: Segment[] = [
   {
     type: 'text',
     content: 'Partner & CTO at ',
@@ -39,7 +39,14 @@ const segments: Segment[] = [
   },
   {
     type: 'text',
-    content: '. 20+ years building products and startups.',
+    content: '.',
+  },
+];
+
+const line2Segments: Segment[] = [
+  {
+    type: 'text',
+    content: ' 20+ years building products and startups.',
   },
 ];
 ---
@@ -56,42 +63,66 @@ const segments: Segment[] = [
   </span>
   <span class="decipher-visual" aria-hidden="true">
     <span class="decipher-cursor is-initial" aria-hidden="true"></span>
-    {
-      segments.map((segment) => {
-        const chars = segment.content.split('');
-        if (segment.type === 'link') {
+    <span class="inline lg:whitespace-nowrap">
+      {
+        line1Segments.map((segment) => {
+          const chars = segment.content.split('');
+          if (segment.type === 'link') {
+            return (
+              <a
+                href={segment.href}
+                target={segment.target}
+                rel={segment.rel}
+                class={segment.class}
+              >
+                {chars.map((char) => (
+                  <span class="decipher-char is-hidden" data-char={char}>
+                    {char}
+                  </span>
+                ))}
+              </a>
+            );
+          }
+          if (segment.type === 'strong') {
+            return (
+              <strong class={segment.class}>
+                {chars.map((char) => (
+                  <span class="decipher-char is-hidden" data-char={char}>
+                    {char}
+                  </span>
+                ))}
+              </strong>
+            );
+          }
           return (
-            <a href={segment.href} target={segment.target} rel={segment.rel} class={segment.class}>
+            <span>
               {chars.map((char) => (
                 <span class="decipher-char is-hidden" data-char={char}>
                   {char}
                 </span>
               ))}
-            </a>
+            </span>
           );
-        }
-        if (segment.type === 'strong') {
+        })
+      }
+    </span>
+    <br class="hidden lg:inline" />
+    <span>
+      {
+        line2Segments.map((segment) => {
+          const chars = segment.content.split('');
           return (
-            <strong class={segment.class}>
+            <span>
               {chars.map((char) => (
                 <span class="decipher-char is-hidden" data-char={char}>
                   {char}
                 </span>
               ))}
-            </strong>
+            </span>
           );
-        }
-        return (
-          <span>
-            {chars.map((char) => (
-              <span class="decipher-char is-hidden" data-char={char}>
-                {char}
-              </span>
-            ))}
-          </span>
-        );
-      })
-    }
+        })
+      }
+    </span>
   </span>
 </p>
 
