@@ -30,7 +30,7 @@ blocks: [T2, T3, T4, T5]
 ## Task T2: Implement ASCII Rain Simulation and Mouse-Triggered Cascades
 
 ```yaml
-status: IN PROGRESS
+status: COMPLETED
 blocked_by: [T1]
 blocks: [T3, T4, T5]
 ```
@@ -39,9 +39,9 @@ blocks: [T3, T4, T5]
 - **Description**:
   Implement the `"rain"` simulation mode in `HeroAsciiBackground.astro`. Structure falling drops with variable velocity (18–42 cells/sec), column targeting, and head-to-trail energy decay. Implement pointer movement shedding (spawning drops at the pointer column) and click/tap rainbursts (spawning simultaneous drops across adjacent &plusmn;12 columns). Ensure energized cells render with the multi-chroma palette (`PALETTE`) and decay smoothly.
 ### Acceptance Criteria
-  - [ ] Moving pointer across hero triggers rain drops falling from cursor position.
-  - [ ] Clicking/tapping hero triggers an expansive multi-column rainburst cascade.
-  - [ ] Drops fade out cleanly at the bottom and are removed from the active drops array.
+  - [x] Moving pointer across hero triggers rain drops falling from cursor position.
+  - [x] Clicking/tapping hero triggers an expansive multi-column rainburst cascade.
+  - [x] Drops fade out cleanly at the bottom and are removed from the active drops array.
 
 ## Task T3: Implement Conway's Game of Life Cellular Automata Simulation
 

@@ -2,7 +2,8 @@
 // src/components/HeroAsciiBackground.astro
 ---
 
-<canvas id="hero-ascii-bg" class="absolute inset-0 pointer-events-none z-0" aria-hidden="true"></canvas>
+<canvas id="hero-ascii-bg" class="absolute inset-0 pointer-events-none z-0" aria-hidden="true"
+></canvas>
 
 <script>
   (() => {
@@ -11,44 +12,44 @@
       cellW: 9,
       cellH: 10,
       fontSize: 10,
-      bgColor: "#09090b",
+      bgColor: '#09090b',
       bgShimmerCount: 30, // Subtle standby grid texture
     };
 
-    const CHARS_LIGHT  = ["░", "▖", "▗", "▘", "▝"];
-    const CHARS_MEDIUM = ["▒", "▀", "▄", "▌", "▐", "▞", "▚"];
-    const CHARS_DENSE  = ["█", "▓", "▛", "▜", "▙", "▟", "▀", "▄", "▌", "▐"];
-    const CHARS_BG     = ["░", "▒", "▖", "▗", "▘", "▝", "▚", "▞", "▀", "▄", "▌", "▐"];
+    const CHARS_LIGHT = ['░', '▖', '▗', '▘', '▝'];
+    const CHARS_MEDIUM = ['▒', '▀', '▄', '▌', '▐', '▞', '▚'];
+    const CHARS_DENSE = ['█', '▓', '▛', '▜', '▙', '▟', '▀', '▄', '▌', '▐'];
+    const CHARS_BG = ['░', '▒', '▖', '▗', '▘', '▝', '▚', '▞', '▀', '▄', '▌', '▐'];
 
     const PALETTE = [
-      [255, 59, 48],    // Red
-      [255, 112, 52],   // Coral / Orange
-      [255, 179, 38],   // Amber
-      [245, 224, 52],   // Yellow
-      [120, 235, 72],   // Lime
-      [34, 214, 118],   // Emerald
-      [24, 218, 224],   // Cyan
-      [56, 152, 255],   // Sky Blue
-      [99, 102, 241],   // Indigo
-      [176, 102, 255],  // Violet
-      [244, 72, 150],   // Magenta
+      [255, 59, 48], // Red
+      [255, 112, 52], // Coral / Orange
+      [255, 179, 38], // Amber
+      [245, 224, 52], // Yellow
+      [120, 235, 72], // Lime
+      [34, 214, 118], // Emerald
+      [24, 218, 224], // Cyan
+      [56, 152, 255], // Sky Blue
+      [99, 102, 241], // Indigo
+      [176, 102, 255], // Violet
+      [244, 72, 150], // Magenta
     ];
 
     const WHITE_HIGHLIGHT = [245, 248, 255];
     const BG_TEXT_BASE = [24, 24, 28];
 
-    const canvas = document.getElementById("hero-ascii-bg") as HTMLCanvasElement;
+    const canvas = document.getElementById('hero-ascii-bg') as HTMLCanvasElement;
     if (!canvas) return;
-    
-    const ctx = canvas.getContext("2d", { alpha: false });
+
+    const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
-    
-    const baseCanvas = document.createElement("canvas");
-    const baseCtx = baseCanvas.getContext("2d", { alpha: false });
+
+    const baseCanvas = document.createElement('canvas');
+    const baseCtx = baseCanvas.getContext('2d', { alpha: false });
     if (!baseCtx) return;
 
     const FONT = `${CONFIG.fontSize}px "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace`;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let width = 0;
     let height = 0;
@@ -56,7 +57,19 @@
     let cols = 0;
     let rows = 0;
 
-    const activeCells = new Map<number, any>();
+    interface ActiveCell {
+      col: number;
+      row: number;
+      energy: number;
+      decay: number;
+      isWhite: boolean;
+      r: number;
+      g: number;
+      b: number;
+      char: string;
+      nextMutate: number;
+    }
+    const activeCells = new Map<number, ActiveCell>();
 
     function cellHash(col: number, row: number) {
       let h = (col * 374761393 + row * 668265263) | 0;
@@ -64,22 +77,18 @@
       return (h ^ (h >>> 16)) >>> 0;
     }
 
-    function pick(arr: any[]) {
+    function pick<T>(arr: T[]): T {
       return arr[(Math.random() * arr.length) | 0];
     }
 
     function charForEnergy(energy: number, hash?: number) {
-      const list =
-        energy > 0.65 ? CHARS_DENSE :
-        energy > 0.30 ? CHARS_MEDIUM :
-        CHARS_LIGHT;
+      const list = energy > 0.65 ? CHARS_DENSE : energy > 0.3 ? CHARS_MEDIUM : CHARS_LIGHT;
       return hash !== undefined ? list[hash % list.length] : pick(list);
     }
 
     function bgShadeAt(col: number, row: number) {
       const wave =
-        Math.sin(col * 0.17 + row * 0.09) * 0.5 +
-        Math.cos(col * 0.08 - row * 0.21) * 0.5;
+        Math.sin(col * 0.17 + row * 0.09) * 0.5 + Math.cos(col * 0.08 - row * 0.21) * 0.5;
       const jitter = (Math.random() - 0.5) * 10;
       const v = Math.max(14, Math.min(34, Math.round(21 + wave * 4 + jitter)));
       return `rgb(${v}, ${v}, ${v + 2})`;
@@ -99,8 +108,8 @@
       targetCanvas.height = Math.floor(height * dpr);
       targetCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       targetCtx.font = FONT;
-      targetCtx.textAlign = "center";
-      targetCtx.textBaseline = "middle";
+      targetCtx.textAlign = 'center';
+      targetCtx.textBaseline = 'middle';
     }
 
     function rebuildBaseGrid() {
@@ -116,7 +125,15 @@
     }
 
     // igniteCell function for active cell decay engine
-    function igniteCell(col: number, row: number, energy: number, decay: number, rgb: number[], now: number, isWhite = false) {
+    function igniteCell(
+      col: number,
+      row: number,
+      energy: number,
+      decay: number,
+      rgb: number[],
+      now: number,
+      isWhite = false
+    ) {
       if (col < 0 || col >= cols || row < 0 || row >= rows) return;
       const idx = row * cols + col;
       const existing = activeCells.get(idx);
@@ -163,15 +180,64 @@
       activeCells.clear();
     }
 
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
     resize();
 
+    // === Rain Simulation State ===
+    const mode = 'rain'; // Will be randomized in T4
+
+    interface RainDrop {
+      col: number;
+      row: number;
+      speed: number;
+      color: number[];
+      decay: number;
+    }
+
+    const activeDrops: RainDrop[] = [];
+
+    function spawnDrop(col: number, startRow = -1) {
+      if (col < 0 || col >= cols) return;
+      activeDrops.push({
+        col,
+        row: startRow,
+        speed: 18 + Math.random() * 24, // 18-42 cells/sec
+        color: pick(PALETTE),
+        decay: 0.8 + Math.random() * 1.2,
+      });
+    }
+
+    let lastMouseCol = -1;
+
+    window.addEventListener('pointermove', (e) => {
+      if (mode !== 'rain' || reducedMotion) return;
+      const x = e.clientX;
+      const y = e.clientY;
+      const col = Math.floor(x / CONFIG.cellW);
+      const row = Math.floor(y / CONFIG.cellH);
+      if (col !== lastMouseCol) {
+        spawnDrop(col, row);
+        lastMouseCol = col;
+      }
+    });
+
+    window.addEventListener('pointerdown', (e) => {
+      if (mode !== 'rain' || reducedMotion) return;
+      const x = e.clientX;
+      const y = e.clientY;
+      const centerCol = Math.floor(x / CONFIG.cellW);
+      const centerRow = Math.floor(y / CONFIG.cellH);
+
+      for (let i = -12; i <= 12; i++) {
+        const rowOffset = Math.random() * 4 + Math.abs(i) * 0.5;
+        spawnDrop(centerCol + i, centerRow - rowOffset);
+      }
+    });
+
     let lastTime = performance.now();
-    const startTime = lastTime;
 
     function animate(now: number) {
       const dt = Math.min((now - lastTime) / 1000, 0.05);
-      const elapsed = (now - startTime) * 0.001;
       lastTime = now;
 
       if (!reducedMotion && cols > 0 && rows > 0) {
@@ -185,6 +251,33 @@
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const stepDt = reducedMotion ? dt * 0.35 : dt;
+
+      // === Rain Simulation Step ===
+      if (mode === 'rain' && !reducedMotion) {
+        if (Math.random() < stepDt * 4.0) {
+          // Ambient drops
+          spawnDrop(Math.floor(Math.random() * cols), -1);
+        }
+
+        for (let i = activeDrops.length - 1; i >= 0; i--) {
+          const drop = activeDrops[i];
+          const oldRow = Math.floor(drop.row);
+          drop.row += drop.speed * stepDt;
+          const newRow = Math.floor(drop.row);
+
+          if (newRow > oldRow) {
+            for (let r = oldRow + 1; r <= newRow; r++) {
+              if (r >= 0 && r < rows) {
+                igniteCell(drop.col, r, 1.0, drop.decay, drop.color, now, true);
+              }
+            }
+          }
+
+          if (drop.row >= rows + 5) {
+            activeDrops.splice(i, 1);
+          }
+        }
+      }
 
       for (const [idx, cell] of activeCells) {
         cell.energy -= cell.decay * stepDt;
