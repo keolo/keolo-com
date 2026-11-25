@@ -63,7 +63,7 @@ blocks: [T4, T5]
 ## Task T4: Implement Randomization Engine, IntersectionObserver Dormancy & Reduced Motion
 
 ```yaml
-status: PENDING
+status: COMPLETED
 blocked_by: [T1, T2, T3]
 blocks: [T5]
 ```
@@ -72,9 +72,9 @@ blocks: [T5]
 - **Description**:
   Add 50/50 pseudo-random mode selection (`Math.random() < 0.5 ? 'rain' : 'life'`) on component initialization. Implement an `IntersectionObserver` attached to the hero container to pause `requestAnimationFrame` when the hero is scrolled out of view, and resume when it re-enters view. Integrate `window.matchMedia('(prefers-reduced-motion: reduce)')` to disable continuous animation and mouse bursts for users requesting reduced motion.
 ### Acceptance Criteria
-  - [ ] Mode randomly alternates between `rain` and `life` on page loads and refreshes.
-  - [ ] Animation loop halts completely (0 FPS) when hero is scrolled past the viewport fold.
-  - [ ] Animation is suppressed when `prefers-reduced-motion: reduce` is detected.
+  - [x] Mode randomly alternates between `rain` and `life` on page loads and refreshes.
+  - [x] Animation loop halts completely (0 FPS) when hero is scrolled past the viewport fold.
+  - [x] Animation is suppressed when `prefers-reduced-motion: reduce` is detected.
 
 ## Task T5: Mount Component in `index.astro`, Author Tests & Verify Quality Gates
 
