@@ -252,8 +252,8 @@ const segments: Segment[] = [
 
         requestAnimationFrame(scrambleLoop);
 
-        // Initial brief hesitation before starting to type
-        await delay(160);
+        // Initial brief hesitation before starting to type (synchronized with hero title reveal)
+        await delay(280);
 
         // Subtle, realistic human typos with backspaces (kept snappy to match faster typing):
         // Index 31 is 'u' in "Ventures" (after "Vent"): types 'r' -> pause -> backspace -> continues with 'u'
