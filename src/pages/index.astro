@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MotionReveal from '../components/MotionReveal.astro';
+import DecipherText from '../components/DecipherText.astro';
 import { getPublishedPosts, getPublishedProjects, isEhrSeriesPost } from '../lib/content';
 
 const allPosts = await getPublishedPosts();
@@ -50,20 +51,7 @@ const highlights = [
           >
             Keolo
           </h1>
-          <p class="mt-6 text-lg leading-relaxed text-graphite-300 sm:text-xl">
-            Partner &amp; CTO at{' '}
-            <a
-              href="https://aliveness.ventures"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-medium text-white underline decoration-graphite-600 underline-offset-4 transition-colors hover:decoration-white"
-            >
-              Aliveness Ventures
-            </a>
-            , turning ideas into <strong class="font-semibold text-white"
-              >revenue-generating products</strong
-            >. 20+ years building products and startups.
-          </p>
+          <DecipherText class="mt-6 text-lg leading-relaxed text-graphite-300 sm:text-xl" />
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <a

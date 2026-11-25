@@ -1,0 +1,391 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+interface Segment {
+  type: 'text' | 'link' | 'strong';
+  content: string;
+  href?: string;
+  target?: string;
+  rel?: string;
+  class?: string;
+}
+
+const segments: Segment[] = [
+  {
+    type: 'text',
+    content: 'Partner & CTO at ',
+  },
+  {
+    type: 'link',
+    content: 'Aliveness Ventures',
+    href: 'https://aliveness.ventures',
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    class:
+      'font-medium text-white underline decoration-graphite-600 underline-offset-4 transition-colors hover:decoration-white',
+  },
+  {
+    type: 'text',
+    content: ', turning ideas into ',
+  },
+  {
+    type: 'strong',
+    content: 'revenue-generating products',
+    class: 'font-semibold text-white',
+  },
+  {
+    type: 'text',
+    content: '. 20+ years building products and startups.',
+  },
+];
+---
+
+<p class:list={['decipher-text relative leading-relaxed', className]} data-decipher-text>
+  <span class="sr-only">
+    Partner &amp; CTO at <a
+      href="https://aliveness.ventures"
+      target="_blank"
+      rel="noopener noreferrer">Aliveness Ventures</a
+    >, turning ideas into <strong class="font-semibold text-white"
+      >revenue-generating products</strong
+    >. 20+ years building products and startups.
+  </span>
+  <span class="decipher-visual" aria-hidden="true">
+    <span class="decipher-cursor is-initial" aria-hidden="true"></span>
+    {
+      segments.map((segment) => {
+        const chars = segment.content.split('');
+        if (segment.type === 'link') {
+          return (
+            <a href={segment.href} target={segment.target} rel={segment.rel} class={segment.class}>
+              {chars.map((char) => (
+                <span class="decipher-char is-hidden" data-char={char}>
+                  {char}
+                </span>
+              ))}
+            </a>
+          );
+        }
+        if (segment.type === 'strong') {
+          return (
+            <strong class={segment.class}>
+              {chars.map((char) => (
+                <span class="decipher-char is-hidden" data-char={char}>
+                  {char}
+                </span>
+              ))}
+            </strong>
+          );
+        }
+        return (
+          <span>
+            {chars.map((char) => (
+              <span class="decipher-char is-hidden" data-char={char}>
+                {char}
+              </span>
+            ))}
+          </span>
+        );
+      })
+    }
+  </span>
+</p>
+
+<noscript>
+  <style>
+    .decipher-char.is-hidden {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .decipher-cursor {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+  .decipher-visual {
+    display: inline;
+  }
+
+  .decipher-char {
+    display: inline;
+  }
+
+  .decipher-char.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .decipher-char.is-scrambling {
+    visibility: visible;
+    opacity: 1;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  }
+
+  .decipher-char.is-resolved {
+    visibility: visible;
+    opacity: 1;
+    text-shadow: none;
+    transition:
+      color 0.15s ease,
+      text-shadow 0.15s ease;
+  }
+
+  .decipher-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.15em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: decipher-blink 0.75s steps(2, start) infinite;
+  }
+
+  .decipher-cursor.is-typing {
+    animation: none;
+    opacity: 1;
+  }
+
+  .decipher-cursor.is-done {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+    animation: none;
+  }
+
+  @keyframes decipher-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .decipher-char.is-hidden {
+      visibility: visible !important;
+      opacity: 1 !important;
+      color: inherit !important;
+      text-shadow: none !important;
+    }
+    .decipher-cursor {
+      display: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.decipher-char').forEach((el) => {
+        el.classList.remove('is-hidden');
+        el.classList.add('is-resolved');
+      });
+      document.querySelectorAll('.decipher-cursor').forEach((el) => {
+        el.remove();
+      });
+      return;
+    }
+
+    // Character set matching Motion's default scrambleText pool plus requested cyber/decipher symbols:
+    // https://examples.motion.dev/js/scramble-text-stagger-center
+    // Symbols: ! ? > | ^ _ : - = [ ] ◇ □ ◈ ■ ▭ ░ ▒ ▓
+    const SCRAMBLE_CHARS =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?|>^_:-=[]◇□◈■▭░▒▓';
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const containers = document.querySelectorAll('[data-decipher-text]');
+    containers.forEach((container) => {
+      let started = false;
+
+      async function startAnimation() {
+        if (started) return;
+        started = true;
+
+        const charEls = Array.from(container.querySelectorAll('.decipher-char'));
+        const cursor = container.querySelector('.decipher-cursor');
+        if (!charEls.length) return;
+
+        const total = charEls.length;
+        const activeScrambles = [];
+        let animationRunning = true;
+
+        if (cursor) {
+          cursor.classList.add('is-typing');
+          if (charEls[0]) {
+            charEls[0].before(cursor);
+          }
+        }
+
+        // Independent animation loop for scrambling glyphs
+        function scrambleLoop(now) {
+          for (let i = activeScrambles.length - 1; i >= 0; i--) {
+            const item = activeScrambles[i];
+            const elapsed = now - item.startTime;
+
+            if (elapsed >= item.duration) {
+              item.el.textContent = item.target;
+              item.el.classList.remove('is-scrambling');
+              item.el.classList.add('is-resolved');
+              activeScrambles.splice(i, 1);
+            } else if (!item.lastFlip || now - item.lastFlip >= 34) {
+              // Rapid glyph cycling every ~34ms during the scramble window
+              item.el.textContent =
+                SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+              item.lastFlip = now;
+            }
+          }
+
+          if (animationRunning || activeScrambles.length > 0) {
+            requestAnimationFrame(scrambleLoop);
+          }
+        }
+
+        requestAnimationFrame(scrambleLoop);
+
+        // Initial brief hesitation before starting to type
+        await delay(160);
+
+        // Subtle, realistic human typos with backspaces (kept snappy to match faster typing):
+        // Index 31 is 'u' in "Ventures" (after "Vent"): types 'r' -> pause -> backspace -> continues with 'u'
+        // Index 79 is 'u' in "products" (after "prod"): types 'c' -> pause -> backspace -> continues with 'u'
+        const typoConfig = {
+          31: { typoLetters: ['r'], pauseBeforeBackspace: 110, pauseAfterBackspace: 65 },
+          79: { typoLetters: ['c'], pauseBeforeBackspace: 125, pauseAfterBackspace: 70 },
+        };
+
+        for (let i = 0; i < total; i++) {
+          // Check for typo before typing index i
+          if (typoConfig[i]) {
+            const typo = typoConfig[i];
+            const prevEl = charEls[i - 1];
+            const typoSpans = [];
+
+            // Type the erroneous character(s)
+            for (const letter of typo.typoLetters) {
+              const typoSpan = document.createElement('span');
+              typoSpan.className = 'decipher-char is-scrambling is-typo';
+              typoSpan.textContent = letter;
+              if (typoSpans.length === 0) {
+                prevEl.after(typoSpan);
+              } else {
+                typoSpans[typoSpans.length - 1].after(typoSpan);
+              }
+              if (cursor) {
+                typoSpan.after(cursor);
+              }
+              typoSpans.push(typoSpan);
+
+              activeScrambles.push({
+                el: typoSpan,
+                target: letter,
+                startTime: performance.now(),
+                duration: 150,
+                lastFlip: 0,
+              });
+
+              await delay(22 + Math.random() * 12);
+            }
+
+            // Hesitation: noticing the mistake
+            await delay(typo.pauseBeforeBackspace);
+
+            // Backspace the error(s)
+            while (typoSpans.length > 0) {
+              const span = typoSpans.pop();
+              span.remove();
+              if (cursor) {
+                if (typoSpans.length > 0) {
+                  typoSpans[typoSpans.length - 1].after(cursor);
+                } else {
+                  prevEl.after(cursor);
+                }
+              }
+              await delay(typo.pauseAfterBackspace);
+            }
+          }
+
+          // Now type the correct character
+          const el = charEls[i];
+          const targetChar = el.getAttribute('data-char') || '';
+          el.classList.remove('is-hidden');
+          if (cursor) {
+            el.after(cursor);
+          }
+
+          if (targetChar === ' ' || targetChar === '\n') {
+            el.textContent = targetChar;
+            el.classList.add('is-resolved');
+            // Snappy inter-word advance
+            await delay(20 + Math.random() * 15);
+          } else {
+            el.classList.add('is-scrambling');
+            activeScrambles.push({
+              el,
+              target: targetChar,
+              startTime: performance.now(),
+              // Long scramble tail: lingering ~600ms to 850ms creates a wide wake of 30+ tumbling characters
+              duration: 600 + Math.random() * 250,
+              lastFlip: 0,
+            });
+
+            // Fast keystroke cadence with natural micro-variations
+            let keyDelay = 12 + Math.random() * 12; // 12-24ms fast typing
+
+            if (targetChar === ',') {
+              keyDelay = 140 + Math.random() * 40; // pause at comma
+            } else if (targetChar === '.') {
+              keyDelay = 220 + Math.random() * 50; // pause at period
+            } else if (targetChar === '&' || targetChar === '+') {
+              keyDelay = 35 + Math.random() * 20; // slight touch delay
+            }
+
+            await delay(keyDelay);
+          }
+        }
+
+        animationRunning = false;
+
+        // Ensure all remaining scrambled characters finish resolving
+        while (activeScrambles.length > 0) {
+          await delay(50);
+        }
+
+        // Completion: cursor blinks for 1.8s, then smoothly fades out
+        if (cursor) {
+          cursor.classList.remove('is-typing');
+          setTimeout(() => {
+            cursor.classList.add('is-done');
+          }, 1800);
+        }
+      }
+
+      // Trigger on view via IntersectionObserver or timeout
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startAnimation();
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        observer.observe(container);
+      } else {
+        startAnimation();
+      }
+    });
+  })();
+</script>

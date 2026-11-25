@@ -131,4 +131,20 @@ describe('production dist output (when built)', () => {
       expect(mainIndex).toBeGreaterThan(headerIndex);
     }
   });
+
+  it.skipIf(!hasDist)(
+    'renders animated typewriter decipher hero text with accessibility and fallback',
+    () => {
+      const indexHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
+
+      expect(indexHtml).toContain('data-decipher-text');
+      expect(indexHtml).toContain('decipher-char');
+      expect(indexHtml).toContain('decipher-cursor');
+      expect(indexHtml).toContain('Aliveness Ventures');
+      expect(indexHtml).toContain('revenue-generating products');
+      expect(indexHtml).toContain('https://aliveness.ventures');
+      expect(indexHtml).toContain('sr-only');
+      expect(indexHtml).toContain('<noscript>');
+    }
+  );
 });
