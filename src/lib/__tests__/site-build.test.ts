@@ -31,6 +31,36 @@ describe('migrated content integrity', () => {
   });
 });
 
+describe('Evolve case study sanitization', () => {
+  it('ensures Evolve case study exists and is free of confidential strings', () => {
+    const evolvePath = path.join(contentDir, 'projects', 'evolve.md');
+    expect(fs.existsSync(evolvePath)).toBe(true);
+
+    const content = fs.readFileSync(evolvePath, 'utf8');
+
+    // Frontmatter checks
+    expect(content).toContain("title: 'Evolve'");
+
+    // Prohibited identities
+    const confidentialNames = ['Lyle', 'Jon', 'Lauren', 'Larry', 'Michal'];
+    for (const name of confidentialNames) {
+      expect(content).not.toContain(name);
+    }
+
+    // Prohibited financials
+    const confidentialFinancials = ['$50M', '$15M', '$10M'];
+    for (const amt of confidentialFinancials) {
+      expect(content).not.toContain(amt);
+    }
+
+    // Prohibited platforms/docs
+    const confidentialDocs = ['Google Docs', 'JIRA', 'Jira'];
+    for (const doc of confidentialDocs) {
+      expect(content).not.toContain(doc);
+    }
+  });
+});
+
 describe('production dist output (when built)', () => {
   const hasDist = fs.existsSync(path.join(distDir, 'index.html'));
 
