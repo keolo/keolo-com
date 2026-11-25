@@ -2,8 +2,10 @@
 // src/components/HeroAsciiBackground.astro
 ---
 
-<canvas id="hero-ascii-bg" class="absolute inset-0 pointer-events-none z-0" aria-hidden="true"
-></canvas>
+<canvas
+  id="hero-ascii-bg"
+  class="absolute inset-0 w-full h-full pointer-events-none z-0"
+  aria-hidden="true"></canvas>
 
 <script>
   (() => {
@@ -57,6 +59,26 @@
     let cols = 0;
     let rows = 0;
 
+    // === Simulation Mode (50% Rain, 50% Life) ===
+    const mode = Math.random() < 0.5 ? 'rain' : 'life';
+
+    // === Life Simulation State ===
+    let lifeGrid: Uint8Array;
+    let nextLifeGrid: Uint8Array;
+    let lifeAge: Uint8Array;
+    let lastLifeStep = performance.now();
+
+    // === Rain Simulation State ===
+    interface RainDrop {
+      col: number;
+      row: number;
+      speed: number;
+      color: number[];
+      decay: number;
+    }
+    const activeDrops: RainDrop[] = [];
+
+    // === Active Display Cells ===
     interface ActiveCell {
       col: number;
       row: number;
@@ -106,6 +128,8 @@
     function setupCanvas(targetCanvas: HTMLCanvasElement, targetCtx: CanvasRenderingContext2D) {
       targetCanvas.width = Math.floor(width * dpr);
       targetCanvas.height = Math.floor(height * dpr);
+      targetCanvas.style.width = `${width}px`;
+      targetCanvas.style.height = `${height}px`;
       targetCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       targetCtx.font = FONT;
       targetCtx.textAlign = 'center';
@@ -124,7 +148,6 @@
       }
     }
 
-    // igniteCell function for active cell decay engine
     function igniteCell(
       col: number,
       row: number,
@@ -167,10 +190,60 @@
       }
     }
 
+    function spawnDrop(col: number, startRow = -1) {
+      if (col < 0 || col >= cols) return;
+      activeDrops.push({
+        col,
+        row: startRow,
+        speed: 18 + Math.random() * 24, // 18-42 cells/sec
+        color: pick(PALETTE),
+        decay: 0.8 + Math.random() * 1.2,
+      });
+    }
+
+    function seedLifeCluster(cx: number, cy: number, radius: number, density: number, now: number) {
+      if (cols === 0 || rows === 0 || !lifeGrid) return;
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          if (Math.hypot(dx, dy) > radius) continue;
+          if (Math.random() > density) continue;
+          const c = (cx + dx + cols) % cols;
+          const r = (cy + dy + rows) % rows;
+          const idx = r * cols + c;
+          lifeGrid[idx] = 1;
+          lifeAge[idx] = 0;
+          const h = cellHash(c, r);
+          igniteCell(c, r, 1.0, 1.2, PALETTE[h % PALETTE.length], now, true);
+        }
+      }
+    }
+
+    function initLifeSeeds() {
+      if (!lifeGrid || cols === 0 || rows === 0) return;
+      const numClusters = Math.max(5, Math.min(12, Math.floor((cols * rows) / 350)));
+      const now = performance.now();
+      for (let i = 0; i < numClusters; i++) {
+        const cx = Math.floor(Math.random() * cols);
+        const cy = Math.floor(Math.random() * rows);
+        seedLifeCluster(cx, cy, 3, 0.45, now);
+      }
+    }
+
+    function initRainSeeds() {
+      if (cols === 0 || rows === 0) return;
+      const numDrops = Math.max(16, Math.min(36, Math.floor(cols * 0.25)));
+      for (let i = 0; i < numDrops; i++) {
+        const c = Math.floor(Math.random() * cols);
+        const startRow = Math.floor(Math.random() * rows);
+        spawnDrop(c, startRow);
+      }
+    }
+
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const parent = canvas.parentElement;
+      width = parent ? parent.clientWidth : window.innerWidth;
+      height = parent ? parent.clientHeight : window.innerHeight;
       cols = Math.ceil(width / CONFIG.cellW);
       rows = Math.ceil(height / CONFIG.cellH);
 
@@ -183,49 +256,29 @@
       setupCanvas(baseCanvas, baseCtx!);
       rebuildBaseGrid();
       activeCells.clear();
+      activeDrops.length = 0;
+
+      if (!reducedMotion) {
+        if (mode === 'life') {
+          initLifeSeeds();
+        } else {
+          initRainSeeds();
+        }
+      }
     }
 
     window.addEventListener('resize', resize);
     resize();
 
-    // === Simulation Modes ===
-    const mode = Math.random() < 0.5 ? 'rain' : 'life';
-
-    // === Life Simulation State ===
-    let lifeGrid: Uint8Array;
-    let nextLifeGrid: Uint8Array;
-    let lifeAge: Uint8Array;
-    let lastLifeStep = performance.now();
-
-    // === Rain Simulation State ===
-
-    interface RainDrop {
-      col: number;
-      row: number;
-      speed: number;
-      color: number[];
-      decay: number;
-    }
-
-    const activeDrops: RainDrop[] = [];
-
-    function spawnDrop(col: number, startRow = -1) {
-      if (col < 0 || col >= cols) return;
-      activeDrops.push({
-        col,
-        row: startRow,
-        speed: 18 + Math.random() * 24, // 18-42 cells/sec
-        color: pick(PALETTE),
-        decay: 0.8 + Math.random() * 1.2,
-      });
-    }
-
     let lastMouseCol = -1;
 
     window.addEventListener('pointermove', (e) => {
       if (reducedMotion) return;
-      const x = e.clientX;
-      const y = e.clientY;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (x < 0 || x > rect.width || y < 0 || y > rect.height) return;
+
       const col = Math.floor(x / CONFIG.cellW);
       const row = Math.floor(y / CONFIG.cellH);
 
@@ -234,27 +287,18 @@
           spawnDrop(col, row);
           lastMouseCol = col;
         }
-      } else if (mode === 'life' && lifeGrid) {
-        if (col >= 0 && col < cols && row >= 0 && row < rows) {
-          for (let dy = -1; dy <= 1; dy++) {
-            for (let dx = -1; dx <= 1; dx++) {
-              if (Math.random() > 0.5) {
-                const r = row + dy;
-                const c = col + dx;
-                if (r >= 0 && r < rows && c >= 0 && c < cols) {
-                  lifeGrid[r * cols + c] = 1;
-                }
-              }
-            }
-          }
-        }
+      } else if (mode === 'life') {
+        seedLifeCluster(col, row, 2, 0.52, performance.now());
       }
     });
 
     window.addEventListener('pointerdown', (e) => {
       if (reducedMotion) return;
-      const x = e.clientX;
-      const y = e.clientY;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (x < 0 || x > rect.width || y < 0 || y > rect.height) return;
+
       const centerCol = Math.floor(x / CONFIG.cellW);
       const centerRow = Math.floor(y / CONFIG.cellH);
 
@@ -263,20 +307,8 @@
           const rowOffset = Math.random() * 4 + Math.abs(i) * 0.5;
           spawnDrop(centerCol + i, centerRow - rowOffset);
         }
-      } else if (mode === 'life' && lifeGrid) {
-        for (let dy = -5; dy <= 5; dy++) {
-          for (let dx = -5; dx <= 5; dx++) {
-            if (dx * dx + dy * dy <= 25) {
-              if (Math.random() > 0.3) {
-                const r = centerRow + dy;
-                const c = centerCol + dx;
-                if (r >= 0 && r < rows && c >= 0 && c < cols) {
-                  lifeGrid[r * cols + c] = 1;
-                }
-              }
-            }
-          }
-        }
+      } else if (mode === 'life') {
+        seedLifeCluster(centerCol, centerRow, 5, 0.45, performance.now());
       }
     });
 
@@ -311,7 +343,7 @@
 
       // === Rain Simulation Step ===
       if (mode === 'rain' && !reducedMotion) {
-        if (Math.random() < stepDt * 4.0) {
+        if (Math.random() < stepDt * 14.0) {
           // Ambient drops
           spawnDrop(Math.floor(Math.random() * cols), -1);
         }
@@ -338,42 +370,57 @@
 
       // === Life Simulation Step ===
       if (mode === 'life' && !reducedMotion && lifeGrid) {
+        // Ambient cosmic seeding to keep Life active
+        if (Math.random() < stepDt * 0.8) {
+          const cx = Math.floor(Math.random() * cols);
+          const cy = Math.floor(Math.random() * rows);
+          seedLifeCluster(cx, cy, 2, 0.45, now);
+        }
+
         if (now - lastLifeStep >= 88) {
           lastLifeStep = now;
           for (let r = 0; r < rows; r++) {
+            const rUp = (r - 1 + rows) % rows;
+            const rDn = (r + 1) % rows;
+            const rowOff = r * cols;
+            const upOff = rUp * cols;
+            const dnOff = rDn * cols;
+
             for (let c = 0; c < cols; c++) {
-              const idx = r * cols + c;
-              let neighbors = 0;
-              for (let dy = -1; dy <= 1; dy++) {
-                for (let dx = -1; dx <= 1; dx++) {
-                  if (dx === 0 && dy === 0) continue;
-                  const nr = r + dy;
-                  const nc = c + dx;
-                  if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                    neighbors += lifeGrid[nr * cols + nc];
-                  }
-                }
-              }
+              const cLt = (c - 1 + cols) % cols;
+              const cRt = (c + 1) % cols;
+
+              const neighbors =
+                lifeGrid[upOff + cLt] +
+                lifeGrid[upOff + c] +
+                lifeGrid[upOff + cRt] +
+                lifeGrid[rowOff + cLt] +
+                lifeGrid[rowOff + cRt] +
+                lifeGrid[dnOff + cLt] +
+                lifeGrid[dnOff + c] +
+                lifeGrid[dnOff + cRt];
+
+              const idx = rowOff + c;
               const isAlive = lifeGrid[idx];
-              if (isAlive) {
-                if (neighbors === 2 || neighbors === 3) {
-                  nextLifeGrid[idx] = 1;
-                  lifeAge[idx] = Math.min(255, lifeAge[idx] + 1);
-                } else {
-                  nextLifeGrid[idx] = 0;
-                  lifeAge[idx] = 0;
-                }
+              const nextAlive = isAlive
+                ? neighbors === 2 || neighbors === 3
+                  ? 1
+                  : 0
+                : neighbors === 3
+                  ? 1
+                  : 0;
+
+              nextLifeGrid[idx] = nextAlive;
+
+              if (nextAlive) {
+                const born = isAlive === 0;
+                lifeAge[idx] = born ? 0 : Math.min(255, lifeAge[idx] + 1);
               } else {
-                if (neighbors === 3) {
-                  nextLifeGrid[idx] = 1;
-                  lifeAge[idx] = 0;
-                } else {
-                  nextLifeGrid[idx] = 0;
-                  lifeAge[idx] = 0;
-                }
+                lifeAge[idx] = 0;
               }
             }
           }
+
           const temp = lifeGrid;
           lifeGrid = nextLifeGrid;
           nextLifeGrid = temp;
@@ -384,10 +431,10 @@
               const idx = r * cols + c;
               if (lifeGrid[idx]) {
                 const age = lifeAge[idx];
-                const energy = age === 0 ? 1.0 : Math.max(0.3, 0.8 - age * 0.02);
+                const energy = age === 0 ? 1.0 : Math.max(0.35, 0.85 - age * 0.02);
                 const isWhite = age === 0;
                 const color = PALETTE[cellHash(c, r) % PALETTE.length];
-                igniteCell(c, r, energy, 0.6, color, now, isWhite);
+                igniteCell(c, r, energy, 0.7, color, now, isWhite);
               }
             }
           }
