@@ -46,7 +46,7 @@ blocks: [T3, T4, T5]
 ## Task T3: Implement Conway's Game of Life Cellular Automata Simulation
 
 ```yaml
-status: PENDING
+status: COMPLETED
 blocked_by: [T1, T2]
 blocks: [T4, T5]
 ```
@@ -55,10 +55,10 @@ blocks: [T4, T5]
 - **Description**:
   Implement the `"life"` simulation mode in `HeroAsciiBackground.astro`. Allocate typed array buffers (`Uint8Array`) for grid state, next generation, and cell age. Implement Conway cellular evolution rules stepping every 88ms. Implement mouse seeding (painting live clusters as cursor moves) and click/tap explosions (seeding a dense 5-cell radius cluster). Newly born cells ignite at peak energy with multi-chroma colors, while static structures cool down gracefully.
 ### Acceptance Criteria
-  - [ ] Conway's Game of Life steps at ~88ms intervals adhering to standard neighbor rules.
-  - [ ] Cursor movement seeds live cellular clusters in real time.
-  - [ ] Clicks trigger an immediate radial cellular burst.
-  - [ ] Typed arrays update without memory allocations in the inner loop.
+  - [x] Conway's Game of Life steps at ~88ms intervals adhering to standard neighbor rules.
+  - [x] Cursor movement seeds live cellular clusters in real time.
+  - [x] Clicks trigger an immediate radial cellular burst.
+  - [x] Typed arrays update without memory allocations in the inner loop.
 
 ## Task T4: Implement Randomization Engine, IntersectionObserver Dormancy & Reduced Motion
 

@@ -174,6 +174,11 @@
       cols = Math.ceil(width / CONFIG.cellW);
       rows = Math.ceil(height / CONFIG.cellH);
 
+      const cellsCount = cols * rows;
+      lifeGrid = new Uint8Array(cellsCount);
+      nextLifeGrid = new Uint8Array(cellsCount);
+      lifeAge = new Uint8Array(cellsCount);
+
       setupCanvas(canvas, ctx!);
       setupCanvas(baseCanvas, baseCtx!);
       rebuildBaseGrid();
@@ -183,8 +188,16 @@
     window.addEventListener('resize', resize);
     resize();
 
+    // === Simulation Modes ===
+    const mode = 'life' as string; // Set to life for now for testing, will be randomized in T4
+
+    // === Life Simulation State ===
+    let lifeGrid: Uint8Array;
+    let nextLifeGrid: Uint8Array;
+    let lifeAge: Uint8Array;
+    let lastLifeStep = performance.now();
+
     // === Rain Simulation State ===
-    const mode = 'rain'; // Will be randomized in T4
 
     interface RainDrop {
       col: number;
@@ -210,27 +223,60 @@
     let lastMouseCol = -1;
 
     window.addEventListener('pointermove', (e) => {
-      if (mode !== 'rain' || reducedMotion) return;
+      if (reducedMotion) return;
       const x = e.clientX;
       const y = e.clientY;
       const col = Math.floor(x / CONFIG.cellW);
       const row = Math.floor(y / CONFIG.cellH);
-      if (col !== lastMouseCol) {
-        spawnDrop(col, row);
-        lastMouseCol = col;
+
+      if (mode === 'rain') {
+        if (col !== lastMouseCol) {
+          spawnDrop(col, row);
+          lastMouseCol = col;
+        }
+      } else if (mode === 'life' && lifeGrid) {
+        if (col >= 0 && col < cols && row >= 0 && row < rows) {
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+              if (Math.random() > 0.5) {
+                const r = row + dy;
+                const c = col + dx;
+                if (r >= 0 && r < rows && c >= 0 && c < cols) {
+                  lifeGrid[r * cols + c] = 1;
+                }
+              }
+            }
+          }
+        }
       }
     });
 
     window.addEventListener('pointerdown', (e) => {
-      if (mode !== 'rain' || reducedMotion) return;
+      if (reducedMotion) return;
       const x = e.clientX;
       const y = e.clientY;
       const centerCol = Math.floor(x / CONFIG.cellW);
       const centerRow = Math.floor(y / CONFIG.cellH);
 
-      for (let i = -12; i <= 12; i++) {
-        const rowOffset = Math.random() * 4 + Math.abs(i) * 0.5;
-        spawnDrop(centerCol + i, centerRow - rowOffset);
+      if (mode === 'rain') {
+        for (let i = -12; i <= 12; i++) {
+          const rowOffset = Math.random() * 4 + Math.abs(i) * 0.5;
+          spawnDrop(centerCol + i, centerRow - rowOffset);
+        }
+      } else if (mode === 'life' && lifeGrid) {
+        for (let dy = -5; dy <= 5; dy++) {
+          for (let dx = -5; dx <= 5; dx++) {
+            if (dx * dx + dy * dy <= 25) {
+              if (Math.random() > 0.3) {
+                const r = centerRow + dy;
+                const c = centerCol + dx;
+                if (r >= 0 && r < rows && c >= 0 && c < cols) {
+                  lifeGrid[r * cols + c] = 1;
+                }
+              }
+            }
+          }
+        }
       }
     });
 
@@ -275,6 +321,64 @@
 
           if (drop.row >= rows + 5) {
             activeDrops.splice(i, 1);
+          }
+        }
+      }
+
+      // === Life Simulation Step ===
+      if (mode === 'life' && !reducedMotion && lifeGrid) {
+        if (now - lastLifeStep >= 88) {
+          lastLifeStep = now;
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const idx = r * cols + c;
+              let neighbors = 0;
+              for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                  if (dx === 0 && dy === 0) continue;
+                  const nr = r + dy;
+                  const nc = c + dx;
+                  if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                    neighbors += lifeGrid[nr * cols + nc];
+                  }
+                }
+              }
+              const isAlive = lifeGrid[idx];
+              if (isAlive) {
+                if (neighbors === 2 || neighbors === 3) {
+                  nextLifeGrid[idx] = 1;
+                  lifeAge[idx] = Math.min(255, lifeAge[idx] + 1);
+                } else {
+                  nextLifeGrid[idx] = 0;
+                  lifeAge[idx] = 0;
+                }
+              } else {
+                if (neighbors === 3) {
+                  nextLifeGrid[idx] = 1;
+                  lifeAge[idx] = 0;
+                } else {
+                  nextLifeGrid[idx] = 0;
+                  lifeAge[idx] = 0;
+                }
+              }
+            }
+          }
+          const temp = lifeGrid;
+          lifeGrid = nextLifeGrid;
+          nextLifeGrid = temp;
+          nextLifeGrid.fill(0);
+
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const idx = r * cols + c;
+              if (lifeGrid[idx]) {
+                const age = lifeAge[idx];
+                const energy = age === 0 ? 1.0 : Math.max(0.3, 0.8 - age * 0.02);
+                const isWhite = age === 0;
+                const color = PALETTE[cellHash(c, r) % PALETTE.length];
+                igniteCell(c, r, energy, 0.6, color, now, isWhite);
+              }
+            }
           }
         }
       }
