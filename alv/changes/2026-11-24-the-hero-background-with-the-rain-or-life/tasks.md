@@ -12,16 +12,16 @@ related: []
 # Execution Tasks: Hero Background with Random Rain or Life ASCII Animation
 
 ## Task T1: Create `HeroAsciiBackground.astro` Component Foundation & Dual-Canvas Pipeline
-- status: PENDING
+- status: COMPLETED
 - blocked_by: []
 - blocks: [T2, T3, T4, T5]
 - **Spec Scenarios**: Scenario 1, Scenario 5, Scenario 6
 - **Description**:
   Author `src/components/HeroAsciiBackground.astro` with an HTML5 `<canvas id="hero-ascii-bg">` element styled with `absolute inset-0 pointer-events-none z-0`. Set up client script infrastructure that manages canvas sizing, device pixel ratio scaling (`Math.min(window.devicePixelRatio || 1, 2)`), offscreen base grid caching (`baseCanvas`), cell coordinate calculations (9px x 10px cells), and the active cell decay engine. Verify that the canvas renders cleanly behind hero text and that pointer events pass through to underlying buttons.
 ### Acceptance Criteria
-  - [ ] `HeroAsciiBackground.astro` created with properly styled canvas element and accessible attributes (`aria-hidden="true"`).
-  - [ ] Offscreen `baseCanvas` pre-renders the ambient dark ASCII grid and blits 1:1 to the main canvas.
-  - [ ] Canvas resizes responsively on window resize without layout shifts or memory leaks.
+  - [x] `HeroAsciiBackground.astro` created with properly styled canvas element and accessible attributes (`aria-hidden="true"`).
+  - [x] Offscreen `baseCanvas` pre-renders the ambient dark ASCII grid and blits 1:1 to the main canvas.
+  - [x] Canvas resizes responsively on window resize without layout shifts or memory leaks.
 
 ## Task T2: Implement ASCII Rain Simulation and Mouse-Triggered Cascades
 - status: PENDING

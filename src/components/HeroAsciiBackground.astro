@@ -1,0 +1,229 @@
+---
+// src/components/HeroAsciiBackground.astro
+---
+
+<canvas id="hero-ascii-bg" class="absolute inset-0 pointer-events-none z-0" aria-hidden="true"></canvas>
+
+<script>
+  (() => {
+    // === Configuration ===
+    const CONFIG = {
+      cellW: 9,
+      cellH: 10,
+      fontSize: 10,
+      bgColor: "#09090b",
+      bgShimmerCount: 30, // Subtle standby grid texture
+    };
+
+    const CHARS_LIGHT  = ["░", "▖", "▗", "▘", "▝"];
+    const CHARS_MEDIUM = ["▒", "▀", "▄", "▌", "▐", "▞", "▚"];
+    const CHARS_DENSE  = ["█", "▓", "▛", "▜", "▙", "▟", "▀", "▄", "▌", "▐"];
+    const CHARS_BG     = ["░", "▒", "▖", "▗", "▘", "▝", "▚", "▞", "▀", "▄", "▌", "▐"];
+
+    const PALETTE = [
+      [255, 59, 48],    // Red
+      [255, 112, 52],   // Coral / Orange
+      [255, 179, 38],   // Amber
+      [245, 224, 52],   // Yellow
+      [120, 235, 72],   // Lime
+      [34, 214, 118],   // Emerald
+      [24, 218, 224],   // Cyan
+      [56, 152, 255],   // Sky Blue
+      [99, 102, 241],   // Indigo
+      [176, 102, 255],  // Violet
+      [244, 72, 150],   // Magenta
+    ];
+
+    const WHITE_HIGHLIGHT = [245, 248, 255];
+    const BG_TEXT_BASE = [24, 24, 28];
+
+    const canvas = document.getElementById("hero-ascii-bg") as HTMLCanvasElement;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
+    
+    const baseCanvas = document.createElement("canvas");
+    const baseCtx = baseCanvas.getContext("2d", { alpha: false });
+    if (!baseCtx) return;
+
+    const FONT = `${CONFIG.fontSize}px "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace`;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let cols = 0;
+    let rows = 0;
+
+    const activeCells = new Map<number, any>();
+
+    function cellHash(col: number, row: number) {
+      let h = (col * 374761393 + row * 668265263) | 0;
+      h = Math.imul(h ^ (h >>> 13), 1274126177);
+      return (h ^ (h >>> 16)) >>> 0;
+    }
+
+    function pick(arr: any[]) {
+      return arr[(Math.random() * arr.length) | 0];
+    }
+
+    function charForEnergy(energy: number, hash?: number) {
+      const list =
+        energy > 0.65 ? CHARS_DENSE :
+        energy > 0.30 ? CHARS_MEDIUM :
+        CHARS_LIGHT;
+      return hash !== undefined ? list[hash % list.length] : pick(list);
+    }
+
+    function bgShadeAt(col: number, row: number) {
+      const wave =
+        Math.sin(col * 0.17 + row * 0.09) * 0.5 +
+        Math.cos(col * 0.08 - row * 0.21) * 0.5;
+      const jitter = (Math.random() - 0.5) * 10;
+      const v = Math.max(14, Math.min(34, Math.round(21 + wave * 4 + jitter)));
+      return `rgb(${v}, ${v}, ${v + 2})`;
+    }
+
+    function drawBaseCell(col: number, row: number) {
+      const x = col * CONFIG.cellW;
+      const y = row * CONFIG.cellH;
+      baseCtx!.fillStyle = CONFIG.bgColor;
+      baseCtx!.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+      baseCtx!.fillStyle = bgShadeAt(col, row);
+      baseCtx!.fillText(pick(CHARS_BG), x + CONFIG.cellW * 0.5, y + CONFIG.cellH * 0.5);
+    }
+
+    function setupCanvas(targetCanvas: HTMLCanvasElement, targetCtx: CanvasRenderingContext2D) {
+      targetCanvas.width = Math.floor(width * dpr);
+      targetCanvas.height = Math.floor(height * dpr);
+      targetCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      targetCtx.font = FONT;
+      targetCtx.textAlign = "center";
+      targetCtx.textBaseline = "middle";
+    }
+
+    function rebuildBaseGrid() {
+      baseCtx!.fillStyle = CONFIG.bgColor;
+      baseCtx!.fillRect(0, 0, width, height);
+      for (let r = 0; r < rows; r++) {
+        const cy = r * CONFIG.cellH + CONFIG.cellH * 0.5;
+        for (let c = 0; c < cols; c++) {
+          baseCtx!.fillStyle = bgShadeAt(c, r);
+          baseCtx!.fillText(pick(CHARS_BG), c * CONFIG.cellW + CONFIG.cellW * 0.5, cy);
+        }
+      }
+    }
+
+    // igniteCell function for active cell decay engine
+    function igniteCell(col: number, row: number, energy: number, decay: number, rgb: number[], now: number, isWhite = false) {
+      if (col < 0 || col >= cols || row < 0 || row >= rows) return;
+      const idx = row * cols + col;
+      const existing = activeCells.get(idx);
+
+      if (existing) {
+        if (energy >= existing.energy * 0.72) {
+          existing.energy = Math.max(existing.energy, Math.min(1, energy));
+          existing.decay = Math.min(existing.decay, decay);
+          if (isWhite) existing.isWhite = true;
+          if (rgb && energy >= 0.45) {
+            existing.r = rgb[0];
+            existing.g = rgb[1];
+            existing.b = rgb[2];
+          }
+          existing.char = charForEnergy(existing.energy);
+        }
+      } else {
+        const color = rgb || PALETTE[cellHash(col, row) % PALETTE.length];
+        activeCells.set(idx, {
+          col,
+          row,
+          energy: Math.min(1, energy),
+          decay,
+          r: color[0],
+          g: color[1],
+          b: color[2],
+          isWhite,
+          char: charForEnergy(Math.min(1, energy)),
+          nextMutate: now + 75 + Math.random() * 140,
+        });
+      }
+    }
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      cols = Math.ceil(width / CONFIG.cellW);
+      rows = Math.ceil(height / CONFIG.cellH);
+
+      setupCanvas(canvas, ctx!);
+      setupCanvas(baseCanvas, baseCtx!);
+      rebuildBaseGrid();
+      activeCells.clear();
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    let lastTime = performance.now();
+    const startTime = lastTime;
+
+    function animate(now: number) {
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      const elapsed = (now - startTime) * 0.001;
+      lastTime = now;
+
+      if (!reducedMotion && cols > 0 && rows > 0) {
+        for (let i = 0; i < CONFIG.bgShimmerCount; i++) {
+          drawBaseCell((Math.random() * cols) | 0, (Math.random() * rows) | 0);
+        }
+      }
+
+      ctx!.setTransform(1, 0, 0, 1, 0, 0);
+      ctx!.drawImage(baseCanvas, 0, 0);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const stepDt = reducedMotion ? dt * 0.35 : dt;
+
+      for (const [idx, cell] of activeCells) {
+        cell.energy -= cell.decay * stepDt;
+
+        if (cell.energy <= 0.02) {
+          activeCells.delete(idx);
+          continue;
+        }
+
+        if (cell.isWhite && cell.energy < 0.84) {
+          cell.isWhite = false;
+        }
+
+        if (!reducedMotion && now >= cell.nextMutate) {
+          cell.char = charForEnergy(cell.energy);
+          cell.nextMutate = now + 85 + Math.random() * 150;
+        }
+
+        const e = Math.pow(Math.min(1, cell.energy), 0.85);
+        const srcR = cell.isWhite ? WHITE_HIGHLIGHT[0] : cell.r;
+        const srcG = cell.isWhite ? WHITE_HIGHLIGHT[1] : cell.g;
+        const srcB = cell.isWhite ? WHITE_HIGHLIGHT[2] : cell.b;
+
+        const r = (BG_TEXT_BASE[0] + (srcR - BG_TEXT_BASE[0]) * e) | 0;
+        const g = (BG_TEXT_BASE[1] + (srcG - BG_TEXT_BASE[1]) * e) | 0;
+        const b = (BG_TEXT_BASE[2] + (srcB - BG_TEXT_BASE[2]) * e) | 0;
+
+        const x = cell.col * CONFIG.cellW;
+        const y = cell.row * CONFIG.cellH;
+
+        ctx!.fillStyle = CONFIG.bgColor;
+        ctx!.fillRect(x, y, CONFIG.cellW, CONFIG.cellH);
+        ctx!.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx!.fillText(cell.char, x + CONFIG.cellW * 0.5, y + CONFIG.cellH * 0.5);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  })();
+</script>
