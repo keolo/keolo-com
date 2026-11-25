@@ -79,7 +79,7 @@ blocks: [T5]
 ## Task T5: Mount Component in `index.astro`, Author Tests & Verify Quality Gates
 
 ```yaml
-status: PENDING
+status: COMPLETED
 blocked_by: [T1, T2, T3, T4]
 blocks: []
 ```
@@ -88,7 +88,7 @@ blocks: []
 - **Description**:
   Mount `<HeroAsciiBackground />` inside the hero section of `src/pages/index.astro`. Ensure all hero buttons ("Book a Call", "About") and highlight cards remain fully clickable and interactive. Add automated tests in `src/lib/__tests__/site-build.test.ts` asserting component mounting, canvas element attributes, and accessibility features. Run `alv gate check dor` to verify all Definition of Ready checks pass cleanly.
 ### Acceptance Criteria
-  - [ ] `<HeroAsciiBackground />` is mounted inside `src/pages/index.astro` hero section.
-  - [ ] Hero links and buttons remain clickable with zero event interception.
-  - [ ] Automated tests in `site-build.test.ts` validate canvas attributes and markup.
-  - [ ] `alv gate check dor alv/changes/2026-11-24-the-hero-background-with-the-rain-or-life` passes all quality gates.
+  - [x] `<HeroAsciiBackground />` is mounted inside `src/pages/index.astro` hero section.
+  - [x] Hero links and buttons remain clickable with zero event interception.
+  - [x] Automated tests in `site-build.test.ts` validate canvas attributes and markup.
+  - [x] `alv gate check dor alv/changes/2026-11-24-the-hero-background-with-the-rain-or-life` passes all quality gates.

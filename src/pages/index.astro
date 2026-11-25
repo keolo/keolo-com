@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MotionReveal from '../components/MotionReveal.astro';
 import DecipherText from '../components/DecipherText.astro';
+import HeroAsciiBackground from '../components/HeroAsciiBackground.astro';
 import { getPublishedPosts, getPublishedProjects, isEhrSeriesPost } from '../lib/content';
 
 const allPosts = await getPublishedPosts();
@@ -39,6 +40,8 @@ const highlights = [
     <section
       class="relative flex w-full min-h-screen min-h-[100dvh] flex-col justify-end overflow-hidden bg-graphite-950 px-4 pb-24 pt-16 text-white sm:px-6 sm:pb-28 lg:px-8 lg:pb-32"
     >
+      <HeroAsciiBackground />
+
       <!-- Ambient background glow for visual depth -->
       <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div

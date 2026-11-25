@@ -147,4 +147,15 @@ describe('production dist output (when built)', () => {
       expect(indexHtml).toContain('<noscript>');
     }
   );
+
+  it.skipIf(!hasDist)(
+    'verifies HeroAsciiBackground canvas component is mounted in index.html',
+    () => {
+      const indexHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
+
+      expect(indexHtml).toContain('<canvas');
+      expect(indexHtml).toContain('id="hero-ascii-bg"');
+      expect(indexHtml).toContain('aria-hidden="true"');
+    }
+  );
 });
