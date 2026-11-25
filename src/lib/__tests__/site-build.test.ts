@@ -120,6 +120,27 @@ describe('production dist output (when built)', () => {
     expect(aboutHtml.toLowerCase()).not.toMatch(/<script[^>]*mermaid/);
   });
 
+  it.skipIf(!hasDist)('verifies Evolve case study in LLM indexes and metadata', () => {
+    const llmsTxt = fs.readFileSync(path.join(distDir, 'llms.txt'), 'utf8');
+    expect(llmsTxt).toContain('Evolve');
+    expect(llmsTxt).toContain('projects/evolve/');
+
+    const llmsFullTxt = fs.readFileSync(path.join(distDir, 'llms-full.txt'), 'utf8');
+    expect(llmsFullTxt).toContain('Evolve');
+    expect(llmsFullTxt).toContain('projects/evolve/');
+    expect(llmsFullTxt).toContain('Multimodal closed-loop biosensing and spatial computing');
+
+    const evolveHtml = fs.readFileSync(
+      path.join(distDir, 'projects', 'evolve', 'index.html'),
+      'utf8'
+    );
+    expect(evolveHtml).toContain('rel="canonical"');
+    expect(evolveHtml).toContain('property="og:title"');
+    expect(evolveHtml).toContain('name="twitter:card"');
+    expect(evolveHtml).toContain('application/ld+json');
+    expect(evolveHtml).toContain('Evolve');
+  });
+
   it.skipIf(!hasDist)('includes canonical, OG, Twitter, and JSON-LD metadata on HTML pages', () => {
     const htmlFiles = walkFiles(distDir, '.html');
     expect(htmlFiles.length).toBeGreaterThan(10);
