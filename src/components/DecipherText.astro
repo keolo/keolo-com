@@ -154,9 +154,9 @@ const line2Segments: Segment[] = [
 
   .decipher-char.is-scrambling {
     visibility: visible;
-    opacity: 1;
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    opacity: 0.65;
+    color: #9ca3af;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
   }
 
   .decipher-char.is-resolved {
@@ -164,8 +164,8 @@ const line2Segments: Segment[] = [
     opacity: 1;
     text-shadow: none;
     transition:
-      color 0.15s ease,
-      text-shadow 0.15s ease;
+      color 0.2s ease,
+      opacity 0.2s ease;
   }
 
   .decipher-cursor {
@@ -226,14 +226,11 @@ const line2Segments: Segment[] = [
       return;
     }
 
-    // Temporarily disable the decrypt / scramble effect per user request
-    const ENABLE_DECRYPT = false;
+    // Subtle decrypt / scramble effect enabled
+    const ENABLE_DECRYPT = true;
 
-    // Character set matching Motion's default scrambleText pool plus requested cyber/decipher symbols:
-    // https://examples.motion.dev/js/scramble-text-stagger-center
-    // Symbols: ! ? > | ^ _ : - = [ ] ◇ □ ◈ ■ ▭ ░ ▒ ▓
-    const SCRAMBLE_CHARS =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?|>^_:-=[]◇□◈■▭░▒▓';
+    // Subtle, clean character set avoiding jarring high-contrast block symbols:
+    const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?/_-~:;';
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -271,8 +268,8 @@ const line2Segments: Segment[] = [
               item.el.classList.remove('is-scrambling');
               item.el.classList.add('is-resolved');
               activeScrambles.splice(i, 1);
-            } else if (!item.lastFlip || now - item.lastFlip >= 34) {
-              // Rapid glyph cycling every ~34ms during the scramble window
+            } else if (!item.lastFlip || now - item.lastFlip >= 42) {
+              // Subtle glyph cycling every ~42ms during the scramble window
               item.el.textContent =
                 SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
               item.lastFlip = now;
@@ -328,7 +325,7 @@ const line2Segments: Segment[] = [
                   el: typoSpan,
                   target: letter,
                   startTime: performance.now(),
-                  duration: 150,
+                  duration: 90,
                   lastFlip: 0,
                 });
               }
@@ -373,8 +370,8 @@ const line2Segments: Segment[] = [
               el,
               target: targetChar,
               startTime: performance.now(),
-              // Long scramble tail: lingering ~600ms to 850ms creates a wide wake of 30+ tumbling characters
-              duration: 600 + Math.random() * 250,
+              // Subtle scramble tail: brief ~120ms to 180ms resolves within 4-7 characters
+              duration: 120 + Math.random() * 60,
               lastFlip: 0,
             });
 
