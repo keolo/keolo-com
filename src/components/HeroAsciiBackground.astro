@@ -67,15 +67,47 @@
       return arr[(Math.random() * arr.length) | 0];
     }
 
-    let mode: Mode = pick(MODES);
-    try {
-      const urlParam = new URLSearchParams(window.location.search).get('bg') as Mode;
-      if (urlParam && (MODES as readonly string[]).includes(urlParam)) {
-        mode = urlParam;
+    const STORAGE_KEY = 'keolo_hero_bg_idx';
+
+    function getNextMode(): Mode {
+      // 1. Direct URL override for testing: ?bg=<mode>
+      try {
+        const urlParam = new URLSearchParams(window.location.search).get('bg') as Mode;
+        if (urlParam && (MODES as readonly string[]).includes(urlParam)) {
+          return urlParam;
+        }
+      } catch {
+        // Sandbox / non-browser guard
       }
-    } catch {
-      // Sandbox / non-browser guard
+
+      // 2. Cycle sequentially through available options across page refreshes
+      let nextIdx = 0;
+      try {
+        const stored = sessionStorage.getItem(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
+        if (stored !== null) {
+          const parsed = parseInt(stored, 10);
+          if (!isNaN(parsed)) {
+            nextIdx = (parsed + 1) % MODES.length;
+          } else {
+            const prevIdx = MODES.indexOf(stored as Mode);
+            nextIdx =
+              prevIdx >= 0 ? (prevIdx + 1) % MODES.length : (Math.random() * MODES.length) | 0;
+          }
+        } else {
+          // First visit starts at a random mode, subsequent refreshes cycle in order
+          nextIdx = (Math.random() * MODES.length) | 0;
+        }
+
+        sessionStorage.setItem(STORAGE_KEY, String(nextIdx));
+        localStorage.setItem(STORAGE_KEY, String(nextIdx));
+      } catch {
+        nextIdx = (Math.random() * MODES.length) | 0;
+      }
+
+      return MODES[nextIdx];
     }
+
+    const mode: Mode = getNextMode();
 
     // Expose selected mode for developer inspection / debugging
     (window as unknown as { __heroBgMode?: string }).__heroBgMode = mode;
