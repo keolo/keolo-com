@@ -14,7 +14,7 @@ interface Segment {
   class?: string;
 }
 
-const segments: Segment[] = [
+const line1Segments: Segment[] = [
   {
     type: 'text',
     content: 'Partner & CTO at ',
@@ -39,7 +39,14 @@ const segments: Segment[] = [
   },
   {
     type: 'text',
-    content: '. 20+ years building products and startups.',
+    content: '.',
+  },
+];
+
+const line2Segments: Segment[] = [
+  {
+    type: 'text',
+    content: ' 20+ years building products and startups.',
   },
 ];
 ---
@@ -56,42 +63,66 @@ const segments: Segment[] = [
   </span>
   <span class="decipher-visual" aria-hidden="true">
     <span class="decipher-cursor is-initial" aria-hidden="true"></span>
-    {
-      segments.map((segment) => {
-        const chars = segment.content.split('');
-        if (segment.type === 'link') {
+    <span class="inline lg:whitespace-nowrap">
+      {
+        line1Segments.map((segment) => {
+          const chars = segment.content.split('');
+          if (segment.type === 'link') {
+            return (
+              <a
+                href={segment.href}
+                target={segment.target}
+                rel={segment.rel}
+                class={segment.class}
+              >
+                {chars.map((char) => (
+                  <span class="decipher-char is-hidden" data-char={char}>
+                    {char}
+                  </span>
+                ))}
+              </a>
+            );
+          }
+          if (segment.type === 'strong') {
+            return (
+              <strong class={segment.class}>
+                {chars.map((char) => (
+                  <span class="decipher-char is-hidden" data-char={char}>
+                    {char}
+                  </span>
+                ))}
+              </strong>
+            );
+          }
           return (
-            <a href={segment.href} target={segment.target} rel={segment.rel} class={segment.class}>
+            <span>
               {chars.map((char) => (
                 <span class="decipher-char is-hidden" data-char={char}>
                   {char}
                 </span>
               ))}
-            </a>
+            </span>
           );
-        }
-        if (segment.type === 'strong') {
+        })
+      }
+    </span>
+    <br class="hidden lg:inline" />
+    <span>
+      {
+        line2Segments.map((segment) => {
+          const chars = segment.content.split('');
           return (
-            <strong class={segment.class}>
+            <span>
               {chars.map((char) => (
                 <span class="decipher-char is-hidden" data-char={char}>
                   {char}
                 </span>
               ))}
-            </strong>
+            </span>
           );
-        }
-        return (
-          <span>
-            {chars.map((char) => (
-              <span class="decipher-char is-hidden" data-char={char}>
-                {char}
-              </span>
-            ))}
-          </span>
-        );
-      })
-    }
+        })
+      }
+    </span>
   </span>
 </p>
 
@@ -123,9 +154,9 @@ const segments: Segment[] = [
 
   .decipher-char.is-scrambling {
     visibility: visible;
-    opacity: 1;
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    opacity: 0.65;
+    color: #9ca3af;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
   }
 
   .decipher-char.is-resolved {
@@ -133,8 +164,8 @@ const segments: Segment[] = [
     opacity: 1;
     text-shadow: none;
     transition:
-      color 0.15s ease,
-      text-shadow 0.15s ease;
+      color 0.2s ease,
+      opacity 0.2s ease;
   }
 
   .decipher-cursor {
@@ -195,11 +226,11 @@ const segments: Segment[] = [
       return;
     }
 
-    // Character set matching Motion's default scrambleText pool plus requested cyber/decipher symbols:
-    // https://examples.motion.dev/js/scramble-text-stagger-center
-    // Symbols: ! ? > | ^ _ : - = [ ] ◇ □ ◈ ■ ▭ ░ ▒ ▓
-    const SCRAMBLE_CHARS =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?|>^_:-=[]◇□◈■▭░▒▓';
+    // Subtle decrypt / scramble effect enabled
+    const ENABLE_DECRYPT = true;
+
+    // Subtle, clean character set avoiding jarring high-contrast block symbols:
+    const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?/_-~:;';
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -237,8 +268,8 @@ const segments: Segment[] = [
               item.el.classList.remove('is-scrambling');
               item.el.classList.add('is-resolved');
               activeScrambles.splice(i, 1);
-            } else if (!item.lastFlip || now - item.lastFlip >= 34) {
-              // Rapid glyph cycling every ~34ms during the scramble window
+            } else if (!item.lastFlip || now - item.lastFlip >= 42) {
+              // Subtle glyph cycling every ~42ms during the scramble window
               item.el.textContent =
                 SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
               item.lastFlip = now;
@@ -250,7 +281,9 @@ const segments: Segment[] = [
           }
         }
 
-        requestAnimationFrame(scrambleLoop);
+        if (ENABLE_DECRYPT) {
+          requestAnimationFrame(scrambleLoop);
+        }
 
         // Initial brief hesitation before starting to type (synchronized with hero title reveal)
         await delay(280);
@@ -273,7 +306,9 @@ const segments: Segment[] = [
             // Type the erroneous character(s)
             for (const letter of typo.typoLetters) {
               const typoSpan = document.createElement('span');
-              typoSpan.className = 'decipher-char is-scrambling is-typo';
+              typoSpan.className = ENABLE_DECRYPT
+                ? 'decipher-char is-scrambling is-typo'
+                : 'decipher-char is-resolved is-typo';
               typoSpan.textContent = letter;
               if (typoSpans.length === 0) {
                 prevEl.after(typoSpan);
@@ -285,13 +320,15 @@ const segments: Segment[] = [
               }
               typoSpans.push(typoSpan);
 
-              activeScrambles.push({
-                el: typoSpan,
-                target: letter,
-                startTime: performance.now(),
-                duration: 150,
-                lastFlip: 0,
-              });
+              if (ENABLE_DECRYPT) {
+                activeScrambles.push({
+                  el: typoSpan,
+                  target: letter,
+                  startTime: performance.now(),
+                  duration: 90,
+                  lastFlip: 0,
+                });
+              }
 
               await delay(22 + Math.random() * 12);
             }
@@ -327,14 +364,14 @@ const segments: Segment[] = [
             el.classList.add('is-resolved');
             // Snappy inter-word advance
             await delay(20 + Math.random() * 15);
-          } else {
+          } else if (ENABLE_DECRYPT) {
             el.classList.add('is-scrambling');
             activeScrambles.push({
               el,
               target: targetChar,
               startTime: performance.now(),
-              // Long scramble tail: lingering ~600ms to 850ms creates a wide wake of 30+ tumbling characters
-              duration: 600 + Math.random() * 250,
+              // Subtle scramble tail: brief ~120ms to 180ms resolves within 4-7 characters
+              duration: 120 + Math.random() * 60,
               lastFlip: 0,
             });
 
@@ -347,6 +384,22 @@ const segments: Segment[] = [
               keyDelay = 220 + Math.random() * 50; // pause at period
             } else if (targetChar === '&' || targetChar === '+') {
               keyDelay = 35 + Math.random() * 20; // slight touch delay
+            }
+
+            await delay(keyDelay);
+          } else {
+            // Decrypt temporarily disabled: typewriter reveal character directly
+            el.textContent = targetChar;
+            el.classList.add('is-resolved');
+
+            let keyDelay = 12 + Math.random() * 12; // 12-24ms fast typing
+
+            if (targetChar === ',') {
+              keyDelay = 140 + Math.random() * 40;
+            } else if (targetChar === '.') {
+              keyDelay = 220 + Math.random() * 50;
+            } else if (targetChar === '&' || targetChar === '+') {
+              keyDelay = 35 + Math.random() * 20;
             }
 
             await delay(keyDelay);
