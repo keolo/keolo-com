@@ -5,7 +5,7 @@ draft: false
 weight: 30
 showtoc: false
 cover:
-  image: 'images/covers/riiu.jpg'
+  image: 'images/covers/riiu.png'
 gallery:
   - src: '/images/projects/riiu/1.jpeg'
     alt: 'Livestream Shopping'

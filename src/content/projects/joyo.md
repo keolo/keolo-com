@@ -5,7 +5,7 @@ draft: false
 weight: 15
 showtoc: false
 cover:
-  image: 'images/covers/joyo.jpg'
+  image: 'images/covers/joyo.png'
 gallery:
   - src: '/images/projects/sign-in.png'
     alt: 'Sign In'
