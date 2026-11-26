@@ -18,7 +18,7 @@ tags:
 
 **Evolve** is a deep-tech human performance startup uniting multimodal hardware biosensors (EEG, PPG, eye tracking) with real-time Unity virtual reality (VR) to deliver adaptive biofeedback training environments for enterprise and research pilots.
 
-Over the course of a month, I performed a **Platform Engineering & Pilot Readiness Diagnostic**, working directly with the **C-Suite** to bridge alignment gaps with **Engineering** and advise on technical strategy ahead of a high-stakes pilot launch.
+I performed a **Platform Engineering & Pilot Readiness Diagnostic**, working directly with the **C-Suite** to bridge alignment gaps with **Engineering** and advise on technical strategy ahead of a high-stakes pilot launch.
 
 ---
 
