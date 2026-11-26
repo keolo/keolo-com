@@ -18,7 +18,9 @@ When code is this cheap to produce, teams tend to fall into one of two traps:
 1. **The Bureaucracy Trap**: Forcing developers to write multi-page PRDs, technical designs, and tickets for every minor polish item. Developers quickly route around the process.
 2. **The Prompt-and-Pray Trap**: Abandoning planning entirely under the illusion that "the agent can just fix it in chat." Without behavioral contracts, agents hallucinate assumptions, mutate database schemas, and generate unmaintainable sprawl.
 
-As Eliyahu Goldratt demonstrated in _The Goal_: **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
+As Eliyahu Goldratt demonstrated in _The Goal_: 
+
+> **if you 100x the throughput of one stage in a pipeline without restructuring the rest, you don't speed up the system. You just pile up inventory in front of the next bottleneck.**
 
 Today, that inventory is unreviewed, unverified code—and the real bottlenecks have shifted upstream (deciding what to build) and downstream (verifying what was built).
 
@@ -28,7 +30,7 @@ Today, that inventory is unreviewed, unverified code—and the real bottlenecks 
 
 If an agent can implement a feature in minutes, what still counts as **unplanned work**?
 
-> **In an agentic workflow, unplanned work is exclusively localized edge cases, bug fixes, and post-build fit-and-finish polish discovered after testing a working slice.**
+**In an agentic workflow, unplanned work is exclusively localized edge cases, bug fixes, and post-build fit-and-finish polish discovered after testing a working slice.**
 
 You specify a feature, the agent builds it in a clean git worktree, and all unit tests pass. Then you launch the branch locally and start clicking around.
 

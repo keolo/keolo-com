@@ -5,7 +5,7 @@ draft: false
 weight: 20
 showtoc: false
 cover:
-  image: 'images/covers/global-peace-yes.jpg'
+  image: 'images/covers/global-peace-yes.png'
 gallery:
   - src: '/images/projects/gpy/home.png'
     alt: 'Global Peace Yes Homepage'

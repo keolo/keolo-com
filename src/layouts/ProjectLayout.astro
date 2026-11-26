@@ -34,6 +34,16 @@ const normalizedCover = coverImage
       </div>
       <h1 class="text-3xl font-bold tracking-tight text-graphite-950 sm:text-5xl">{title}</h1>
       <p class="mt-4 max-w-2xl text-lg leading-relaxed text-graphite-600">{description}</p>
+
+      {
+        normalizedCover && (
+          <img
+            src={normalizedCover}
+            alt={title}
+            class="mt-8 w-full rounded-2xl border border-graphite-200 object-cover shadow-xs"
+          />
+        )
+      }
     </header>
 
     {gallery.length > 0 && <Carousel items={gallery} id={`carousel-${title.toLowerCase()}`} />}

@@ -31,6 +31,36 @@ describe('migrated content integrity', () => {
   });
 });
 
+describe('Evolve case study sanitization', () => {
+  it('ensures Evolve case study exists and is free of confidential strings', () => {
+    const evolvePath = path.join(contentDir, 'projects', 'evolve.md');
+    expect(fs.existsSync(evolvePath)).toBe(true);
+
+    const content = fs.readFileSync(evolvePath, 'utf8');
+
+    // Frontmatter checks
+    expect(content).toContain("title: 'Evolve'");
+
+    // Prohibited identities
+    const confidentialNames = ['Lyle', 'Jon', 'Lauren', 'Larry', 'Michal'];
+    for (const name of confidentialNames) {
+      expect(content).not.toContain(name);
+    }
+
+    // Prohibited financials
+    const confidentialFinancials = ['$50M', '$15M', '$10M'];
+    for (const amt of confidentialFinancials) {
+      expect(content).not.toContain(amt);
+    }
+
+    // Prohibited platforms/docs
+    const confidentialDocs = ['Google Docs', 'JIRA', 'Jira'];
+    for (const doc of confidentialDocs) {
+      expect(content).not.toContain(doc);
+    }
+  });
+});
+
 describe('production dist output (when built)', () => {
   const hasDist = fs.existsSync(path.join(distDir, 'index.html'));
 
@@ -88,6 +118,27 @@ describe('production dist output (when built)', () => {
     expect(aboutHtml).toContain('<figure class="mermaid-diagram"');
     expect(aboutHtml).toContain('<svg');
     expect(aboutHtml.toLowerCase()).not.toMatch(/<script[^>]*mermaid/);
+  });
+
+  it.skipIf(!hasDist)('verifies Evolve case study in LLM indexes and metadata', () => {
+    const llmsTxt = fs.readFileSync(path.join(distDir, 'llms.txt'), 'utf8');
+    expect(llmsTxt).toContain('Evolve');
+    expect(llmsTxt).toContain('projects/evolve/');
+
+    const llmsFullTxt = fs.readFileSync(path.join(distDir, 'llms-full.txt'), 'utf8');
+    expect(llmsFullTxt).toContain('Evolve');
+    expect(llmsFullTxt).toContain('projects/evolve/');
+    expect(llmsFullTxt).toContain('Multimodal closed-loop biosensing and spatial computing');
+
+    const evolveHtml = fs.readFileSync(
+      path.join(distDir, 'projects', 'evolve', 'index.html'),
+      'utf8'
+    );
+    expect(evolveHtml).toContain('rel="canonical"');
+    expect(evolveHtml).toContain('property="og:title"');
+    expect(evolveHtml).toContain('name="twitter:card"');
+    expect(evolveHtml).toContain('application/ld+json');
+    expect(evolveHtml).toContain('Evolve');
   });
 
   it.skipIf(!hasDist)('includes canonical, OG, Twitter, and JSON-LD metadata on HTML pages', () => {
