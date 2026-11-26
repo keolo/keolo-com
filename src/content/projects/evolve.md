@@ -4,6 +4,8 @@ description: 'Conducted a one-month Platform Engineering & Pilot Readiness Diagn
 draft: false
 weight: 15
 showtoc: false
+cover:
+  image: 'images/covers/evolve.png'
 tags:
   - 'Technical Diagnostic'
   - 'Executive Advisory'
