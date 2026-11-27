@@ -67,10 +67,13 @@ status: COMPLETED
 - **Description**:
   Add `data-highlight-root` to the `.prose` reading containers in `src/layouts/PostLayout.astro`, `src/layouts/ProjectLayout.astro`, and `src/pages/about.astro`, and mount `<TextHighlighter />` on those reading pages. Ensure non-content areas (`<Header />`, `<Footer />`, `<SeriesNav />`, CTA cards, and homepage hero) remain outside `data-highlight-root`.
 ### Acceptance Criteria
-  - [ ] `PostLayout.astro`, `ProjectLayout.astro`, and `about.astro` mark their `.prose` content container with `data-highlight-root` and mount `<TextHighlighter />`.
-  - [ ] Navigation headers, footers, hero sections, and CTA cards are outside `data-highlight-root`.
-  - [ ] `npm run check` (`astro check`) and `npm run lint` pass with zero errors.
+  - [x] `PostLayout.astro`, `ProjectLayout.astro`, and `about.astro` mark their `.prose` content container with `data-highlight-root` and mount `<TextHighlighter />`.
+  - [x] Navigation headers, footers, hero sections, and CTA cards are outside `data-highlight-root`.
+  - [x] `npm run check` (`astro check`) and `npm run lint` pass with zero errors.
 
+```yaml
+status: COMPLETED
+```
 ## Task T5: Author Unit & Build Regression Tests and Verify Quality Gates
 - status: PENDING
 - blocked_by: [T1, T2, T3, T4]
