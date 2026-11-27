@@ -85,6 +85,10 @@ status: COMPLETED
 - **Description**:
   Add comprehensive unit tests in `src/lib/__tests__/text-highlighter.test.ts` covering color cycling, custom palette configuration, empty/out-of-root selection rejection, `CSS.highlights` registration/clearing without DOM mutation, and unsupported-browser fallback. Extend `src/lib/__tests__/site-build.test.ts` to assert `data-highlight-root` and `text-highlighter-toolbar` appear on built post, project, and `/about/` HTML pages. Run `npm test`, `npm run build`, `npm run check`, `npm run lint`, and `npm run format:check`.
 ### Acceptance Criteria
-  - [ ] `src/lib/__tests__/text-highlighter.test.ts` passes all unit tests via `npm test`.
-  - [ ] `src/lib/__tests__/site-build.test.ts` verifies built HTML for posts, projects, and `/about/` includes `data-highlight-root` and `text-highlighter-toolbar`.
-  - [ ] `npm run build`, `npm run check`, `npm run lint`, and `npm test` all pass cleanly.
+  - [x] `src/lib/__tests__/text-highlighter.test.ts` passes all unit tests via `npm test`.
+  - [x] `src/lib/__tests__/site-build.test.ts` verifies built HTML for posts, projects, and `/about/` includes `data-highlight-root` and `text-highlighter-toolbar`.
+  - [x] `npm run build`, `npm run check`, `npm run lint`, and `npm test` all pass cleanly.
+
+```yaml
+status: COMPLETED
+```
