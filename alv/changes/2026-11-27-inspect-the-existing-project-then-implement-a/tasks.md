@@ -22,12 +22,15 @@ related:
 - **Description**:
   Create `src/lib/text-highlighter.ts` implementing the `HighlightColor` interface, `DEFAULT_HIGHLIGHT_COLORS` (5 WCAG-AA-compliant Graphite-compatible pastel colors), `isCustomHighlightSupported()`, `getValidSelectionRange()` (filtering empty, whitespace-only, out-of-root, cross-root, and editable-input selections), and `TextHighlightController` (managing color cycling on finalized distinct selections, cloning ranges into `CSS.highlights` per color without mutating the DOM, and clearing highlights).
 ### Acceptance Criteria
-  - [ ] `DEFAULT_HIGHLIGHT_COLORS` defines 5 configurable highlight colors with `id`, `label`, `background`, and `swatch`.
-  - [ ] `TextHighlightController` starts at index `0`, advances `(index + 1) % colors.length` on each new distinct valid selection, wraps cleanly, and ignores duplicate/invalid selections.
-  - [ ] `getValidSelectionRange()` rejects empty, collapsed, whitespace-only, out-of-root, and cross-boundary selections.
-  - [ ] `applyHighlight()` clones ranges into `CSS.highlights` without modifying DOM nodes and `clearHighlights()` removes all registered ranges.
-  - [ ] `isCustomHighlightSupported()` safely detects browser support without throwing in Node or unsupported browsers.
+  - [x] `DEFAULT_HIGHLIGHT_COLORS` defines 5 configurable highlight colors with `id`, `label`, `background`, and `swatch`.
+  - [x] `TextHighlightController` starts at index `0`, advances `(index + 1) % colors.length` on each new distinct valid selection, wraps cleanly, and ignores duplicate/invalid selections.
+  - [x] `getValidSelectionRange()` rejects empty, collapsed, whitespace-only, out-of-root, and cross-boundary selections.
+  - [x] `applyHighlight()` clones ranges into `CSS.highlights` without modifying DOM nodes and `clearHighlights()` removes all registered ranges.
+  - [x] `isCustomHighlightSupported()` safely detects browser support without throwing in Node or unsupported browsers.
 
+```yaml
+status: COMPLETED
+```
 ## Task T2: Add `::highlight(...)` Styles and Reduced-Motion Rules in `src/styles/global.css`
 - status: PENDING
 - blocked_by: [T1]
