@@ -39,10 +39,13 @@ status: COMPLETED
 - **Description**:
   Update `src/styles/global.css` to define default `::highlight(keolo-hl-*)` pseudo-element rules for all default highlight colors (ensuring `color: var(--color-graphite-950)` for WCAG AA contrast) and any minimal toolbar transition helpers that honor `@media (prefers-reduced-motion: reduce)`.
 ### Acceptance Criteria
-  - [ ] `src/styles/global.css` defines `::highlight(keolo-hl-amber)`, `::highlight(keolo-hl-mint)`, `::highlight(keolo-hl-sky)`, `::highlight(keolo-hl-rose)`, and `::highlight(keolo-hl-violet)` rules.
-  - [ ] All highlight background colors maintain WCAG AA contrast (≥ 4.5:1) against `--color-graphite-950`.
-  - [ ] Toolbar styling respects `prefers-reduced-motion: reduce`.
+  - [x] `src/styles/global.css` defines `::highlight(keolo-hl-amber)`, `::highlight(keolo-hl-mint)`, `::highlight(keolo-hl-sky)`, `::highlight(keolo-hl-rose)`, and `::highlight(keolo-hl-violet)` rules.
+  - [x] All highlight background colors maintain WCAG AA contrast (≥ 4.5:1) against `--color-graphite-950`.
+  - [x] Toolbar styling respects `prefers-reduced-motion: reduce`.
 
+```yaml
+status: COMPLETED
+```
 ## Task T3: Build Accessible `TextHighlighter.astro` Component
 - status: PENDING
 - blocked_by: [T1, T2]

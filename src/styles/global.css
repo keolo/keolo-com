@@ -26,6 +26,27 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
+  ::highlight(keolo-hl-amber) {
+    background-color: var(--color-amber-200, #fde68a);
+    color: var(--color-graphite-950);
+  }
+  ::highlight(keolo-hl-mint) {
+    background-color: var(--color-mint-200, #a7f3d0);
+    color: var(--color-graphite-950);
+  }
+  ::highlight(keolo-hl-sky) {
+    background-color: var(--color-sky-200, #bae6fd);
+    color: var(--color-graphite-950);
+  }
+  ::highlight(keolo-hl-rose) {
+    background-color: var(--color-rose-200, #fecdd3);
+    color: var(--color-graphite-950);
+  }
+  ::highlight(keolo-hl-violet) {
+    background-color: var(--color-violet-200, #ddd6fe);
+    color: var(--color-graphite-950);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
