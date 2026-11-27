@@ -51,11 +51,14 @@ status: COMPLETED
 - **Description**:
   Create `src/components/TextHighlighter.astro` accepting an optional `colors?: HighlightColor[]` prop. Render the floating Graphite-styled `role="toolbar"` (`aria-label="Text highlight controls"`) with color swatch indicator, **Highlight** button (`pointerdown` `preventDefault()` to preserve selection), inline/floating **Clear highlights** button, and `aria-live="polite"` status announcer. Emit dynamic `::highlight(...)` rules when custom colors are passed, and wire client-side selection events (`pointerup`, `keyup`, debounced `selectionchange`, `Escape` dismissal, scroll/resize clamping) to `TextHighlightController`.
 ### Acceptance Criteria
-  - [ ] `<TextHighlighter />` accepts an optional `colors` prop and defaults to `DEFAULT_HIGHLIGHT_COLORS`.
-  - [ ] Floating toolbar positions near the selection, clamps within viewport bounds, flips below selection when near the sticky header, and hides on empty/out-of-root selections or `Escape`.
-  - [ ] Clicking **Highlight** preserves the active selection, applies the highlight via `CSS.highlights`, updates the `aria-live="polite"` region, and reveals the **Clear** control.
-  - [ ] Component degrades silently with zero errors when `CSS.highlights` is unavailable.
+  - [x] `<TextHighlighter />` accepts an optional `colors` prop and defaults to `DEFAULT_HIGHLIGHT_COLORS`.
+  - [x] Floating toolbar positions near the selection, clamps within viewport bounds, flips below selection when near the sticky header, and hides on empty/out-of-root selections or `Escape`.
+  - [x] Clicking **Highlight** preserves the active selection, applies the highlight via `CSS.highlights`, updates the `aria-live="polite"` region, and reveals the **Clear** control.
+  - [x] Component degrades silently with zero errors when `CSS.highlights` is unavailable.
 
+```yaml
+status: COMPLETED
+```
 ## Task T4: Integrate `TextHighlighter` and `data-highlight-root` into Content Layouts
 - status: PENDING
 - blocked_by: [T1, T3]

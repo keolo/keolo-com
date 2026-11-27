@@ -1,0 +1,194 @@
+---
+import { DEFAULT_HIGHLIGHT_COLORS } from '../lib/text-highlighter';
+import type { HighlightColor } from '../lib/text-highlighter';
+
+export interface Props {
+  colors?: HighlightColor[];
+}
+
+const { colors = DEFAULT_HIGHLIGHT_COLORS } = Astro.props;
+const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
+---
+
+{
+  isCustom && (
+    <style
+      set:html={colors
+        .map(
+          (c) =>
+            `::highlight(${c.id}) { background-color: ${c.background}; color: var(--color-graphite-950); }`
+        )
+        .join('\n')}
+    />
+  )
+}
+
+<div
+  id="text-highlighter-toolbar"
+  class="fixed z-50 flex items-center gap-1.5 p-1 bg-white border rounded-lg shadow-lg border-[var(--color-graphite-200)] transition-opacity opacity-0 pointer-events-none"
+  role="toolbar"
+  aria-label="Text highlight controls"
+  style="display: none;"
+  data-colors={JSON.stringify(colors)}
+>
+  <div
+    id="hl-swatch"
+    class="w-3.5 h-3.5 rounded-full ml-1.5 border border-[var(--color-graphite-200)]"
+    style={`background-color: ${colors[0]?.swatch || 'transparent'};`}
+  >
+  </div>
+  <button
+    id="btn-highlight"
+    class="px-2 py-1 text-sm font-medium rounded-md hover:bg-[var(--color-graphite-100)] text-[var(--color-graphite-900)] transition-colors cursor-pointer"
+  >
+    Highlight
+  </button>
+  <button
+    id="btn-clear-highlights"
+    class="px-2 py-1 text-sm font-medium rounded-md hover:bg-[var(--color-graphite-100)] text-[var(--color-graphite-900)] transition-colors cursor-pointer hidden"
+  >
+    Clear highlights
+  </button>
+  <div aria-live="polite" class="sr-only" id="hl-status"></div>
+</div>
+
+<script>
+  import {
+    TextHighlightController,
+    getValidSelectionRange,
+    isCustomHighlightSupported,
+  } from '../lib/text-highlighter';
+  import type { HighlightColor } from '../lib/text-highlighter';
+
+  function initTextHighlighter() {
+    if (!isCustomHighlightSupported()) return;
+
+    const toolbar = document.getElementById('text-highlighter-toolbar');
+    const btnHighlight = document.getElementById('btn-highlight') as HTMLButtonElement;
+    const btnClear = document.getElementById('btn-clear-highlights') as HTMLButtonElement;
+    const status = document.getElementById('hl-status');
+    const swatch = document.getElementById('hl-swatch');
+
+    if (!toolbar || !btnHighlight || !btnClear || !status || !swatch) return;
+
+    const colorsJson = toolbar.dataset.colors;
+    const colors: HighlightColor[] = colorsJson ? JSON.parse(colorsJson) : [];
+    const controller = new TextHighlightController(colors.length ? colors : undefined);
+
+    let currentRange: Range | null = null;
+    let selectionTimeout: number;
+
+    const hideToolbar = () => {
+      toolbar.style.display = 'none';
+      toolbar.classList.remove('opacity-100', 'pointer-events-auto');
+      toolbar.classList.add('opacity-0', 'pointer-events-none');
+      currentRange = null;
+    };
+
+    const showToolbar = (range: Range) => {
+      currentRange = range;
+
+      const activeColor = controller.getActiveColor();
+      if (activeColor) {
+        swatch.style.backgroundColor = activeColor.swatch;
+      }
+
+      const rect = range.getBoundingClientRect();
+      toolbar.style.display = 'flex';
+      const toolbarRect = toolbar.getBoundingClientRect();
+
+      let top = rect.top - toolbarRect.height - 8;
+      let left = rect.left + rect.width / 2 - toolbarRect.width / 2;
+
+      const maxLeft = window.innerWidth - toolbarRect.width - 8;
+      left = Math.max(8, Math.min(left, maxLeft));
+
+      // Flip below if near sticky header (assuming header height ~70px)
+      if (top < 70) {
+        top = rect.bottom + 8;
+      }
+
+      toolbar.style.top = `${top + window.scrollY}px`;
+      toolbar.style.left = `${left + window.scrollX}px`;
+
+      toolbar.classList.remove('opacity-0', 'pointer-events-none');
+      toolbar.classList.add('opacity-100', 'pointer-events-auto');
+
+      status.textContent = 'Text selected. Use highlight button to highlight.';
+    };
+
+    const handleSelectionChange = () => {
+      window.clearTimeout(selectionTimeout);
+      selectionTimeout = window.setTimeout(() => {
+        const range = getValidSelectionRange();
+        if (range) {
+          controller.advanceColorOnNewSelection(range);
+          showToolbar(range);
+        } else {
+          hideToolbar();
+        }
+      }, 150);
+    };
+
+    document.addEventListener('selectionchange', handleSelectionChange);
+    document.addEventListener('pointerup', handleSelectionChange);
+
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        hideToolbar();
+        window.getSelection()?.removeAllRanges();
+      } else if (e.key === 'Shift' || e.key.startsWith('Arrow')) {
+        handleSelectionChange();
+      }
+    });
+
+    document.addEventListener(
+      'scroll',
+      () => {
+        if (currentRange) {
+          showToolbar(currentRange);
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', () => {
+      if (currentRange) {
+        showToolbar(currentRange);
+      }
+    });
+
+    btnHighlight.addEventListener('pointerdown', (e) => {
+      // Prevent selection from clearing when clicking the button
+      e.preventDefault();
+    });
+
+    btnHighlight.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (currentRange) {
+        controller.applyHighlight(currentRange);
+        const activeColor = controller.getActiveColor();
+        status.textContent = `Highlighted with ${activeColor ? activeColor.label : 'custom color'}`;
+        btnClear.classList.remove('hidden');
+        hideToolbar();
+        window.getSelection()?.removeAllRanges();
+      }
+    });
+
+    btnClear.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+    });
+
+    btnClear.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      controller.clearHighlights();
+      status.textContent = 'All highlights cleared';
+      btnClear.classList.add('hidden');
+      hideToolbar();
+    });
+  }
+
+  initTextHighlighter();
+</script>
