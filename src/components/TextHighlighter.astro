@@ -16,7 +16,7 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
       set:html={colors
         .map(
           (c) =>
-            `::highlight(${c.id}) { background-color: ${c.background}; color: var(--color-graphite-950); }`
+            `::highlight(${c.id}) { background-color: ${c.background}; color: #09090b; }`
         )
         .join('\n')}
     />
@@ -77,6 +77,26 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
 
     let currentRange: Range | null = null;
     let selectionTimeout: number;
+    let isPointerSelecting = false;
+    let hasActiveSelection = false;
+
+    const syncActiveColor = () => {
+      const activeColor = controller.getActiveColor();
+      if (activeColor) {
+        swatch.style.backgroundColor = activeColor.swatch;
+        document.documentElement.style.setProperty('--keolo-hl-active-bg', activeColor.background);
+      }
+    };
+
+    const prepareNextColorIfNeeded = () => {
+      if (hasActiveSelection) {
+        controller.advanceColor();
+        syncActiveColor();
+        hasActiveSelection = false;
+      }
+    };
+
+    syncActiveColor();
 
     const hideToolbar = () => {
       toolbar.style.display = 'none';
@@ -86,21 +106,22 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
     };
 
     const showToolbar = (range: Range) => {
-      currentRange = range;
-
-      const activeColor = controller.getActiveColor();
-      if (activeColor) {
-        swatch.style.backgroundColor = activeColor.swatch;
-      }
+      currentRange = range.cloneRange();
+      syncActiveColor();
 
       const rect = range.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) {
+        hideToolbar();
+        return;
+      }
+
       toolbar.style.display = 'flex';
       const toolbarRect = toolbar.getBoundingClientRect();
 
       let top = rect.top - toolbarRect.height - 8;
       let left = rect.left + rect.width / 2 - toolbarRect.width / 2;
 
-      const maxLeft = window.innerWidth - toolbarRect.width - 8;
+      const maxLeft = Math.max(8, window.innerWidth - toolbarRect.width - 8);
       left = Math.max(8, Math.min(left, maxLeft));
 
       // Flip below if near sticky header (assuming header height ~70px)
@@ -108,8 +129,12 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
         top = rect.bottom + 8;
       }
 
-      toolbar.style.top = `${top + window.scrollY}px`;
-      toolbar.style.left = `${left + window.scrollX}px`;
+      const maxTop = Math.max(8, window.innerHeight - toolbarRect.height - 8);
+      top = Math.max(8, Math.min(top, maxTop));
+
+      // Toolbar uses position: fixed, so coordinates must stay viewport-relative
+      toolbar.style.top = `${top}px`;
+      toolbar.style.left = `${left}px`;
 
       toolbar.classList.remove('opacity-0', 'pointer-events-none');
       toolbar.classList.add('opacity-100', 'pointer-events-auto');
@@ -117,26 +142,52 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
       status.textContent = 'Text selected. Use highlight button to highlight.';
     };
 
-    const handleSelectionChange = () => {
-      window.clearTimeout(selectionTimeout);
-      selectionTimeout = window.setTimeout(() => {
-        const range = getValidSelectionRange();
-        if (range) {
-          controller.advanceColorOnNewSelection(range);
-          showToolbar(range);
-        } else {
-          hideToolbar();
-        }
-      }, 150);
+    const syncSelectionToolbar = () => {
+      const range = getValidSelectionRange();
+      if (range) {
+        hasActiveSelection = true;
+        showToolbar(range);
+      } else {
+        hideToolbar();
+        prepareNextColorIfNeeded();
+      }
     };
 
+    const handleSelectionChange = () => {
+      if (isPointerSelecting) return;
+      window.clearTimeout(selectionTimeout);
+      selectionTimeout = window.setTimeout(syncSelectionToolbar, 150);
+    };
+
+    document.addEventListener('pointerdown', (e) => {
+      if (toolbar.contains(e.target as Node)) return;
+      isPointerSelecting = true;
+      window.clearTimeout(selectionTimeout);
+      hideToolbar();
+      // Advance once when a new selection gesture begins (keep same color during double/triple-click)
+      if (e.detail <= 1) {
+        prepareNextColorIfNeeded();
+      }
+    });
+
+    document.addEventListener('pointerup', (e) => {
+      if (toolbar.contains(e.target as Node)) return;
+      isPointerSelecting = false;
+      window.clearTimeout(selectionTimeout);
+      selectionTimeout = window.setTimeout(syncSelectionToolbar, 0);
+    });
+
+    document.addEventListener('pointercancel', () => {
+      isPointerSelecting = false;
+    });
+
     document.addEventListener('selectionchange', handleSelectionChange);
-    document.addEventListener('pointerup', handleSelectionChange);
 
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
         hideToolbar();
         window.getSelection()?.removeAllRanges();
+        prepareNextColorIfNeeded();
       } else if (e.key === 'Shift' || e.key.startsWith('Arrow')) {
         handleSelectionChange();
       }
@@ -145,7 +196,7 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
     document.addEventListener(
       'scroll',
       () => {
-        if (currentRange) {
+        if (currentRange && toolbar.style.display !== 'none') {
           showToolbar(currentRange);
         }
       },
@@ -153,15 +204,18 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
     );
 
     window.addEventListener('resize', () => {
-      if (currentRange) {
+      if (currentRange && toolbar.style.display !== 'none') {
         showToolbar(currentRange);
       }
     });
 
-    btnHighlight.addEventListener('pointerdown', (e) => {
-      // Prevent selection from clearing when clicking the button
+    const preserveSelection = (e: Event) => {
+      // Prevent selection from clearing when clicking toolbar controls
       e.preventDefault();
-    });
+    };
+
+    btnHighlight.addEventListener('pointerdown', preserveSelection);
+    btnHighlight.addEventListener('mousedown', preserveSelection);
 
     btnHighlight.addEventListener('click', (e) => {
       e.preventDefault();
@@ -171,19 +225,22 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
         const activeColor = controller.getActiveColor();
         status.textContent = `Highlighted with ${activeColor ? activeColor.label : 'custom color'}`;
         btnClear.classList.remove('hidden');
+        hasActiveSelection = true;
         hideToolbar();
         window.getSelection()?.removeAllRanges();
+        prepareNextColorIfNeeded();
       }
     });
 
-    btnClear.addEventListener('pointerdown', (e) => {
-      e.preventDefault();
-    });
+    btnClear.addEventListener('pointerdown', preserveSelection);
+    btnClear.addEventListener('mousedown', preserveSelection);
 
     btnClear.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       controller.clearHighlights();
+      hasActiveSelection = false;
+      syncActiveColor();
       status.textContent = 'All highlights cleared';
       btnClear.classList.add('hidden');
       hideToolbar();

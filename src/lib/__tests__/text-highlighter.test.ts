@@ -74,6 +74,19 @@ describe('text-highlighter', () => {
       expect(controller.getActiveColor()).toEqual(DEFAULT_HIGHLIGHT_COLORS[2]);
     });
 
+    it('advances color explicitly and wraps around the palette', () => {
+      const controller = new TextHighlightController();
+      expect(controller.getActiveColor()).toEqual(DEFAULT_HIGHLIGHT_COLORS[0]);
+
+      for (let i = 1; i < DEFAULT_HIGHLIGHT_COLORS.length; i++) {
+        controller.advanceColor();
+        expect(controller.getActiveColor()).toEqual(DEFAULT_HIGHLIGHT_COLORS[i]);
+      }
+
+      controller.advanceColor();
+      expect(controller.getActiveColor()).toEqual(DEFAULT_HIGHLIGHT_COLORS[0]);
+    });
+
     it('ignores duplicate selections', () => {
       const controller = new TextHighlightController();
       const range = { toString: () => 'same' } as any;

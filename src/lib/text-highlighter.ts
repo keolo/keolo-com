@@ -9,32 +9,32 @@ export const DEFAULT_HIGHLIGHT_COLORS: HighlightColor[] = [
   {
     id: 'keolo-hl-amber',
     label: 'Amber',
-    background: 'var(--color-amber-200)',
-    swatch: 'var(--color-amber-400)',
+    background: '#fde68a',
+    swatch: '#facc15',
   },
   {
     id: 'keolo-hl-mint',
     label: 'Mint',
-    background: 'var(--color-mint-200)',
-    swatch: 'var(--color-mint-400)',
+    background: '#a7f3d0',
+    swatch: '#4ade80',
   },
   {
     id: 'keolo-hl-sky',
     label: 'Sky',
-    background: 'var(--color-sky-200)',
-    swatch: 'var(--color-sky-400)',
+    background: '#bae6fd',
+    swatch: '#38bdf8',
   },
   {
     id: 'keolo-hl-rose',
     label: 'Rose',
-    background: 'var(--color-rose-200)',
-    swatch: 'var(--color-rose-400)',
+    background: '#fecdd3',
+    swatch: '#fb7185',
   },
   {
     id: 'keolo-hl-violet',
     label: 'Violet',
-    background: 'var(--color-violet-200)',
-    swatch: 'var(--color-violet-400)',
+    background: '#ddd6fe',
+    swatch: '#a78bfa',
   },
 ];
 
@@ -108,6 +108,10 @@ export class TextHighlightController {
       }
     });
     this.isInitialized = true;
+  }
+
+  advanceColor(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.colors.length;
   }
 
   advanceColorOnNewSelection(range: Range | null): void {
