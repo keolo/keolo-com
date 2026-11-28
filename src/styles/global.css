@@ -40,6 +40,33 @@
   }
 }
 
+[data-highlight-root]::selection,
+[data-highlight-root] *::selection {
+  background-color: var(--keolo-hl-active-bg, #fde68a);
+  color: #09090b;
+}
+
+::highlight(keolo-hl-amber) {
+  background-color: #fde68a;
+  color: #09090b;
+}
+::highlight(keolo-hl-mint) {
+  background-color: #a7f3d0;
+  color: #09090b;
+}
+::highlight(keolo-hl-sky) {
+  background-color: #bae6fd;
+  color: #09090b;
+}
+::highlight(keolo-hl-rose) {
+  background-color: #fecdd3;
+  color: #09090b;
+}
+::highlight(keolo-hl-violet) {
+  background-color: #ddd6fe;
+  color: #09090b;
+}
+
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(14px);

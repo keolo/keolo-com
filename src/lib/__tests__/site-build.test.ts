@@ -209,4 +209,26 @@ describe('production dist output (when built)', () => {
       expect(indexHtml).toContain('aria-hidden="true"');
     }
   );
+
+  it.skipIf(!hasDist)(
+    'verifies data-highlight-root and text-highlighter-toolbar on relevant pages',
+    () => {
+      const pages = [
+        'about/index.html',
+        'posts/building-an-engineering-culture/index.html',
+        'projects/evolve/index.html',
+      ];
+
+      for (const page of pages) {
+        const fullPath = path.join(distDir, page);
+        if (fs.existsSync(fullPath)) {
+          const html = fs.readFileSync(fullPath, 'utf8');
+          expect(html, `Missing data-highlight-root in ${page}`).toContain('data-highlight-root');
+          expect(html, `Missing text-highlighter-toolbar in ${page}`).toContain(
+            'id="text-highlighter-toolbar"'
+          );
+        }
+      }
+    }
+  );
 });

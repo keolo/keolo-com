@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TextHighlighter from '../components/TextHighlighter.astro';
 
 const aboutEntry = await getEntry('pages', 'about');
 if (!aboutEntry) {
@@ -34,8 +35,10 @@ const coverImage = aboutEntry.data.cover?.image
 
     <div
       class="prose prose-zinc max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-graphite-900 prose-a:underline-offset-4"
+      data-highlight-root
     >
       <Content />
     </div>
   </article>
+  <TextHighlighter />
 </BaseLayout>
