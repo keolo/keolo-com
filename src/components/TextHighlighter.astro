@@ -14,10 +14,7 @@ const isCustom = colors !== DEFAULT_HIGHLIGHT_COLORS;
   isCustom && (
     <style
       set:html={colors
-        .map(
-          (c) =>
-            `::highlight(${c.id}) { background-color: ${c.background}; color: #09090b; }`
-        )
+        .map((c) => `::highlight(${c.id}) { background-color: ${c.background}; color: #09090b; }`)
         .join('\n')}
     />
   )
